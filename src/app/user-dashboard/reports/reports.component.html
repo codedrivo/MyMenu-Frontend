@@ -1,0 +1,127 @@
+<div class="w-full h-screen flex flex-col items-center justify-start p-4 mt-24">
+  <!-- Existing Back and New Upload buttons -->
+  <div>
+    <button class="bg-gray-500 text-white px-4 py-2 rounded mb-4 hover:bg-gray-600" (click)="goBack()">
+      &larr; Back to Dashboard
+    </button>
+    <button class="bg-gray-300 text-black px-4 py-2 rounded ml-24 mb-4 hover:text-white hover:bg-gray-700" (click)="onSubmit()">
+      &uarr; New Upload
+    </button>
+    <button class="bg-gray-300 text-black px-4 py-2 rounded ml-24 mb-4 hover:text-white hover:bg-gray-700" (click)="onSubmit1()">
+      View Reports Online
+    </button>
+  </div>
+
+  <h1 class="text-2xl font-bold mb-4">Available Reports</h1>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="text-center my-4">
+    <div class="spinner ml-8"></div>
+    <p>Loading reports...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="text-red-500 my-4">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Reports Table -->
+  <div class="w-full overflow-x-auto rounded-lg">
+    <table class="w-full table-auto border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-800 text-white">
+          <th class="border px-4 py-2 text-left sticky top-0 bg-gray-800 z-10">#</th>
+          <th class="border px-4 py-2 text-left sticky top-0 bg-gray-800 z-10">Date</th>
+          <th class="border px-4 py-2 text-left sticky top-0 bg-gray-800 z-10">Restaurant</th>
+          <th class="border px-4 py-2 text-left sticky top-0 bg-gray-800 z-10">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!loading && reports.length > 0; else noData">
+          <tr *ngFor="let report of reports; let i = index" class="hover:bg-gray-100 transition duration-150 ease-in-out">
+            <td class="border px-4 py-2">{{ i + 1 }}</td>
+            <td class="border px-4 py-2">
+              {{ report.created_date ? (report.created_date | date: 'dd-MM-yyyy HH:mm:ss') : 'N/A' }}
+            </td>
+            <td class="border px-4 py-2">{{ report.restaurant_name }}</td>
+            <td class="border px-4 py-2">
+              <button
+                class="bg-gray-300 text-black hover:text-white px-3 py-1 rounded mr-2 hover:bg-gray-800 text-sm"
+                (click)="downloadReports(report.restaurant_name)"
+              >
+                Download
+              </button>
+              <button
+                class="bg-gray-300 text-black hover:text-white px-3 py-1 rounded hover:bg-gray-800 text-sm"
+                (click)="openModal(report.restaurant_name)"
+              >
+                View Details
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+
+        <ng-template #noData>
+          <tr>
+            <td colspan="4" class="text-center py-4 text-gray-500">No reports found.</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+
+  
+<!-- Modal -->
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-3/4 overflow-x-auto">
+    <div class="flex justify-between items-center p-4 border-b">
+      <h2 class="text-2xl font-bold">Detailed Report View</h2>
+      <button
+        class="text-black hover:bg-gray-200 p-2 rounded"
+        (click)="closeModal()"
+      >
+        ✕
+      </button>
+    </div>
+    <div class="p-4">
+      <table class="table-auto text-xs text-left border-collapse w-full">
+        <thead>
+          <tr>
+            <!-- Host Data -->
+            <th class="border px-6 py-3 sticky left-0 bg-gray-800 text-white z-20 w-3/5">Host Data</th>
+            <!-- Host Value -->
+            <th class="border px-6 py-3 sticky left-[8%] bg-gray-800 text-white z-20 w-3/5">Host Value</th>
+            <!-- Compstore Data -->
+            <th class="border px-6 py-3 bg-gray-700 text-gray-100 w-1/5">Compstore Data</th>
+            <!-- Additional Headers -->
+            <th *ngFor="let header of reportDetailsHeaders.slice(3)" class="border px-6 py-3 bg-gray-700 text-gray-100 w-1/5">
+              {{ header }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detail of reportDetails" class="hover:bg-gray-100">
+            <!-- Host Data -->
+            <td class="border px-6 py-3 sticky left-0 bg-gray-800 text-white z-10 w-3/5">
+              {{ detail.hostData }}
+            </td>
+            <!-- Host Value -->
+            <td class="border px-6 py-3 sticky left-[8%] bg-gray-800 text-white z-10 w-3/5">
+              {{ detail.hostValue }}
+            </td>
+            <!-- Compstore Data -->
+            <td class="border px-6 py-3 bg-white w-1/5">{{ detail.compstoreData }}</td>
+            <!-- Additional Values -->
+            <td *ngFor="let compValue of detail.compstoreValues" class="border px-6 py-3 bg-white w-1/5">
+              {{ compValue }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+

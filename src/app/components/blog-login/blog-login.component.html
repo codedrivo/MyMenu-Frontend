@@ -1,0 +1,100 @@
+<div class="min-h-screen flex items-center justify-center p-4"
+     style="background-image: url('/assets/static-bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <div class="w-full max-w-md p-8 bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl border border-gray-300">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <button 
+          (click)="goBack()" 
+          class="text-gray-600 hover:text-gray-800 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <h2 class="text-3xl font-bold text-gray-800 tracking-wide flex-1">
+          Blog Admin Login
+        </h2>
+        <div class="w-6"></div> <!-- Spacer for centering -->
+      </div>
+      <p class="text-gray-600 text-sm">Access restricted to authorized administrators only</p>
+    </div>
+    
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+      {{ errorMessage }}
+    </div>
+    
+    <!-- Reactive Form -->
+    <form [formGroup]="myForm" (ngSubmit)="login()" class="space-y-6">
+      <!-- Email Field -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 cursor-pointer" for="email">
+          Admin Email Address
+        </label>
+        <div class="relative mt-1">
+          <input
+            type="email"
+            formControlName="email"
+            id="email"
+            class="w-full p-3 rounded-xl border border-gray-300 bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-all"
+            placeholder="Enter your admin email"
+            [disabled]="isLoading"
+          />
+          <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+            
+          </div>
+        </div>
+        <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+          Please enter a valid admin email address.
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 cursor-pointer" for="password">
+          Password
+        </label>
+        <div class="relative mt-1">
+          <input
+            type="password"
+            formControlName="password"
+            id="password"
+            class="w-full p-3 rounded-xl border border-gray-300 bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-all"
+            placeholder="Enter your password"
+            [disabled]="isLoading"
+          />
+          <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+            
+          </div>
+        </div>
+        <div *ngIf="myForm.get('password')?.invalid && myForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+          Password must be at least 6 characters long.
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <div>
+        <button 
+          type="submit"
+          [disabled]="myForm.invalid || isLoading"
+          class="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg">
+          <span *ngIf="!isLoading">Login</span>
+          <span *ngIf="isLoading" class="flex items-center justify-center">
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Logging in...
+          </span>
+        </button>
+      </div>
+    </form>
+    
+    <!-- Footer -->
+    <div class="mt-8 text-center">
+      <p class="text-xs text-gray-500">
+        Only authorized administrators can access blog management features.
+      </p>
+    </div>
+  </div>
+</div>

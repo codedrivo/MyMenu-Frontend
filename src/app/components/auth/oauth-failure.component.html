@@ -1,0 +1,22 @@
+<div class="auth-container image-bg">
+  <div class="card">
+    <div class="brand">MyMenu AI</div>
+    <div class="row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+        <path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h2 class="title">OAuth Failed</h2>
+        <p class="subtitle">{{ message }}</p>
+      </div>
+    </div>
+
+    <div class="details">Please try again. If the issue persists, contact support.</div>
+
+    <div class="actions">
+      <button class="primary" (click)="retry()">Retry Login</button>
+      <button class="secondary" (click)="goHome()">Back to Home</button>
+    </div>
+  </div>
+</div>

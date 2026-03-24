@@ -1,0 +1,176 @@
+<!-- Enhanced Blog Hero Section -->
+<section class="relative bg-gray-700 text-white py-24 mt-20 overflow-hidden">
+  <!-- Add Blog Button - Top Right Corner -->
+  <div class="absolute top-4 right-4 z-20">
+    <button 
+      (click)="navigateToBlogLogin()" 
+      class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+      <svg class="w-5 h-5 inline-block mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+      </svg>
+      Add Blog
+    </button>
+  </div>
+  
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 left-0 w-full h-full bg-dotted-pattern"></div>
+  </div>
+  
+  <!-- Floating Elements -->
+  <div class="absolute top-20 left-10 w-20 h-20 bg-yellow-400 rounded-full opacity-20 animate-pulse"></div>
+  <div class="absolute top-40 right-20 w-16 h-16 bg-green-400 rounded-full opacity-20 animate-bounce"></div>
+  <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-pink-400 rounded-full opacity-20 animate-pulse"></div>
+  <div class="absolute bottom-40 right-1/3 w-14 h-14 bg-blue-400 rounded-full opacity-20 animate-bounce"></div>
+  
+  <div class="container mx-auto px-4 text-center relative z-10">
+    <!-- Icon/Logo -->
+    <div class="mb-8">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 rounded-full backdrop-blur-sm mb-6">
+        <svg class="w-10 h-10 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- Main Heading with Animation -->
+    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-white bg-clip-text text-transparent animate-fade-in">
+      MyMenu.AI Blog
+    </h1>
+    
+    <!-- Subtitle -->
+    <p class="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed text-blue-100">
+      Discover cutting-edge insights, industry trends, and proven strategies for 
+      <span class="text-yellow-400 font-semibold">restaurant pricing</span> and 
+      <span class="text-green-400 font-semibold">menu optimization</span>
+    </p>
+    
+    <!-- Call-to-Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+        <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-900 transition-all duration-300 blog-hero-button">
+            Latest Articles
+      </button>
+      <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-900 transition-all duration-300 blog-hero-button">
+        Subscribe to Newsletter
+      </button>
+    </div>
+    
+    <!-- Stats or Features -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
+      <div class="text-center">
+        <div class="text-3xl font-bold text-yellow-400 mb-2">50+</div>
+        <div class="text-blue-200">Expert Articles</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-green-400 mb-2">10K+</div>
+        <div class="text-blue-200">Monthly Readers</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-pink-400 mb-2">95%</div>
+        <div class="text-blue-200">Success Rate</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bottom Wave -->
+  <div class="absolute bottom-0 left-0 w-full">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-16">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-gray-50"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Featured Post Section -->
+<section class="py-16 bg-gray-50" *ngIf="featuredPost">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Featured Article</h2>
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+      <img [src]="featuredPost.featuredImage" [alt]="featuredPost.title" class="w-full h-64 object-cover">
+      <div class="p-8">
+        <div class="flex items-center mb-4">
+          <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm mr-4">{{ featuredPost.category }}</span>
+          <span class="text-gray-600">{{ featuredPost.readTime }} min read</span>
+        </div>
+        <h3 class="text-2xl font-bold mb-4">
+          <a (click)="readMore(featuredPost.slug)" class="hover:text-blue-600 transition-colors cursor-pointer">
+            {{ featuredPost.title }}
+          </a>
+        </h3>
+        <p class="text-gray-700 mb-6">{{ featuredPost.excerpt }}</p>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <span class="text-gray-600">By {{ featuredPost.author }}</span>
+            <span class="mx-2 text-gray-400">•</span>
+            <span class="text-gray-600">{{ featuredPost.publishDate | date:'MMM d, yyyy' }}</span>
+          </div>
+          <button (click)="readMore(featuredPost.slug)" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            Read More
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Posts Grid -->
+<section class="py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Latest Articles</h2>
+    
+    <!-- Category Filter -->
+    <div class="flex flex-wrap justify-center mb-12">
+      <button class="bg-blue-600 text-white px-4 py-2 rounded-lg mr-2 mb-2 hover:bg-blue-700 transition-colors">
+        All
+      </button>
+      <button *ngFor="let category of categories" 
+              class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg mr-2 mb-2 hover:bg-gray-300 transition-colors">
+        {{ category }}
+      </button>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <article *ngFor="let post of blogPosts" class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-post-card">
+        <img [src]="post.featuredImage" [alt]="post.title" class="w-full h-48 object-cover">
+        <div class="p-6">
+          <div class="flex items-center mb-3">
+            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-3 category-tag">{{ post.category }}</span>
+            <span class="text-gray-500 text-sm read-time">{{ post.readTime }} min read</span>
+          </div>
+          <h3 class="text-xl font-bold mb-3">
+            <a (click)="readMore(post.slug)" class="hover:text-blue-600 transition-colors cursor-pointer">
+              {{ post.title }}
+            </a>
+          </h3>
+          <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-gray-500">
+              <span>{{ post.author }}</span>
+              <span class="mx-1">•</span>
+              <span>{{ post.publishDate | date:'MMM d' }}</span>
+            </div>
+            <button (click)="readMore(post.slug)" class="text-blue-600 hover:text-blue-800 font-semibold">
+              Read More →
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section class="bg-gray-700 text-white py-16">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">
+      Get the latest insights on restaurant pricing, AI technology, and industry trends delivered to your inbox.
+    </p>
+    <div class="max-w-md mx-auto flex">
+      <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-l-lg text-gray-900">
+      <button class="bg-yellow-500 text-blue-900 px-6 py-3 rounded-r-lg font-semibold hover:bg-yellow-400 transition-colors">
+        Subscribe
+      </button>
+    </div>
+  </div>
+</section>

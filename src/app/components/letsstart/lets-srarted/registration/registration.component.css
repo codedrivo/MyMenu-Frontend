@@ -1,0 +1,2667 @@
+@media (max-width: 1024px) {
+  .flex {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.25rem;
+  }
+  
+  .text-white {
+    font-size: 18px;
+  }
+
+  .w-full {
+    width: 90%;
+  }
+
+  .flex-col {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.contactdetails {
+  font-size: 28px;
+  font-family: 'Yeseva One', display;
+  line-height: 1.3em;
+}
+
+.fontvarela {
+  font-family: 'Varela Round', sans-serif;
+}
+
+.fontyesevaone {
+  font-family: 'Yeseva One', display;
+  font-size: 2.2rem;
+}
+
+/* Sort dropdown improvements for all devices */
+.sort-container {
+  position: relative;
+  z-index: 10;
+}
+
+.sort-toggle-button {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.sort-toggle-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sort-dropdown-menu {
+  z-index: 50;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure proper click handling on all devices */
+.sort-dropdown-menu button {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.sort-dropdown-menu button:hover {
+  background-color: #f3f4f6;
+}
+
+.sort-dropdown-menu button:active {
+  background-color: #e5e7eb;
+}
+
+/* Mobile sort dropdown specific styles */
+.mobile-sort-dropdown {
+  animation: slideUp 0.2s ease-out;
+  max-height: 50vh;
+  min-height: 280px;
+}
+
+.mobile-sort-dropdown .flex.flex-col.h-full {
+  min-height: 280px;
+}
+
+/* Improved header spacing */
+.mobile-sort-dropdown h3 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Better button spacing and interaction */
+.mobile-sort-dropdown button:not(.bg-blue-600) {
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+}
+
+.mobile-sort-dropdown button:not(.bg-blue-600):hover {
+  border-color: #e5e7eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-sort-dropdown button:not(.bg-blue-600):active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Selected state styling */
+.mobile-sort-dropdown button.bg-blue-50 {
+  border-color: #dbeafe;
+  font-weight: 500;
+}
+
+/* Close button improvements */
+.mobile-sort-dropdown button[class*="text-gray-400"] {
+  transition: all 0.2s ease;
+}
+
+.mobile-sort-dropdown button[class*="text-gray-400"]:hover {
+  background-color: #f3f4f6;
+  transform: scale(1.05);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Desktop and laptop specific improvements */
+@media (min-width: 1024px) {
+  .sort-container .sort-dropdown-menu {
+    min-width: 200px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sort-toggle-button {
+    min-width: 180px;
+  }
+}
+
+/* Tablet specific improvements */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sort-container .sort-dropdown-menu {
+    min-width: 180px;
+  }
+  
+  /* Center Group View toggle on tablet */
+  .grid.grid-cols-2 label {
+    justify-content: center !important;
+    text-align: center;
+  }
+  
+  /* Ensure restaurant and item names are left-aligned */
+  .result-item h4,
+  .result-item p {
+    text-align: left !important;
+  }
+  
+  /* Ensure grouped results are left-aligned */
+  .bg-gray-50 h3,
+  .bg-gray-50 p {
+    text-align: left !important;
+  }
+}
+
+.restaurant-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+.restaurant-card {
+  min-width: 300px;
+  padding: 16px;
+  background-color: #1e1e1e;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+}
+
+.restaurant-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.restaurant-card p {
+  margin: 4px 0;
+}
+
+.restaurant-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.restaurant-container::-webkit-scrollbar-thumb {
+  background-color: #e4c6a1;
+  border-radius: 10px;
+}
+
+.restaurant-list {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 80vw;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+}
+
+.restaurant-item {
+  flex: 0 0 300px;
+  margin-right: 16px;
+  border-radius: 8px;
+}
+
+.restaurant-list::-webkit-scrollbar {
+  display: none;
+}
+
+.restaurant-list {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.pagination-button {
+  min-width: 40px;
+  height: 36px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagn {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pagn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+span {
+  line-height: 32px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.fontvarela {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 16px;
+}
+
+.borderradius {
+  border-radius: 2px;
+  height: 40px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.hover\:shadow-md:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.sticky {
+  position: sticky;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.card-header {
+  background-color: #1f2937;
+  color: white;
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.min-h-screen {
+  width: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin: 10px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+.relative {
+  position: relative;
+  height: 30px;
+}
+
+.relative input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  -webkit-appearance: none;
+  z-index: 2;
+  height: 10px;
+  opacity: 0.5;
+  top: 0;
+}
+
+.relative input[type="range"]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0 none;
+  background-color: #3b82f6;
+  cursor: pointer;
+  -webkit-appearance: none;
+  z-index: 3;
+  opacity: 1;
+}
+
+.relative input[type="range"]::-moz-range-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0 none;
+  background-color: #3b82f6;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 1;
+}
+
+.relative input[type="range"]:nth-child(1) {
+  background: linear-gradient(to right, #ddd 0%, #3b82f6 100%);
+}
+
+.relative input[type="range"]:nth-child(2) {
+  background: linear-gradient(to right, #3b82f6 0%, #ddd 100%);
+}
+
+.bg-blue-50 {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Custom styles for the registration component */
+.registration-container {
+  min-height: 100vh;
+}
+
+/* Mobile Portrait Mode Styles - Hide elements except form when search results are shown */
+@media (max-width: 768px) and (orientation: portrait) {
+  /* Hide results section in mobile portrait mode when landscape prompt should be shown */
+  .mobile-hide-results {
+    display: none !important;
+  }
+  
+  /* Hide export/download section in mobile portrait mode */
+  .mobile-hide-export {
+    display: none !important;
+  }
+  
+  /* Hide pagination in mobile portrait mode */
+  .mobile-hide-pagination {
+    display: none !important;
+  }
+  
+  /* Hide disclaimer in mobile portrait mode */
+  .mobile-hide-disclaimer {
+    display: none !important;
+  }
+  
+  /* Show only form in mobile portrait mode */
+  .mobile-show-form-only {
+    display: block !important;
+  }
+}
+
+/* Landscape Mode Prompt Animations */
+@keyframes phoneRotate {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-phone-rotate {
+  animation: phoneRotate 2s ease-in-out infinite;
+}
+
+/* Enhanced modal animations */
+.landscape-modal-enter {
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Pulse animation for rotation instruction */
+@keyframes instructionPulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.05);
+  }
+}
+
+.animate-instruction-pulse {
+  animation: instructionPulse 2s ease-in-out infinite;
+}
+
+
+.filter-section {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Custom scrollbar for webkit browsers */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  .registration-container {
+    padding: 0.5rem;
+  }
+  
+  /* Improve touch targets for mobile */
+  input[type="checkbox"] {
+    min-width: 18px;
+    min-height: 18px;
+  }
+  
+  input[type="range"] {
+    height: 8px;
+  }
+  
+  /* Better spacing for mobile forms */
+  .filter-section {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Mobile overlay improvements */
+  .mobile-filter-overlay {
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Ensure proper touch scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Enhanced touch targets */
+  button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+  
+  input, select {
+    min-height: 44px;
+    padding: 12px;
+  }
+  
+  label {
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Better tap highlighting */
+  button, input, select, label {
+    -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Mobile dropdown fixes */
+  .restaurant-filter-container .absolute {
+    position: fixed !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    max-width: calc(100vw - 2rem) !important;
+    z-index: 50 !important;
+    top: auto !important;
+    bottom: 1rem !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  /* Sort dropdown mobile positioning */
+  .relative > .absolute.right-0.mt-2.w-64 {
+    position: fixed !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    max-width: calc(100vw - 2rem) !important;
+    z-index: 50 !important;
+    top: auto !important;
+    bottom: 1rem !important;
+    max-height: 50vh !important;
+    overflow-y: auto !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  /* Touch-friendly button styles for mobile */
+  .mobile-filter-container button {
+    min-height: 48px !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Ensure dropdown buttons are touch-friendly */
+  .restaurant-filter-container button,
+  .relative button {
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile dropdown overlay */
+  .mobile-dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 49;
+    display: block;
+  }
+
+  /* Mobile Group Toggle Button Improvements - Simple Button Style */
+  .grid.grid-cols-2.gap-2 label {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    padding: 16px 12px !important;
+    min-height: 56px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    justify-content: center !important;
+  }
+
+  .grid.grid-cols-2.gap-2 label:hover {
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+    border-color: #94a3b8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .grid.grid-cols-2.gap-2 label:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  /* Hide the toggle switch completely in mobile */
+  .grid.grid-cols-2.gap-2 label .relative {
+    display: none !important;
+  }
+
+  /* Mobile toggle text styling - centered */
+  .grid.grid-cols-2.gap-2 label span {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    width: 100% !important;
+  }
+
+  /* Active state for mobile group toggle - button style */
+  .grid.grid-cols-2.gap-2 label:has(input:checked) {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    border-color: #1d4ed8 !important;
+    color: white !important;
+  }
+
+  .grid.grid-cols-2.gap-2 label:has(input:checked) span {
+    color: white !important;
+  }
+
+  /* Focus states for accessibility */
+  .grid.grid-cols-2.gap-2 label:focus-within {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Ripple effect for mobile touch feedback */
+  .grid.grid-cols-2.gap-2 label::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-radius: 50% !important;
+    background: rgba(59, 130, 246, 0.3) !important;
+    transform: translate(-50%, -50%) !important;
+    transition: width 0.3s ease, height 0.3s ease !important;
+    z-index: 0 !important;
+  }
+
+  .grid.grid-cols-2.gap-2 label:active::before {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Ensure content stays above ripple effect */
+  .grid.grid-cols-2.gap-2 label > * {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Additional mobile optimizations for very small screens */
+  @media (max-width: 480px) {
+    .grid.grid-cols-2.gap-2 label {
+      padding: 14px 10px !important;
+      min-height: 52px !important;
+    }
+
+    .grid.grid-cols-2.gap-2 label span {
+      font-size: 13px !important;
+    }
+  }
+
+  /* Improve touch feedback for iOS devices */
+  .grid.grid-cols-2.gap-2 label {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+  }
+
+  /* Ensure proper spacing in grid layout */
+  .grid.grid-cols-2.gap-2 {
+    gap: 12px !important;
+  }
+}
+
+/* Tablet-specific styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Tablet dropdown fixes */
+  .restaurant-filter-container .absolute {
+    position: absolute !important;
+    left: 0 !important;
+    width: 320px !important;
+    max-width: calc(100vw - 2rem) !important;
+    z-index: 40 !important;
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Sort dropdown tablet positioning */
+  .relative > .absolute.right-0.mt-2.w-64 {
+    position: absolute !important;
+    right: 0 !important;
+    width: 280px !important;
+    max-width: calc(100vw - 2rem) !important;
+    z-index: 40 !important;
+    max-height: 50vh !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Ensure dropdowns don't overflow on tablet */
+  .restaurant-filter-container {
+    position: relative !important;
+    overflow: visible !important;
+  }
+}
+  
+  /* Mobile Pagination Responsive Fixes */
+  
+  /* Pagination container - reduce padding */
+  .bg-white.rounded-lg.shadow-sm.border.p-6.mt-4 {
+    padding: 0.75rem !important;
+    margin-top: 0.75rem !important;
+  }
+  
+  /* Results summary section - stack vertically */
+  .flex.flex-col.sm\\:flex-row.sm\\:items-center.sm\\:justify-between.mb-6 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Results text - smaller font */
+  .flex.flex-col.sm\\:flex-row .text-sm {
+    font-size: 0.8rem !important;
+  }
+  
+  /* Items per page selector - full width on mobile */
+  .flex.items-center.space-x-3 {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+  
+  .flex.items-center.space-x-3 label {
+    font-size: 0.8rem !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .flex.items-center.space-x-3 select {
+    flex: 1 !important;
+    max-width: 150px !important;
+    font-size: 0.8rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  /* Main pagination controls container - stack vertically */
+  .flex.flex-col.lg\\:flex-row.lg\\:items-center.lg\\:justify-between {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+  
+  /* Jump to page section - mobile layout */
+  .flex.flex-col.lg\\:flex-row .flex.items-center.space-x-3:first-child {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+  
+  .flex.flex-col.lg\\:flex-row .flex.items-center.space-x-3:first-child label {
+    font-size: 0.75rem !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .flex.flex-col.lg\\:flex-row .flex.items-center.space-x-3:first-child .flex.items-center {
+    justify-content: center !important;
+  }
+  
+  .flex.flex-col.lg\\:flex-row .flex.items-center.space-x-3:first-child input {
+    width: 60px !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem !important;
+    text-align: center !important;
+  }
+  
+  .flex.flex-col.lg\\:flex-row .flex.items-center.space-x-3:first-child button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+    min-width: 60px !important;
+  }
+  
+  .flex.flex-col.lg\\:flex-row .flex.items-center.space-x-3:first-child span {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Pagination navigation - mobile optimized */
+  .flex.items-center.justify-center.space-x-2 {
+    flex-wrap: wrap !important;
+    gap: 0.25rem !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 0 0.25rem !important;
+  }
+  
+  /* Pagination buttons - mobile sizes */
+  .flex.items-center.justify-center.space-x-2 > button {
+    min-width: 36px !important;
+    height: 36px !important;
+    padding: 0.25rem !important;
+    font-size: 0.75rem !important;
+  }
+  
+  /* Icon-only buttons (First, Last, Forward, Backward) */
+  .flex.items-center.justify-center.space-x-2 > button svg {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+  
+  /* Previous/Next buttons - shorter text on mobile */
+  .flex.items-center.justify-center.space-x-2 > button:not([title]) {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+  
+  /* Hide page numbers on mobile, show current page indicator instead */
+  .hidden.sm\\:flex.items-center.space-x-1 {
+    display: none !important;
+  }
+  
+  /* Mobile current page indicator - show and style */
+  .sm\\:hidden.px-4.py-2 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 80px !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Ensure pagination doesn't cause horizontal scroll */
+  .space-y-4.lg\\:space-y-0 {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Additional mobile pagination container fixes */
+  .bg-white.rounded-lg.shadow-sm.border.p-6 {
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+
+/* Tablet-specific styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .registration-container {
+    padding: 1rem;
+  }
+  
+  /* Optimize for tablet touch interactions */
+  input[type="checkbox"] {
+    min-width: 16px;
+    min-height: 16px;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1025px) {
+  .registration-container {
+    padding: 1.5rem;
+  }
+}
+
+/* Filter bar layout fix for medium-large screens (1024-1400px) */
+@media (min-width: 1024px) and (max-width: 1400px) {
+  /* Main container adjustments */
+  .main-container {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+  
+  /* Top header section responsive adjustments */
+  .flex.flex-col.sm\\:flex-row.sm\\:items-center.sm\\:justify-between {
+    flex-direction: row !important;
+    gap: 1rem !important;
+    align-items: flex-start !important;
+    padding: 0 0.5rem !important;
+    justify-content: space-between !important;
+  }
+  
+  /* Export button section - ensure visibility and proper sizing */
+  .relative.inline-block.flex-shrink-0 {
+    display: block !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+    margin-bottom: 1rem !important; /* Add margin bottom 4 (1rem = 16px = mb-4) */
+  }
+  
+  .relative.inline-block.flex-shrink-0 button {
+    display: flex !important;
+    align-items: center !important;
+    width: auto !important;
+    min-width: 120px !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+    white-space: nowrap !important;
+  }
+  
+  .relative.inline-block.flex-shrink-0 button span {
+    display: inline !important;
+  }
+  
+  /* Ensure download button text is visible */
+  .relative.inline-block.flex-shrink-0 button .hidden.sm\\:inline {
+    display: inline !important;
+  }
+  
+  .relative.inline-block.flex-shrink-0 button .sm\\:hidden {
+    display: none !important;
+  }
+  
+  /* Force visibility of the download button container */
+  .relative.inline-block.flex-shrink-0 {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Results count section - make it display on a single line */
+  .flex-1 {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 1rem !important;
+    flex-wrap: nowrap !important;
+  }
+  
+  .flex-1 h3 {
+    font-size: 0.95rem !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .flex-1 p {
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Top filter bar responsive layout - REMOVED TO ALLOW GRID LAYOUT */
+  /* Grid layout is handled by the 1024-1300px media query above */
+  
+  /* Individual element rules removed to allow grid layout to work properly */
+  /* Grid layout handles positioning and sizing */
+  
+  /* Pagination container responsive adjustments */
+  .flex.flex-col.lg\\:flex-row.lg\\:items-center.lg\\:justify-between {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    align-items: center !important;
+  }
+  
+  /* Jump to page section - more compact */
+  .flex.items-center.space-x-3 {
+    flex-wrap: wrap !important;
+    gap: 0.375rem !important;
+    justify-content: center !important;
+  }
+  
+  .flex.items-center.space-x-3 label {
+    font-size: 0.75rem !important;
+  }
+  
+  .flex.items-center.space-x-3 input {
+    width: 50px !important;
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.4rem !important;
+    height: 32px !important;
+  }
+  
+  .flex.items-center.space-x-3 button {
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.6rem !important;
+    height: 32px !important;
+  }
+  
+  .flex.items-center.space-x-3 span {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Pagination navigation - more responsive */
+  .flex.items-center.justify-center.space-x-2 {
+    flex-wrap: wrap !important;
+    gap: 0.2rem !important;
+    justify-content: center !important;
+  }
+  
+  .flex.items-center.justify-center.space-x-2 button {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.4rem !important;
+    min-width: 32px !important;
+    height: 32px !important;
+  }
+  
+  /* Page numbers container - limit width and hide overflow */
+   .hidden.sm\\:flex.items-center.space-x-1 {
+     max-width: 250px !important;
+     overflow: hidden !important;
+     flex-wrap: nowrap !important;
+   }
+   
+   .hidden.sm\\:flex.items-center.space-x-1 button {
+     min-width: 28px !important;
+     padding: 0.3rem 0.4rem !important;
+     font-size: 0.7rem !important;
+     height: 32px !important;
+   }
+   
+   /* Pagination container overall adjustments */
+   .bg-white.rounded-lg.shadow-sm.border.p-4.w-full {
+     padding: 0.75rem !important;
+     margin: 0 0.75rem !important;
+   }
+   
+   /* Results per page dropdown adjustments */
+   .flex.items-center.space-x-2 {
+     flex-wrap: wrap !important;
+     gap: 0.375rem !important;
+   }
+   
+   .flex.items-center.space-x-2 label {
+     font-size: 0.75rem !important;
+   }
+   
+   .flex.items-center.space-x-2 select {
+     font-size: 0.8rem !important;
+     padding: 0.3rem 0.4rem !important;
+     min-width: 100px !important;
+     height: 32px !important;
+   }
+   
+   /* Ensure pagination doesn't overflow container */
+   .space-y-4.lg\\:space-y-0 {
+     overflow-x: auto !important;
+     padding-bottom: 0.5rem !important;
+   }
+   
+   /* Mobile pagination indicator adjustments */
+    .sm\\:hidden.px-4.py-2 {
+      font-size: 0.8rem !important;
+      padding: 0.3rem 0.6rem !important;
+    }
+    
+    /* Additional container and spacing adjustments */
+    .min-h-screen.bg-gray-100.w-full {
+      padding: 0 0.25rem !important;
+    }
+    
+    /* Filter bar container specific adjustments */
+    .bg-white.rounded-lg.shadow-sm.border.p-4.w-full:has(.hidden.lg\\:flex) {
+      padding: 0.6rem !important;
+      margin: 0 0.25rem 0.75rem 0.25rem !important;
+    }
+    
+    /* Dropdown menu positioning adjustments */
+    .absolute.right-0.mt-2.w-64 {
+      right: 0 !important;
+      left: auto !important;
+      width: 220px !important;
+    }
+    
+    .absolute.left-0.mt-2.w-80 {
+      left: 0 !important;
+      right: auto !important;
+      width: 260px !important;
+    }
+    
+    /* Ensure text doesn't overflow in compact buttons */
+    .hidden.lg\\:flex button span {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      max-width: 100% !important;
+    }
+    
+    /* Results grid adjustments */
+    .space-y-4.w-full {
+      padding: 0 0.25rem !important;
+    }
+    
+    /* Additional overflow prevention */
+    .bg-white.rounded-lg.shadow-sm.border {
+      overflow-x: auto !important;
+    }
+    
+    /* Ensure all flex containers don't overflow */
+    .flex {
+      min-width: 0 !important;
+    }
+    
+    /* Specific fix for filter bar overflow */
+    .hidden.lg\\:flex {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* Ensure buttons don't grow beyond container */
+    .hidden.lg\\:flex button,
+    .hidden.lg\\:flex input,
+    .hidden.lg\\:flex select {
+      flex-shrink: 1 !important;
+      min-width: 0 !important;
+    }
+  }
+
+/* Filter bar layout fix for larger screens (1400px+) */
+@media (min-width: 1400px) {
+  .filter-bar-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    grid-template-columns: none !important;
+    flex-wrap: nowrap !important;
+  }
+  
+  /* Search input - flexible but constrained */
+  .filter-bar-container > div:first-child {
+    flex: 1 1 250px;
+    min-width: 200px;
+    max-width: 350px;
+  }
+  
+  .filter-bar-container > div:first-child input {
+    width: 100% !important;
+  }
+  
+  /* Restaurant filter dropdown */
+  .filter-bar-container .restaurant-filter-container {
+    flex: 0 0 auto;
+    min-width: 40px;
+    max-width: 48px;
+  }
+  
+  .filter-bar-container .restaurant-filter-container button {
+    width: 100% !important;
+    min-width: 40px !important;
+    max-width: 48px !important;
+  }
+  
+  /* Sort dropdown */
+  .filter-bar-container > div:nth-child(3) {
+    flex: 0 0 auto;
+    min-width: 160px;
+    max-width: 180px;
+  }
+  
+  .filter-bar-container > div:nth-child(3) button {
+    width: 100% !important;
+    min-width: 160px !important;
+    max-width: 180px !important;
+  }
+  
+  /* Group by toggle */
+  .filter-bar-container > label {
+    flex: 0 0 auto;
+    min-width: 150px !important;
+    max-width: 170px !important;
+    width: auto !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Expand/Collapse button */
+  .filter-bar-container > button {
+    flex: 0 0 auto;
+    min-width: 100px !important;
+    max-width: 120px !important;
+    width: auto !important;
+  }
+}
+
+/* Restaurant filter buttons layout */
+.restaurant-filter-buttons {
+  position: relative;
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%;
+}
+
+.restaurant-filter-buttons .clear-button {
+  font-size: 11px !important;
+  margin-right: auto;
+  float: left;
+}
+
+.restaurant-filter-buttons .apply-button {
+  font-size: 11px !important;
+  float: right;
+}
+
+/* Fix for dropdown menu */
+.sort-dropdown-menu {
+  min-width: 200px !important;
+}
+
+.sort-dropdown-menu button {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+/* Force hover background color */
+.sort-dropdown-menu button:hover {
+  background-color: #f3f4f6 !important;
+}
+
+/* Focus improvements for accessibility */
+@media (prefers-reduced-motion: no-preference) {
+  button, input, select {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .filter-section {
+    border-bottom-color: #000;
+  }
+  
+  input, select, button {
+    border-width: 2px;
+  }
+}
+
+/* Additional responsive fixes for specific screen sizes */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  /* Extra compact for smaller laptops */
+  .hidden.lg\\:flex {
+    gap: 0.25rem !important;
+  }
+  
+  .hidden.lg\\:flex > div:first-child {
+    max-width: 180px !important;
+  }
+  
+  .hidden.lg\\:flex .restaurant-filter-container {
+    max-width: 100px !important;
+  }
+  
+  .hidden.lg\\:flex > div:nth-child(3) {
+    max-width: 120px !important;
+  }
+  
+  .hidden.lg\\:flex > label {
+    max-width: 100px !important;
+  }
+  
+  .hidden.lg\\:flex > button:last-child {
+    max-width: 80px !important;
+  }
+}
+
+/* Mobile Dropdown Specific Styles */
+.mobile-restaurant-dropdown,
+.mobile-sort-dropdown {
+  animation: slideUp 0.3s ease-out;
+  backdrop-filter: blur(4px);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mobile-restaurant-dropdown .max-h-48 {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 3px;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+  /* Slightly more space for medium laptops */
+  .hidden.lg\\:flex {
+    gap: 0.5rem !important;
+  }
+  
+  .hidden.lg\\:flex > div:first-child {
+    max-width: 240px !important;
+  }
+  
+  .hidden.lg\\:flex .restaurant-filter-container {
+    max-width: 130px !important;
+  }
+  
+  .hidden.lg\\:flex > div:nth-child(3) {
+    max-width: 150px !important;
+  }
+  
+  .hidden.lg\\:flex > label {
+    max-width: 130px !important;
+  }
+  
+  .hidden.lg\\:flex > button:last-child {
+    max-width: 110px !important;
+  }
+}
+
+/* Ensure proper text truncation for all button content */
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .hidden.lg\\:flex button,
+  .hidden.lg\\:flex label {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Prevent horizontal scrolling on the main container */
+  .main-container {
+    overflow-x: hidden !important;
+  }
+  
+  /* Ensure filter bar doesn't cause horizontal scroll */
+  .bg-white.rounded-lg.shadow-sm.border.p-4.w-full {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+  }
+  
+  /* Additional safety for pagination */
+  .flex.items-center.justify-center.space-x-2 {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    scrollbar-width: thin !important;
+  }
+  
+  .flex.items-center.justify-center.space-x-2::-webkit-scrollbar {
+    height: 4px !important;
+  }
+  
+  .flex.items-center.justify-center.space-x-2::-webkit-scrollbar-thumb {
+    background-color: #d1d5db !important;
+    border-radius: 2px !important;
+  }
+}
+
+/* Laptop Layout for Filter Bar - 2 Row Layout (1024-1400px) */
+@media (min-width: 1024px) and (max-width: 1400px) {
+  /* Move the whole top filter bar container 2rem to the left */
+  .bg-white.rounded-lg.shadow-sm.border.p-4.w-full:has(.hidden.lg\\:flex) {
+    margin-left: -2rem !important;
+  }
+  
+  /* Create proper 2-row grid layout: Row 1 (2 columns), Row 2 (3 columns) */
+  .hidden.lg\:flex {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+    grid-template-rows: auto auto !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  /* First row - Search Input spans first column */
+  .hidden.lg\:flex > div:nth-child(1) {
+    grid-column: 1 / 2 !important;
+    grid-row: 1 / 2 !important;
+  }
+
+  /* First row - Restaurant Filter spans second column */
+  .hidden.lg\:flex > div:nth-child(2) {
+    grid-column: 2 / 3 !important;
+    grid-row: 1 / 2 !important;
+  }
+
+  /* Create 3-column layout for second row */
+  .hidden.lg\:flex {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+
+  /* Adjust first row to span properly in 3-column grid */
+  .hidden.lg\:flex > div:nth-child(1) {
+    grid-column: 1 / 3 !important;
+    grid-row: 1 / 2 !important;
+  }
+
+  .hidden.lg\:flex > div:nth-child(2) {
+    grid-column: 3 / 4 !important;
+    grid-row: 1 / 2 !important;
+  }
+
+  /* Second row - Sort Dropdown */
+  .hidden.lg\:flex > div:nth-child(3) {
+    grid-column: 1 / 2 !important;
+    grid-row: 2 / 3 !important;
+  }
+
+  /* Second row - Group Toggle */
+  .hidden.lg\:flex > label {
+    grid-column: 2 / 3 !important;
+    grid-row: 2 / 3 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Second row - Expand/Collapse Button */
+  .hidden.lg\:flex > button {
+    grid-column: 3 / 4 !important;
+    grid-row: 2 / 3 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Ensure all elements have consistent smaller height */
+  .hidden.lg\:flex button,
+  .hidden.lg\:flex label,
+  .hidden.lg\:flex .relative input {
+    height: 32px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Adjust button and label content alignment */
+  .hidden.lg\:flex button,
+  .hidden.lg\:flex label {
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Search input specific styling */
+  .hidden.lg\:flex .relative.flex-1 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hidden.lg\:flex .relative.flex-1 input {
+    width: 100% !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+    height: 32px !important;
+  }
+
+  /* Restaurant filter button adjustments */
+  .hidden.lg\:flex .restaurant-filter-container button {
+    width: 100% !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+    height: 32px !important;
+  }
+
+  /* Sort dropdown button adjustments */
+  .hidden.lg\:flex > div:nth-child(3) button {
+    width: 100% !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+    height: 32px !important;
+  }
+
+  /* Group toggle label adjustments */
+  .hidden.lg\:flex > label {
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
+  }
+
+  /* Expand/Collapse button adjustments */
+  .hidden.lg\:flex > button:last-child {
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+    height: 32px !important;
+  }
+
+  /* Ensure text doesn't overflow in smaller boxes */
+  .hidden.lg\:flex button span,
+  .hidden.lg\:flex label span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.sticky {
+  position: sticky;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.card-header {
+  background-color: #1f2937;
+  color: white;
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.min-h-screen {
+  width: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin: 10px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+.relative {
+  position: relative;
+  height: 30px;
+}
+
+.relative input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  -webkit-appearance: none;
+  z-index: 2;
+  height: 10px;
+  opacity: 0.5;
+  top: 0;
+}
+
+.relative input[type="range"]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0 none;
+  background-color: #3b82f6;
+  cursor: pointer;
+  -webkit-appearance: none;
+  z-index: 3;
+  opacity: 1;
+}
+
+.relative input[type="range"]::-moz-range-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0 none;
+  background-color: #3b82f6;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 1;
+}
+
+.relative input[type="range"]:nth-child(1) {
+  background: linear-gradient(to right, #ddd 0%, #3b82f6 100%);
+}
+
+.relative input[type="range"]:nth-child(2) {
+  background: linear-gradient(to right, #3b82f6 0%, #ddd 100%);
+}
+
+.bg-blue-50 {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Custom styles for the registration component */
+.registration-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.filter-section {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Custom scrollbar for webkit browsers */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  .registration-container {
+    padding: 0.5rem;
+  }
+  
+  /* Improve touch targets for mobile */
+  input[type="checkbox"] {
+    min-width: 18px;
+    min-height: 18px;
+  }
+  
+  input[type="range"] {
+    height: 8px;
+  }
+  
+  /* Better spacing for mobile forms */
+  .filter-section {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Mobile overlay improvements */
+  .mobile-filter-overlay {
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Ensure proper touch scrolling */
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Enhanced touch targets */
+  button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+  
+  input, select {
+    min-height: 44px;
+    padding: 12px;
+  }
+  
+  label {
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Better tap highlighting */
+  button, input, select, label {
+    -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+  }
+
+  /* Mobile Filter Header Layout Fix */
+  .filter-sidebar .bg-white.rounded-lg.shadow-sm.border .flex.items-center.justify-between.mb-4 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+    padding: 0 !important;
+  }
+  
+  /* Search Filters title - left aligned with medium size */
+  .filter-sidebar .bg-white.rounded-lg.shadow-sm.border .flex.items-center.justify-between.mb-4 h2 {
+    flex: 1 !important;
+    text-align: left !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important; /* Medium size - 16px */
+    font-weight: 600 !important;
+    color: #111827 !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Right side container for Clear All button */
+  .filter-sidebar .bg-white.rounded-lg.shadow-sm.border .flex.items-center.justify-between.mb-4 .flex.items-center.gap-2 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    flex-shrink: 0 !important;
+    justify-content: flex-end !important;
+  }
+  
+  /* Clear All button styling - extra small size */
+  .filter-sidebar .bg-white.rounded-lg.shadow-sm.border .flex.items-center.justify-between.mb-4 .flex.items-center.gap-2 button[type="button"] {
+    font-size: 0.625rem !important; /* Extra small size - 10px */
+    color: #6b7280 !important;
+    text-decoration: underline !important;
+    background: none !important;
+    border: none !important;
+    padding: 0.125rem 0.25rem !important;
+    min-height: auto !important;
+    cursor: pointer !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+  
+  .filter-sidebar .bg-white.rounded-lg.shadow-sm.border .flex.items-center.justify-between.mb-4 .flex.items-center.gap-2 button[type="button"]:hover {
+    color: #374151 !important;
+  }
+  
+  /* Additional mobile filter styling */
+  .filter-sidebar .mobile-filter-container {
+    padding: 1rem !important;
+  }
+  
+  .filter-sidebar .mobile-filter-container .flex.items-center.justify-between {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Tablet-specific styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .registration-container {
+    padding: 1rem;
+  }
+  
+  /* Optimize for tablet touch interactions */
+  input[type="checkbox"] {
+    min-width: 16px;
+    min-height: 16px;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1025px) {
+  .registration-container {
+    padding: 1.5rem;
+  }
+}
+
+/* Filter bar layout fix for medium-large screens (1024-1400px) */
+@media (min-width: 1024px) and (max-width: 1400px) {
+  /* Main container adjustments */
+  .main-container {
+    max-width: 100%;
+    padding: 0 0.75rem;
+  }
+  
+  /* Top header section responsive adjustments - REMOVED CONFLICTING RULES */
+  /* These rules are now handled by the earlier media query around line 522 */
+  
+  /* Results count section */
+  .flex-1 h3 {
+    font-size: 0.95rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  .flex-1 p {
+    font-size: 0.8rem !important;
+  }
+  
+  /* Top filter bar responsive layout - CRITICAL FIX */
+  .hidden.lg\\:flex {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.375rem !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  
+  /* Search input - more compact sizing */
+  .hidden.lg\\:flex > div:first-child {
+    flex: 1 1 160px !important;
+    min-width: 140px !important;
+    max-width: 220px !important;
+  }
+  
+  .hidden.lg\\:flex > div:first-child input {
+    width: 100% !important;
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.6rem !important;
+    height: 36px !important;
+  }
+  
+  /* Restaurant filter dropdown - more compact */
+  .hidden.lg\\:flex .restaurant-filter-container {
+    flex: 0 0 auto !important;
+    min-width: 100px !important;
+    max-width: 120px !important;
+  }
+  
+  .hidden.lg\\:flex .restaurant-filter-container button {
+    width: 100% !important;
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.6rem !important;
+    min-width: 100px !important;
+    height: 36px !important;
+  }
+  
+  .hidden.lg\\:flex .restaurant-filter-container button span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Sort dropdown - more compact */
+  .hidden.lg\\:flex > div:nth-child(3) {
+    flex: 0 0 auto !important;
+    min-width: 120px !important;
+    max-width: 140px !important;
+  }
+  
+  .hidden.lg\\:flex > div:nth-child(3) button {
+    width: 100% !important;
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.6rem !important;
+    min-width: 120px !important;
+    height: 36px !important;
+  }
+  
+  .hidden.lg\\:flex > div:nth-child(3) button span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Group by toggle - more compact */
+  .hidden.lg\\:flex > label {
+    flex: 0 0 auto !important;
+    min-width: 100px !important;
+    max-width: 120px !important;
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
+  }
+  
+  .hidden.lg\\:flex > label input {
+    margin-right: 0.375rem !important;
+  }
+  
+  /* Expand/Collapse button - more compact */
+  .hidden.lg\\:flex > button:last-child {
+    flex: 0 0 auto !important;
+    min-width: 80px !important;
+    max-width: 100px !important;
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.6rem !important;
+    height: 36px !important;
+  }
+  
+  .hidden.lg\\:flex > button:last-child span {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Pagination container responsive adjustments */
+  .flex.flex-col.lg\\:flex-row.lg\\:items-center.lg\\:justify-between {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    align-items: center !important;
+  }
+  
+  /* Jump to page section - more compact */
+  .flex.items-center.space-x-3 {
+    flex-wrap: wrap !important;
+    gap: 0.375rem !important;
+    justify-content: center !important;
+  }
+  
+  .flex.items-center.space-x-3 label {
+    font-size: 0.75rem !important;
+  }
+  
+  .flex.items-center.space-x-3 input {
+    width: 50px !important;
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.4rem !important;
+    height: 32px !important;
+  }
+  
+  .flex.items-center.space-x-3 button {
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.6rem !important;
+    height: 32px !important;
+  }
+  
+  .flex.items-center.space-x-3 span {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Pagination navigation - more responsive */
+  .flex.items-center.justify-center.space-x-2 {
+    flex-wrap: wrap !important;
+    gap: 0.2rem !important;
+    justify-content: center !important;
+  }
+  
+  .flex.items-center.justify-center.space-x-2 button {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.4rem !important;
+    min-width: 32px !important;
+    height: 32px !important;
+  }
+  
+  /* Page numbers container - limit width and hide overflow */
+   .hidden.sm\\:flex.items-center.space-x-1 {
+     max-width: 250px !important;
+     overflow: hidden !important;
+     flex-wrap: nowrap !important;
+   }
+   
+   .hidden.sm\\:flex.items-center.space-x-1 button {
+     min-width: 28px !important;
+     padding: 0.3rem 0.4rem !important;
+     font-size: 0.7rem !important;
+     height: 32px !important;
+   }
+   
+   /* Pagination container overall adjustments */
+   .bg-white.rounded-lg.shadow-sm.border.p-4.w-full {
+     padding: 0.75rem !important;
+     margin: 0 0.75rem !important;
+   }
+   
+   /* Results per page dropdown adjustments */
+   .flex.items-center.space-x-2 {
+     flex-wrap: wrap !important;
+     gap: 0.375rem !important;
+   }
+   
+   .flex.items-center.space-x-2 label {
+     font-size: 0.75rem !important;
+   }
+   
+   .flex.items-center.space-x-2 select {
+     font-size: 0.8rem !important;
+     padding: 0.3rem 0.4rem !important;
+     min-width: 100px !important;
+     height: 32px !important;
+   }
+   
+   /* Ensure pagination doesn't overflow container */
+   .space-y-4.lg\\:space-y-0 {
+     overflow-x: auto !important;
+     padding-bottom: 0.5rem !important;
+   }
+   
+   /* Mobile pagination indicator adjustments */
+    .sm\\:hidden.px-4.py-2 {
+      font-size: 0.8rem !important;
+      padding: 0.3rem 0.6rem !important;
+    }
+    
+    /* Additional container and spacing adjustments */
+    .min-h-screen.bg-gray-100.w-full {
+      padding: 0 0.25rem !important;
+    }
+    
+    /* Filter bar container specific adjustments */
+    .bg-white.rounded-lg.shadow-sm.border.p-4.w-full:has(.hidden.lg\\:flex) {
+      padding: 0.6rem !important;
+      margin: 0 0.25rem 0.75rem 0.25rem !important;
+    }
+    
+    /* Dropdown menu positioning adjustments */
+    .absolute.right-0.mt-2.w-64 {
+      right: 0 !important;
+      left: auto !important;
+      width: 220px !important;
+    }
+    
+    .absolute.left-0.mt-2.w-80 {
+      left: 0 !important;
+      right: auto !important;
+      width: 260px !important;
+    }
+    
+    /* Ensure text doesn't overflow in compact buttons */
+    .hidden.lg\\:flex button span {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      max-width: 100% !important;
+    }
+    
+    /* Results grid adjustments */
+    .space-y-4.w-full {
+      padding: 0 0.25rem !important;
+    }
+    
+    /* Additional overflow prevention */
+    .bg-white.rounded-lg.shadow-sm.border {
+      overflow-x: auto !important;
+    }
+    
+    /* Ensure all flex containers don't overflow */
+    .flex {
+      min-width: 0 !important;
+    }
+    
+    /* Specific fix for filter bar overflow */
+    .hidden.lg\\:flex {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* Ensure buttons don't grow beyond container */
+    .hidden.lg\\:flex button,
+    .hidden.lg\\:flex input,
+    .hidden.lg\\:flex select {
+      flex-shrink: 1 !important;
+      min-width: 0 !important;
+    }
+  }
+
+/* Filter bar layout fix for larger screens (1400px+) */
+@media (min-width: 1400px) {
+  .filter-bar-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    grid-template-columns: none !important;
+    flex-wrap: nowrap !important;
+  }
+  
+  /* Search input - flexible but constrained */
+  .filter-bar-container > div:first-child {
+    flex: 1 1 250px;
+    min-width: 200px;
+    max-width: 350px;
+  }
+  
+  .filter-bar-container > div:first-child input {
+    width: 100% !important;
+  }
+  
+  /* Restaurant filter dropdown */
+  .filter-bar-container .restaurant-filter-container {
+    flex: 0 0 auto;
+    min-width: 40px;
+    max-width: 48px;
+  }
+  
+  .filter-bar-container .restaurant-filter-container button {
+    width: 100% !important;
+    min-width: 40px !important;
+    max-width: 48px !important;
+  }
+  
+  /* Sort dropdown */
+  .filter-bar-container > div:nth-child(3) {
+    flex: 0 0 auto;
+    min-width: 160px;
+    max-width: 180px;
+  }
+  
+  .filter-bar-container > div:nth-child(3) button {
+    width: 100% !important;
+    min-width: 160px !important;
+    max-width: 180px !important;
+  }
+  
+  /* Group by toggle */
+  .filter-bar-container > label {
+    flex: 0 0 auto;
+    min-width: 150px !important;
+    max-width: 170px !important;
+    width: auto !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Expand/Collapse button */
+  .filter-bar-container > button {
+    flex: 0 0 auto;
+    min-width: 100px !important;
+    max-width: 120px !important;
+    width: auto !important;
+  }
+}
+
+/* Restaurant filter buttons layout */
+.restaurant-filter-buttons {
+  position: relative;
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%;
+}
+
+.restaurant-filter-buttons .clear-button {
+  font-size: 11px !important;
+  margin-right: auto;
+  float: left;
+}
+
+.restaurant-filter-buttons .apply-button {
+  font-size: 11px !important;
+  float: right;
+}
+
+/* Fix for dropdown menu */
+.sort-dropdown-menu {
+  min-width: 200px !important;
+}
+
+.sort-dropdown-menu button {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+/* Force hover background color */
+.sort-dropdown-menu button:hover {
+  background-color: #f3f4f6 !important;
+}
+
+/* Focus improvements for accessibility */
+@media (prefers-reduced-motion: no-preference) {
+  button, input, select {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .filter-section {
+    border-bottom-color: #000;
+  }
+  
+  input, select, button {
+    border-width: 2px;
+  }
+}
+
+/* Additional responsive fixes for specific screen sizes */
+@media (min-width: 1024px) and (max-width: 1200px) {
+  /* Extra compact for smaller laptops */
+  .hidden.lg\\:flex {
+    gap: 0.25rem !important;
+  }
+  
+  .hidden.lg\\:flex > div:first-child {
+    max-width: 180px !important;
+  }
+  
+  .hidden.lg\\:flex .restaurant-filter-container {
+    max-width: 100px !important;
+  }
+  
+  .hidden.lg\\:flex > div:nth-child(3) {
+    max-width: 120px !important;
+  }
+  
+  .hidden.lg\\:flex > label {
+    max-width: 100px !important;
+  }
+  
+  .hidden.lg\\:flex > button:last-child {
+    max-width: 80px !important;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+  /* Slightly more space for medium laptops */
+  .hidden.lg\\:flex {
+    gap: 0.5rem !important;
+  }
+  
+  .hidden.lg\\:flex > div:first-child {
+    max-width: 240px !important;
+  }
+  
+  .hidden.lg\\:flex .restaurant-filter-container {
+    max-width: 130px !important;
+  }
+  
+  .hidden.lg\\:flex > div:nth-child(3) {
+    max-width: 140px !important;
+  }
+  
+  .hidden.lg\\:flex > label {
+    max-width: 120px !important;
+  }
+  
+  .hidden.lg\\:flex > button:last-child {
+    max-width: 100px !important;
+  }
+}
+
+/* Mobile Dropdown Specific Styles */
+.mobile-restaurant-dropdown,
+.mobile-sort-dropdown {
+  animation: slideUp 0.3s ease-out;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Landscape orientation adjustments for mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .mobile-restaurant-dropdown,
+  .mobile-sort-dropdown {
+    max-height: 85vh !important;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+  }
+  
+  .mobile-restaurant-dropdown .max-h-48,
+  .mobile-sort-dropdown .max-h-48 {
+    max-height: 25vh !important;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mobile-restaurant-dropdown .max-h-48 {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 3px;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.mobile-restaurant-dropdown .max-h-48::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Modern Landscape Prompt Styles */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Smooth backdrop blur animation */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* Enhanced gradient background */
+.bg-gradient-to-br {
+  background: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+/* Custom animation for loading dots */
+@keyframes pulse-delayed {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth entrance animation for the modal */
+@keyframes modal-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Apply entrance animation to landscape prompt */
+.landscape-prompt-modal {
+  animation: modal-entrance 0.5s ease-out;
+}
+
+/* Smooth rotation animation for phone icons */
+@keyframes gentle-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Enhanced gradient text */
+.bg-gradient-to-r {
+  background: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.bg-clip-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.text-transparent {
+  color: transparent;
+}
+
+/* Prevent zoom on orientation change */
+@media screen and (orientation: landscape) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* Additional mobile optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Prevent text selection on mobile */
+.landscape-prompt-modal * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

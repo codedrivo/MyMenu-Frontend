@@ -1,0 +1,144 @@
+<div class="min-h-screen h-full bg-gray-200 flex flex-col py-4 px-4 md:px-8 md:py-16 lg:py-24 mt-8">
+  <h1 class="lg:text-4xl text-4xl md:text-4xl font-bold text-black text-left mb-12 formfont">
+    <p style="font-size: 1em;">For a quick look up of competitors prices within a 5-mile radius for a given menu</p>
+  </h1>
+
+  <div class="mt-2">
+    <button
+      (click)="navigateHome()"
+      class="hover:bg-gray-500 text-white px-6 py-2 rounded-lg bg-gray-700 transition-colors"
+    >
+      SEARCH FOR AN ITEM AGAIN
+    </button>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="flex justify-center items-center mt-8">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+  </div>
+
+  <div *ngIf="!isLoading" class="flex flex-col md:flex-row mt-4 w-full gap-4">
+    <!-- Fixed Restaurant Details - Left Side -->
+    <div class="w-full md:w-[320px] lg:w-[340px] flex-shrink-0">
+      <div class="w-full p-4 bg-gray-900 border border-gray-200 rounded-lg shadow text-white h-full">
+        <div class="flex restaurant-name text-lg font-bold bg-white px-2 items-center justify-center rounded-lg text-black min-h-[60px]">
+          Your Restaurant Details
+        </div>
+
+        <div class="menu-item text-sm min-h-[40px] mt-10">
+          <span class="font-semibold">Menu Item :</span><span class="ml-2"> {{ menuname ? menuname : 'N/A' }}</span>
+        </div>
+        
+        <div class="menu-name text-sm min-h-[30px]">
+          <span class="font-semibold">Menu Name :</span><span class="ml-2">  {{ 'N/A' }}</span>
+        </div>
+        
+        <div class="description text-sm min-h-[80px]">
+          <span class="font-semibold">Description :</span><span class="ml-2"> {{ description ? description : '  N/A' }}</span>
+        </div>
+        
+        <div class="menu-section text-sm min-h-[50px]">
+          <!-- <span class="font-semibold">Section :</span> <span class="ml-5"> {{ section ? section : 'N/A' }}</span> -->
+          <span class="font-semibold">Section :</span> <span class="ml-2"> {{ section ? section : 'N/A' }}</span>
+        </div>
+        
+        <div class="zipcode text-sm min-h-[30px]">
+          <span class="font-semibold">Zipcode :</span><span class="ml-2"> {{ zipcode ? zipcode : 'N/A' }}</span>
+        </div>
+        
+        <div class="price text-sm">
+          <span class="font-semibold">Price :</span><span class="ml-2"></span>
+          <strong class="text-black bg-white rounded-sm px-2 text-lg"> ${{ price ? price : '' }}</strong>
+        </div>
+
+        <div class="zipcode text-sm min-h-[30px]">
+          <span class="font-semibold">Distance :</span><span class="ml-2"> {{ distance_from_restaurant ? distance_from_restaurant : '' }} 5 Miles</span>
+        </div>
+
+        <div class="zipcode text-sm min-h-[30px]">
+          <span class="font-semibold">Cuisine Type :</span><span class="ml-2"> {{ cuisine_type ? cuisine_type : 'N/A' }}</span>
+        </div>
+
+        <div class="zipcode text-sm min-h-[30px]">
+          <span class="font-semibold">Restaurant Type :</span><span class="ml-2"> {{ style ? style : 'N/A' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable Container - Right Side -->
+    <div class="flex-1 overflow-x-auto">
+      <!-- No Data Message -->
+      <div *ngIf="!pagedList || pagedList.length === 0" class="text-center text-black p-6">
+        <p class="text-lg font-semibold">Data is not available</p>
+        <p>Please search again with Different options</p>
+      </div>
+
+      <!-- Horizontally Scrollable Restaurant Items -->
+      <div class="flex space-x-6">
+        <div
+          *ngFor="let item of pagedList"
+          class="restaurant-item min-w-[260px] md:min-w-[260px] lg:min-w-[340px] flex-shrink-0 p-4 text-white bg-gray-600 border border-white"
+        >
+          <div class="flex restaurant-name text-lg font-bold bg-white px-2 items-center justify-center rounded-lg text-black min-h-[60px]">
+            {{ item.restaurant_name ? item.restaurant_name : 'N/A' }}
+          </div>
+
+          <div class="menu-item text-sm min-h-[40px] mt-10">
+            <span class="font-semibold">Menu Item :</span> <span class="ml-2"> {{ item.menu_item_name ? item.menu_item_name : 'N/A' }} </span>
+          </div>
+          
+          <div class="zipcode text-sm min-h-[30px]">
+            <span class="font-semibold">Menu Name :</span> <span class="ml-2"> {{ item.menu_name ? item.menu_name : 'N/A' }}</span>
+          </div>
+
+          <div class="description text-sm min-h-[80px]">
+            <span class="font-semibold">Description :</span> <span class="ml-2"> {{ item.description ? item.description : 'N/A' }} </span>
+          </div>
+
+          <div class="menu-section text-sm min-h-[50px]">
+            <span class="font-semibold">Section :</span> <span class="ml-2"> {{ item.menu_section ? item.menu_section : 'N/A' }}</span>
+          </div>
+
+          <div class="zipcode text-sm min-h-[30px]">
+            <span class="font-semibold">Zipcode :</span> <span class="ml-2"> {{ item.zip_or_postal_code ? item.zip_or_postal_code : 'N/A' }}</span>
+          </div>
+
+          <div class="price text-sm">
+            <span class="font-semibold">Price :</span> <span class="ml-2"></span>
+            <strong class="text-black bg-white rounded-sm px-2 text-lg"> ${{ item.price ? formatPrice(item.price) : 'N/A' }}</strong>
+          </div>
+          
+          <div class="text-sm min-h-[30px] mt-1">
+            <span class="font-semibold">Distance :</span><span class="ml-2"> {{ item.distance_from_zipcode ? formatDistance(item.distance_from_zipcode) : 'N/A' }} Miles</span>
+          </div>
+
+          <div class="text-sm min-h-[30px] mt-1">
+            <span class="font-semibold">Cuisine Type :</span><span class="ml-2"> {{ item.cuisine_type ? item.cuisine_type : 'N/A' }}</span>
+          </div>
+
+          <div class="text-sm min-h-[30px] mt-1">
+            <span class="font-semibold">Restaurant Type :</span><span class="ml-2"> {{ item.restaurant_type ? item.restaurant_type : 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && pagedList && pagedList.length > 0" class="pagination-controls mt-6 text-center">
+    <button
+      class="pagn rounded-lg px-4 py-2"
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+    <span class="text-black">Page {{ currentPage }} of {{ Math.ceil(rolelist.length / itemsPerPage) }}</span>
+    <button
+      class="pagn rounded-lg px-4 py-2"
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === Math.ceil(rolelist.length / itemsPerPage)"
+    >
+      Next
+    </button>
+  </div>
+</div>

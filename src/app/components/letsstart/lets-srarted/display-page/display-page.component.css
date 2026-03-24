@@ -1,0 +1,187 @@
+/* TABLE ONE */
+.table-container {
+  max-width: 450px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.tab1 {
+  background-color: #565e6b;
+  border: 1px solid #000000;
+  color: #fcfcfc;
+}
+
+.tab2 {
+  background-color: #374151;
+  color: white;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.styled-table thead th {
+  background-color: #374151;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tab1 thead th {
+  background-color: #374151;
+  color: rgb(255, 253, 253);
+  border: 1px solid #fffafa;
+}
+
+.styled-table tbody td {
+  font-size: 13px;
+}
+
+.styled-table tbody tr:hover {
+  transition: background-color 0.3s ease;
+}
+
+.tab1 tbody td {
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.styled-table .price-td {
+  font-weight: bold;
+  color: #374151;
+  font-size: 90px;
+}
+
+.scrollable-body {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.scrollable-body::-webkit-scrollbar {
+  background-color: white;
+  width: 8px;
+}
+
+.scrollable-body::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 4px;
+}
+
+/* TABLE 2 */
+.table-containers, .table-containerss {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-containers {
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.table-containerss {
+  border: 1px solid black;
+}
+
+.styled-tables, .styled-tabless {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.styled-tables th, .styled-tables td, .styled-tabless th, .styled-tabless td {
+  padding: 12px 15px;
+  border: 1px solid;
+  text-align: left;
+}
+
+.styled-tables thead {
+  background-color: #374151;
+}
+
+.styled-tables tbody tr:nth-child(even) {
+  background-color: #374151;
+}
+
+.horizontal-header, .vertical-header {
+  background-color: #374151;
+  text-align: center;
+  font-weight: bold;
+}
+
+.vertical-header {
+  width: 20%;
+}
+
+.vertical-body {
+  width: 40%;
+}
+
+.restaurant-list {
+  display: flex;
+  overflow-x: auto;
+  max-width: 80vw;
+  padding-bottom: 1rem;
+}
+
+.restaurant-item {
+  flex: 0 0 300px;
+  margin-right: 16px;
+  border-radius: 8px;
+}
+
+.restaurant-list::-webkit-scrollbar {
+  display: none;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: rgb(255, 255, 255);
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #3f3e3e;
+}
+
+span {
+  line-height: 32px;
+}
+
+
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

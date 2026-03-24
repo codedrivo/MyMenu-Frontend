@@ -1,0 +1,1845 @@
+<div class="min-h-screen bg-white"> 
+ <div > 
+
+
+
+
+   <style> 
+    input[type="range"] { 
+     -webkit-appearance: none; 
+     appearance: none; 
+     height: 8px; 
+     background: #d1d5db; 
+     border-radius: 5px; 
+     outline: none; 
+     width: 100%; 
+    } 
+    input[type="range"]::-webkit-slider-thumb { 
+     -webkit-appearance: none; 
+     appearance: none; 
+     width: 16px; 
+     height: 16px; 
+     background: #2563eb; 
+     border-radius: 50%; 
+     cursor: pointer; 
+    } 
+    input[type="range"]::-moz-range-thumb { 
+     width: 16px; 
+     height: 16px; 
+     background: #2563eb; 
+     border-radius: 50%; 
+     cursor: pointer; 
+    } 
+    .main-container { 
+     max-width: 1400px; 
+     margin-left: auto; 
+     margin-right: auto; 
+    } 
+    .top-bar { 
+     height: 100px; 
+     display: flex; 
+     align-items: center; 
+     justify-content: flex-start; 
+     width: 100%; 
+     padding: 0 2rem; 
+    } 
+    .pagination-button { 
+     min-width: 40px; 
+     height: 36px; 
+    } 
+    .filter-sidebar { 
+     width: 100%; 
+     max-width: 320px; 
+    } 
+    .result-item { 
+     min-height: 80px; 
+    } 
+    .filter-section { 
+     margin-bottom: 1.5rem; 
+     padding-bottom: 1rem; 
+     border-bottom: 1px solid #e5e7eb; 
+    } 
+    .filter-section:last-child { 
+     border-bottom: none; 
+     margin-bottom: 0; 
+    } 
+    .disclaimer { 
+     background-color: #f8f9fa; 
+     border: 1px solid #e9ecef; 
+     border-radius: 8px; 
+     padding: 16px; 
+     margin: 16px 0; 
+     font-size: 12px; 
+     color: #6c757d; 
+     line-height: 1.4; 
+    } 
+    .disclaimer-title { 
+     font-weight: 600; 
+     color: #495057; 
+     margin-bottom: 8px; 
+    } 
+   </style> 
+ <div class="min-h-screen bg-gray-200 flex flex-col items-center rounded-lg py-4 sm:py-8 md:py-16 px-2 sm:px-4 md:px-8 lg:px-16 mt-6 sm:mt-8 md:mt-12 lg:mt-6"> 
+  <div class="main-container w-full max-w-7xl"> 
+   <div class="top-bar bg-white rounded-lg shadow-sm border mb-4 sm:mb-6 p-4 sm:p-6 mt-10 sm:mt-12"> 
+    <h1 class="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-black text-left leading-tight"> 
+     Search for Comparable Menu Items in Your Area 
+    </h1> 
+   </div> 
+
+
+   <!-- Legal Disclaimer Section --> 
+   <!-- <div class="disclaimer mx-8 mb-6"> 
+    <div class="disclaimer-title">Disclaimer:</div> 
+    <div> 
+     Data and analytics provided by MyMenu.AI are for informational purposes only. Users are solely responsible for all decisions and results based on this information. MyMenu.AI accepts no liability for any damages or losses arising from use or reliance on this data, including third-party content. Use of MyMenu.AI signifies acceptance of these terms. 
+    </div> 
+   </div> --> 
+   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mx-2 sm:mx-4 md:mx-8 mb-4 gap-3 sm:gap-0" 
+      [class.mobile-hide-export]="isMobileDevice && isPortraitMode && hasSearched"> 
+    <div class="flex-1"> 
+     <h3 class="text-base sm:text-lg font-medium text-gray-900 break-words">{{ rolelist.length }} Matches Found for {{ myForm.get('month')?.value | monthLabel }}</h3> 
+     <p class="text-xs sm:text-sm text-gray-500" *ngIf="pagedList && pagedList.length > 0">Showing page {{ currentPage }} of {{ getTotalPages() }}</p> 
+    </div> 
+    <div class="relative inline-block flex-shrink-0" *ngIf="hasSearched && rolelist.length > 0"> 
+     <button 
+      (click)="toggleExportMenu()" 
+      class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded text-xs sm:text-sm hover:bg-blue-700 flex items-center w-full sm:w-auto justify-center" 
+     > 
+      <svg class="w-3 h-3 sm:w-4 sm:h-4 inline-block mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path> 
+      </svg> 
+      <span class="hidden sm:inline">Download</span> 
+      <!-- <span class="sm:hidden">Export</span> --> 
+      <svg class="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+      </svg> 
+     </button> 
+     <div *ngIf="showExportMenu" class="absolute right-0 mt-2 w-32 sm:w-36 bg-white rounded-md shadow-lg z-10 border border-gray-200"> 
+      <div class="py-1"> 
+       <button (click)="exportData('csv')" class="block w-full text-left px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-100"> 
+        CSV Format 
+       </button> 
+       <button (click)="exportData('xlsx')" class="block w-full text-left px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-100"> 
+        Excel (XLSX) 
+       </button> 
+       <button (click)="exportData('pdf')" class="block w-full text-left px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-100"> 
+        PDF Format 
+       </button> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+
+
+
+
+
+
+   <!-- Mobile Filter Toggle Button --> 
+   <div class="lg:hidden mb-4 mx-2 sm:mx-4 md:mx-8"> 
+    <!-- <button 
+     (click)="toggleMobileFilters()" 
+     class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center justify-center" 
+    > 
+     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path> 
+     </svg> 
+     Search Filters 
+    </button> --> 
+   </div> 
+
+
+   <div class="min-h-screen bg-gray-100 w-full"> 
+    <div class="w-full py-2 sm:py-4 lg:py-6 px-2 sm:px-4"> 
+     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 w-full"> 
+      <!-- Mobile Filter Overlay --> 
+      <div *ngIf="showMobileFilters" class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40" (click)="closeMobileFilters()"></div> 
+
+
+      <!-- Filter Sidebar --> 
+      <div class="filter-sidebar lg:w-80 xl:w-80 flex-shrink-0"  
+         [class.mobile-filters-open]="showMobileFilters" 
+         [class.mobile-filters-closed]="!showMobileFilters" 
+         [class.mobile-show-form-only]="isMobileDevice && isPortraitMode && hasSearched"> 
+       <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6 lg:sticky lg:top-6 mobile-filter-container"> 
+        <div class="flex items-center justify-between mb-4 sm:mb-6"> 
+         <h2 class="text-base sm:text-lg font-semibold text-gray-900 ">Search Filters</h2> 
+         <div class="flex items-center gap-2"> 
+          <button 
+           type="button" 
+           (click)="clearSearch()" 
+           class="text-xs sm:text-xs text-gray-500 hover:text-gray-700 underline " 
+          > 
+           Clear All 
+          </button> 
+          <!-- Mobile Close Button --> 
+          <!-- <button 
+           type="button" 
+           (click)="closeMobileFilters()" 
+           class="lg:hidden p-1 text-gray-500 hover:text-gray-700" 
+          > 
+           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+           </svg> 
+          </button> --> 
+         </div> 
+        </div> 
+
+
+        <!-- Extended Search quick access (subscribed users only) --> 
+        <!-- <div class="mb-3" *ngIf="!isFreeTierUser"> 
+         <button 
+          type="button" 
+          (click)="navigateToExtendedSearch()" 
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-md font-medium" 
+         > 
+          Extended Search 
+         </button> 
+        </div> --> 
+        <!-- Search count display hidden for logged-in users - they now have unlimited searches --> 
+        <!-- <div class="mb-3"> 
+         <div *ngIf="isSearchCountLoading" class="text-xs text-gray-500">Fetching remaining searches...</div> 
+         <div *ngIf="!isSearchCountLoading && userSearchRemaining !== null" class="rounded-md bg-blue-50 border border-blue-200 text-blue-800 px-3 py-2 text-xs"> 
+          Searches remaining: {{ userSearchRemaining }} 
+         </div> 
+         <div *ngIf="!isSearchCountLoading && isFreeTierUser && userSearchCompleted !== null" class="rounded-md bg-green-50 border border-green-200 text-green-800 px-3 py-2 text-xs mt-2"> 
+          Searches completed: {{ userSearchCompleted }} 
+         </div> 
+         <div *ngIf="!isSearchCountLoading && isFreeTierUser && userSearchRemaining === 0" class="rounded-md bg-red-50 border border-red-200 text-red-700 px-3 py-2 text-xs mt-2"> 
+          Your free searches are over. Please purchase a plan to continue searching with new items. 
+          <button type="button" (click)="goToPricing()" class="underline text-red-700 ml-1">View Pricing</button> 
+         </div> 
+         <div *ngIf="searchCountError" class="text-xs text-red-500 mt-1">{{ searchCountError }}</div> 
+        </div> --> 
+
+
+        <form 
+         class="space-y-0" 
+         (ngSubmit)="onSubmit()" 
+         [formGroup]="myForm" 
+        > 
+         <div class="filter-section"> 
+          <h3 class="text-xs sm:text-sm font-medium text-gray-800 mb-3">Primary Search</h3> 
+          <div class="mb-3 sm:mb-4"> 
+           <label for="menuname" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Menu Item <span class="text-red-500">*</span> 
+           </label> 
+           <input 
+            type="text" 
+            id="menuname" 
+            name="menuname" 
+            formControlName="menuname" 
+            placeholder="e.g., Burger, Pizza, Soup" 
+            maxlength="50" 
+            class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base" 
+           /> 
+           <div *ngIf="myForm.controls?.['menuname']?.touched && myForm.controls?.['menuname']?.errors" class="mt-1"> 
+            <span *ngIf="myForm.controls?.['menuname']?.errors?.['required']" class="text-xs text-red-500"> 
+             Menu item is required 
+            </span> 
+           </div> 
+          </div> 
+
+
+          <div class="mb-2 sm:mb-3"> 
+           <div class="flex items-center py-1"> 
+            <input 
+             type="checkbox" 
+             id="includeDescription" 
+             formControlName="includeDescription" 
+             class="h-4 w-4 sm:h-4 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+            /> 
+            <label for="includeDescription" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 cursor-pointer"> 
+             Include description in search 
+            </label> 
+           </div> 
+          </div> 
+
+
+          <div class="mb-3 sm:mb-4"> 
+           <div class="flex items-center py-1"> 
+            <input 
+             type="checkbox" 
+             id="exactMatch" 
+             formControlName="exactMatch" 
+             class="h-4 w-4 sm:h-4 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+            /> 
+            <label for="exactMatch" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 cursor-pointer"> 
+             Exact match 
+            </label> 
+           </div> 
+          </div> 
+
+
+          <!-- Location section for logged-in users --> 
+          <div class="mb-3 sm:mb-4" *ngIf="!isAnonymousUser"> 
+           <label for="userLocationId" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Location <span class="text-red-500">*</span> 
+           </label> 
+           <select 
+            id="userLocationId" 
+            formControlName="userLocationId" 
+            (change)="onLocationSelectChange($event)" 
+            class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base" 
+           > 
+            <option [ngValue]="null" disabled>Select a saved location</option> 
+            <option *ngFor="let loc of userLocations" [value]="loc.user_location_id"> 
+             {{ loc.location }} 
+            </option> 
+           </select> 
+           <div class="mt-1 text-[10px] text-gray-500">Only active subscription locations are shown.</div>
+           <div *ngIf="isLocationsLoading || subscriptionLoading" class="mt-2 text-xs text-gray-500">Loading locations...</div> 
+           <div *ngIf="!isLocationsLoading && !subscriptionLoading && userLocations.length === 0 && !hasActiveSubscription" class="mt-2"> 
+            <div class="text-xs text-red-500 mb-2">No active subscription found. Please purchase a plan to use quick search. If plan is already purchased kindly refresh the page and try again .</div> 
+            <button type="button" (click)="goToPricing()" class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"> 
+             Purchase Plan 
+            </button> 
+           </div> 
+           <div *ngIf="!isLocationsLoading && !subscriptionLoading && userLocations.length === 0 && hasActiveSubscription" class="mt-2 text-xs text-red-500">No active locations found for your subscription.</div> 
+           <div *ngIf="locationsError && !locationsError.includes('subscription')" class="mt-2 text-xs text-red-500">{{ locationsError }}</div> 
+          </div> 
+
+
+          <!-- Address input for anonymous users --> 
+          <div class="mb-3 sm:mb-4" *ngIf="isAnonymousUser"> 
+           <label for="addressInput" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Address <span class="text-red-500">*</span> 
+           </label> 
+           <div class="relative"> 
+            <input 
+             type="text" 
+             id="addressInput" 
+             formControlName="address" 
+             placeholder="Enter your address" 
+             [disabled]="isAddressLocked" 
+             (input)="onAddressInput($event)" 
+             (focus)="onAddressInputFocus()" 
+             class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base disabled:bg-gray-100 disabled:cursor-not-allowed" 
+            /> 
+            <div *ngIf="isAddressLocked" class="absolute right-3 top-1/2 transform -translate-y-1/2"> 
+             <!-- <button 
+              type="button" 
+              (click)="unlockAddress()" 
+              class="text-blue-600 hover:text-blue-800 text-xs underline" 
+             > 
+              Change 
+             </button> --> 
+            </div> 
+
+
+            <!-- Address suggestions dropdown --> 
+            <div *ngIf="showAddressSuggestions && addressSuggestions.length > 0 && !selectedAddress"  
+               class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-50 max-h-60 overflow-y-auto"> 
+             <div *ngFor="let suggestion of addressSuggestions; trackBy: trackBySuggestion"  
+                (click)="selectAddress(suggestion)" 
+                class="px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"> 
+              <div class="text-sm text-gray-900">{{ suggestion.place_name }}</div> 
+             </div> 
+            </div> 
+
+
+            <div *ngIf="isLoadingAddresses" class="mt-2 text-xs text-gray-500">Loading addresses...</div> 
+           </div> 
+
+
+           <!-- Selected address display --> 
+           <div *ngIf="selectedAddress && !isAddressLocked" class="mt-3 p-3 bg-green-50 border border-green-200 rounded-md"> 
+            <div class="flex items-start justify-between"> 
+             <div class="flex-1"> 
+              <p class="text-xs font-medium text-green-800 mb-1">Selected Address:</p> 
+              <p class="text-sm text-green-700 break-words">{{ selectedAddress.place_name }}</p> 
+             </div> 
+             <button 
+              type="button" 
+              (click)="unlockAddress()" 
+              class="ml-2 text-green-600 hover:text-green-800 text-xs underline flex-shrink-0" 
+             > 
+              Change 
+             </button> 
+            </div> 
+           </div> 
+          </div> 
+
+
+          <!-- Address display for logged-in users --> 
+          <div class="mb-10 sm:mb-10" *ngIf="!isAnonymousUser"> 
+           <label for="address" class="block text-xs sm:text-xs font-medium text-gray-700 mb-1"> 
+            Address (auto-filled) 
+           </label> 
+           <div class="relative"> 
+            <div class="bg-blue-50 border border-blue-200 rounded-md p-1 sm:p-1"> 
+             <p class="text-xs sm:text-xs leading-tight text-blue-800 break-words"> 
+              {{ (selectedUserLocation?.location || myForm.get('address')?.value) }}<span *ngIf="selectedUserLocation?.zip_or_postal_code"></span> 
+             </p> 
+            </div> 
+           </div> 
+          </div> 
+
+
+          <!-- Anonymous user search count display --> 
+          <div class="mb-3" *ngIf="isAnonymousUser && anonymousSearchCount !== null"> 
+           <div class="rounded-md px-3 py-2 text-xs"  
+              [ngClass]="{ 
+               'bg-green-50 border border-green-200 text-green-800': anonymousSearchCount < FREE_TIER_LIMIT - 2, 
+               'bg-yellow-50 border border-yellow-200 text-yellow-800': anonymousSearchCount >= FREE_TIER_LIMIT - 2 && anonymousSearchCount < FREE_TIER_LIMIT, 
+               'bg-red-50 border border-red-200 text-red-800': anonymousSearchCount >= FREE_TIER_LIMIT 
+              }"> 
+            <div *ngIf="anonymousSearchCount < FREE_TIER_LIMIT"> 
+             Searches completed: {{ anonymousSearchCount }} / {{ FREE_TIER_LIMIT }} 
+             <span *ngIf="anonymousSearchCount >= FREE_TIER_LIMIT - 2" class="block mt-1 font-medium"> 
+              {{ FREE_TIER_LIMIT - anonymousSearchCount }} searches remaining. Sign up or Login for unlimited access! 
+             </span> 
+            </div> 
+            <div *ngIf="anonymousSearchCount >= FREE_TIER_LIMIT" class="font-medium"> 
+             All {{ FREE_TIER_LIMIT }} searches completed. Please sign up or Login to continue. 
+             <a routerLink="/signup" class="underline text-blue-600 hover:text-blue-800 cursor-pointer ml-1">Go to Signup/Login</a> 
+            </div> 
+           </div> 
+          </div> 
+
+
+          <div class="mt-3 sm:mt-4"> 
+           <label for="month" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Month 
+           </label> 
+           <select 
+            id="month" 
+            name="month" 
+            formControlName="month" 
+            class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base" 
+            (change)="onMonthChange()" 
+           > 
+            <option *ngFor="let month of availableMonths" [value]="month.value"> 
+             {{ month.label }} 
+            </option> 
+           </select> 
+          </div> 
+         </div> 
+
+
+         <div class="filter-section"> 
+          <h3 class="text-xs sm:text-sm font-medium text-gray-800 mb-3">Restaurant & Cuisine</h3> 
+          <div class="mb-3 sm:mb-4"> 
+           <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Restaurant Type 
+           </label> 
+           <div class="space-y-2"> 
+            <div class="flex items-center border-b border-gray-200 pb-2 mb-2"> 
+             <input 
+              type="checkbox" 
+              id="allRestaurantTypes" 
+              formControlName="allRestaurantTypes" 
+              (change)="onAllRestaurantTypesChange()" 
+              class="h-4 w-4 sm:h-4 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+             /> 
+             <label for="allRestaurantTypes" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 font-medium cursor-pointer"> 
+              All Restaurant Types 
+             </label> 
+            </div> 
+            <div class="grid grid-cols-1 gap-2"> 
+             <div class="flex items-center py-1"> 
+              <input 
+               type="checkbox" 
+               id="casualDining" 
+               formControlName="casualDining" 
+               (change)="onIndividualRestaurantTypeChange()" 
+               class="h-4 w-4 sm:h-4 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+              /> 
+              <label for="casualDining" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 cursor-pointer"> 
+               Casual Dining 
+              </label> 
+             </div> 
+             <div class="flex items-center py-1"> 
+              <input 
+               type="checkbox" 
+               id="qsr" 
+               formControlName="qsr" 
+               (change)="onIndividualRestaurantTypeChange()" 
+               class="h-4 w-4 sm:h-4 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+              /> 
+              <label for="qsr" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 cursor-pointer"> 
+               Quick Service Restaurant 
+              </label> 
+             </div> 
+             <div class="flex items-center py-1"> 
+              <input 
+               type="checkbox" 
+               id="fineDining" 
+               formControlName="fineDining" 
+               (change)="onIndividualRestaurantTypeChange()" 
+               class="h-4 w-4 sm:h-4 sm:w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+              /> 
+              <label for="fineDining" class="ml-2 sm:ml-3 block text-xs sm:text-sm text-gray-700 cursor-pointer"> 
+               Fine Dining 
+              </label> 
+             </div> 
+            </div> 
+            <div class="text-xs text-gray-500 mt-1"> 
+             Select none for all restaurant types 
+            </div> 
+           </div> 
+          </div> 
+
+
+          <div class="mb-3 sm:mb-4"> 
+           <label for="menuCategory" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Cuisine Type 
+           </label> 
+           <input 
+            type="text" 
+            id="menuCategory" 
+            name="menuCategory" 
+            formControlName="menuCategory" 
+            placeholder="e.g., Italian, Asian, American" 
+            maxlength="50" 
+            class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base" 
+           /> 
+          </div> 
+
+
+          <!-- New Category Selection --> 
+          <div class="mb-3 sm:mb-4"> 
+           <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Food Categories 
+           </label> 
+           <div class="relative"> 
+            <button 
+             type="button" 
+             (click)="toggleSidebarCategoryFilter()" 
+             class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-left flex items-center justify-between text-sm sm:text-base" 
+            > 
+             <span class="text-gray-700"> 
+              <span *ngIf="selectedCategories.length === 0" class="text-gray-500">Select categories...</span> 
+              <span *ngIf="selectedCategories.length === 1">{{selectedCategories[0]}}</span> 
+              <span *ngIf="selectedCategories.length > 1">{{selectedCategories.length}} categories selected</span> 
+             </span> 
+             <svg class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+             </svg> 
+            </button> 
+
+
+            <div *ngIf="showSidebarCategoryFilter" class="absolute top-full left-0 right-0 mt-6 bg-white border border-gray-300 rounded-md shadow-lg z-30 max-h-60 overflow-hidden"> 
+             <div class="p-3"> 
+              <div class="max-h-40 overflow-y-auto"> 
+               <div *ngFor="let category of getAvailableCategoriesForSidebar()" class="flex items-center py-1 hover:bg-gray-50"> 
+                <input 
+                 type="checkbox" 
+                 [id]="'sidebar-category-' + category" 
+                 [checked]="isCategorySelected(category)" 
+                 (change)="toggleCategorySelection(category, $event)" 
+                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2" 
+                /> 
+                <label [for]="'sidebar-category-' + category" class="text-sm text-gray-700 cursor-pointer flex-1">{{category}}</label> 
+               </div> 
+               <div *ngIf="getAvailableCategoriesForSidebar().length === 0" class="text-sm text-gray-500 py-2 text-center"> 
+                <span *ngIf="!hasSearched">Categories will appear after your first search</span> 
+                <span *ngIf="hasSearched && availableCategories.length === 0">No categories found in results</span> 
+                <span *ngIf="hasSearched && availableCategories.length > 0 && categorySearchQuery.trim()">No categories match your search</span> 
+               </div> 
+              </div> 
+              <div class="flex justify-between mt-3 pt-3 border-t border-gray-200" *ngIf="getAvailableCategoriesForSidebar().length > 0"> 
+               <button 
+                type="button" 
+                (click)="clearCategorySelection()" 
+                class="text-sm text-gray-600 hover:text-gray-800 underline" 
+               > 
+                Clear All 
+               </button> 
+               <button 
+                type="button" 
+                (click)="applySidebarCategoryFilter()" 
+                class="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700 transition-colors" 
+               > 
+                Apply ({{selectedCategories.length}}) 
+               </button> 
+              </div> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+
+
+         <div class="filter-section"> 
+          <h3 class="text-xs sm:text-sm font-bold text-gray-800 mb-3 mt-3 sm:mt-4">Price Filters</h3> 
+          <div class="mb-3 sm:mb-4"> 
+           <label for="price" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Item Price 
+           </label> 
+           <input 
+            type="text" 
+            id="price" 
+            name="price" 
+            formControlName="price" 
+            placeholder="e.g.,1, 0.99, 1.99, 10.99" 
+            pattern="^\d{1,4}(\.\d{1,2})?$" 
+            maxlength="7" 
+            class="w-full px-3 py-2.5 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base" 
+           /> 
+          </div> 
+
+
+
+
+
+
+          <div *ngIf="hasSearched && originalResults.length > 0" class="mb-3 sm:mb-4"> 
+           <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Price Range Filter 
+           </label> 
+           <div class="flex items-center justify-between mb-1"> 
+            <span class="text-xs text-gray-500">${{myForm.get('minPrice')?.value}}</span> 
+            <span class="text-xs text-gray-500">${{myForm.get('maxPrice')?.value}}</span> 
+           </div> 
+           <div class="relative h-8 sm:h-10"> 
+            <input 
+             type="range" 
+             formControlName="minPrice" 
+             [min]="priceRange.min" 
+             [max]="priceRange.max" 
+             [value]="myForm.get('minPrice')?.value" 
+             (input)="onPriceRangeChange()" 
+             class="absolute w-full top-0" 
+            /> 
+            <input 
+             type="range" 
+             formControlName="maxPrice" 
+             [min]="priceRange.min" 
+             [max]="priceRange.max" 
+             [value]="myForm.get('maxPrice')?.value" 
+             (input)="onPriceRangeChange()" 
+             class="absolute w-full top-4 sm:top-5" 
+            /> 
+           </div> 
+          </div> 
+
+
+          <div *ngIf="hasSearched && originalResults.length > 0" class="mb-3 sm:mb-4"> 
+           <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2"> 
+            Distance Range Filter 
+           </label> 
+           <div class="flex items-center justify-between mb-1"> 
+            <span class="text-xs text-gray-500">{{(myForm.get('minDistance')?.value | number:'1.2-2')}} miles</span> 
+            <span class="text-xs text-gray-500">{{(myForm.get('maxDistance')?.value | number:'1.2-2')}} miles</span> 
+           </div> 
+           <div class="relative h-8 sm:h-10"> 
+            <input 
+             type="range" 
+             formControlName="minDistance" 
+             [min]="distanceRange.min" 
+             [max]="distanceRange.max" 
+             [value]="myForm.get('minDistance')?.value" 
+             (input)="onDistanceRangeChange()" 
+             class="absolute w-full top-0" 
+            /> 
+            <input 
+             type="range" 
+             formControlName="maxDistance" 
+             [min]="distanceRange.min" 
+             [max]="distanceRange.max" 
+             [value]="myForm.get('maxDistance')?.value" 
+             (input)="onDistanceRangeChange()" 
+             class="absolute w-full top-4 sm:top-5" 
+            /> 
+           </div> 
+          </div> 
+         </div> 
+
+
+         <!-- Search Buttons Container --> 
+         <div class="flex gap-2 sm:gap-3"> 
+          <!-- Quick Search Button --> 
+          <button 
+           type="submit" 
+           [disabled]="isLoading || isFreeTierExhausted || isAnonymousSearchExhausted" 
+           class="flex-1 bg-blue-600 text-white py-3 sm:py-2.5 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm sm:text-base" 
+          > 
+           <span *ngIf="!isLoading">Quick Search</span> 
+           <span *ngIf="isLoading" class="flex items-center justify-center"> 
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> 
+             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle> 
+             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path> 
+            </svg> 
+            Searching... 
+           </span> 
+          </button> 
+
+
+          <!-- Extended Search Button --> 
+          <!-- <button 
+           type="button" 
+           (click)="navigateToExtendedSearch()" 
+           class="flex-1 bg-green-600 text-white py-3 sm:py-2.5 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors font-medium text-sm sm:text-base" 
+          > 
+           Extended Search 
+          </button> --> 
+         </div> 
+        </form> 
+       </div> 
+      </div> 
+
+
+      <div class="flex-grow w-full min-w-0"> 
+       <div *ngIf="!hasSearched && !isLoading" class="bg-white rounded-lg shadow-sm border p-8 text-center w-full"> 
+        <div class="w-full"> 
+         <div class="mb-6"> 
+          <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> 
+          </svg> 
+         </div> 
+         <h3 class="text-lg font-medium text-gray-900 mb-2">Ready to Find Competitor Prices?</h3> 
+         <p class="text-gray-500 mb-6"> 
+          Enter your menu item details in the search filters to discover competitive pricing in your area. 
+         </p> 
+         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 w-full text-left"> 
+          <h4 class="text-sm font-medium text-blue-900 mb-2">💡 Pro Tips:</h4> 
+          <ul class="text-sm text-blue-800 space-y-1 text-left"> 
+           <li>• Be specific with menu item names (e.g., "Cheeseburger" vs "Burger")</li> 
+           <li>• Include your current price for better comparison</li> 
+           <li>• Add cuisine type to filter relevant competitors</li> 
+           <li>• Use restaurant type to match your dining style</li> 
+          </ul> 
+         </div> 
+        </div> 
+       </div> 
+
+
+       <div *ngIf="isLoading" class="bg-white rounded-lg shadow-sm border p-8 w-full"> 
+        <div class="flex flex-col items-center justify-center"> 
+         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600 mb-4"></div> 
+         <h3 class="text-lg font-medium text-gray-900 mb-2">Searching for Results...</h3> 
+         <p class="text-gray-500">We're finding the best competitor prices in your area for {{ myForm.get('month')?.value | monthLabel }}.</p> 
+        </div> 
+       </div> 
+
+
+       <div *ngIf="error && !isLoading" class="bg-white rounded-lg shadow-sm border p-8 w-full"> 
+        <div class="text-center"> 
+         <div class="mb-4"> 
+          <svg class="mx-auto h-12 w-12 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" /> 
+          </svg> 
+         </div> 
+         <h3 class="text-lg font-medium text-gray-900 mb-2">No Results Found</h3> 
+         <p class="text-gray-500 mb-4">{{ error }}</p> 
+         <div *ngIf="isAnonymousSearchExhausted" class="mb-4"> 
+          <a routerLink="/signup" class="underline text-blue-600 hover:text-blue-800 cursor-pointer">Go to Signup/Login</a> 
+         </div> 
+         <button 
+          (click)="clearSearch()" 
+          class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors" 
+         > 
+          Try New Search 
+         </button> 
+        </div> 
+       </div> 
+
+
+       <div *ngIf="hasSearched && !isLoading && !error && ((!isGroupedByRestaurant && (!pagedList || pagedList.length === 0)) || (isGroupedByRestaurant && (!pagedGroupedList || pagedGroupedList.length === 0)))" class="bg-white rounded-lg shadow-sm border p-8 w-full"> 
+        <div class="text-center"> 
+         <div class="mb-4"> 
+          <svg class="mx-auto h-12 w-12 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /> 
+          </svg> 
+         </div> 
+         <h3 class="text-lg font-medium text-gray-900 mb-2">No Matches Found</h3> 
+         <p class="text-gray-500 mb-4">We couldn't find any menu items matching your search criteria for {{ myForm.get('month')?.value | monthLabel }}.</p> 
+         <p class="text-gray-600 mb-4 text-md">We are working on gaining more data for your area. 
+          <a routerLink="/heatmap" class="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer">Check our current coverage</a> to see where our data is currently available.</p> 
+         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4 text-left"> 
+          <h4 class="text-sm font-medium text-yellow-900 mb-2">💡 Suggestions:</h4> 
+          <ul class="text-sm text-yellow-800 space-y-1 text-left"> 
+           <li>• Try a more general menu item name</li> 
+           <li>• Check your Address is correct</li> 
+           <li>• Remove some filters to broaden your search</li> 
+           <li>• Try a different cuisine type</li> 
+           <li>• Try a different month</li> 
+           <li>• <a routerLink="/heatmap" class="text-blue-600 hover:text-blue-800 hover:underline">View our Check our current coverage</a> to see the ZIP codes where we have restaurant data available</li> 
+          </ul> 
+         </div> 
+         <button 
+          (click)="clearSearch()" 
+          class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors" 
+         > 
+          Start New Search 
+         </button> 
+        </div> 
+       </div> 
+
+
+       <div *ngIf="!isLoading && hasSearched && !error" class="space-y-4 w-full" 
+          [class.mobile-hide-results]="isMobileDevice && isPortraitMode && hasSearched"> 
+        <!-- Updated Filter Bar Section --> 
+<div *ngIf="!isLoading && hasSearched && !error" class="w-full"> 
+ <div class="bg-white rounded-lg shadow-sm border p-4 w-full"> 
+  <!-- Mobile Layout (Stacked) --> 
+  <div class="lg:hidden space-y-8"> 
+   <!-- Search Input - Full Width --> 
+   <div class="relative"> 
+    <input 
+     type="text" 
+     placeholder="Search results..." 
+     [(ngModel)]="searchQuery" 
+     (input)="onSearchQueryChange()" 
+     class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+    /> 
+    <button 
+     *ngIf="searchQuery" 
+     (click)="clearSearchQuery()" 
+     class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" 
+    > 
+     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+     </svg> 
+    </button> 
+   </div> 
+
+
+   <!-- Filter Buttons Row 1 --> 
+   <div class="grid grid-cols-2 gap-2"> 
+    <!-- Restaurant Filter --> 
+    <div class="relative restaurant-filter-container"> 
+     <button 
+      (click)="toggleRestaurantFilter()" 
+      class="w-full bg-gray-50 text-gray-700 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition-colors" 
+     > 
+      <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path> 
+      </svg> 
+      <span class="truncate">Restaurants</span> 
+      <span *ngIf="selectedRestaurants.length > 0" class="ml-2 bg-blue-600 text-white text-xs rounded-full px-2 py-1 min-w-6 h-6 flex items-center justify-center"> 
+       {{selectedRestaurants.length}} 
+      </span> 
+     </button> 
+    </div> 
+
+
+    <!-- Sort Dropdown --> 
+    <div class="relative sort-container"> 
+     <button 
+      (click)="toggleSortMenu()" 
+      class="w-full bg-gray-50 text-gray-700 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition-colors sort-toggle-button" 
+     > 
+      <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path> 
+      </svg> 
+      <span class="truncate">Sort</span> 
+      <svg class="w-4 h-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+      </svg> 
+     </button> 
+    </div> 
+   </div> 
+
+
+   <!-- Filter Buttons Row 2 --> 
+   <div class="grid grid-cols-2 gap-2"> 
+    <!-- Group Toggle --> 
+    <label class="flex items-center justify-center cursor-pointer bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"> 
+     <input  
+      type="checkbox"  
+      [checked]="isGroupedByRestaurant" 
+      (change)="toggleGroupByRestaurant()" 
+      class="sr-only peer" 
+     > 
+     <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[5px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 mr-3"></div> 
+     <span class="text-sm font-medium text-gray-700 whitespace-nowrap"> 
+      Group View 
+     </span> 
+    </label> 
+
+
+    <!-- Expand/Collapse --> 
+    <button 
+     (click)="toggleAllRows()" 
+     class="w-full bg-gray-50 text-gray-700 px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition-colors" 
+    > 
+     <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+     </svg> 
+     <span class="truncate"> 
+      {{(isGroupedByRestaurant ? !areAllRestaurantGroupsExpanded : !areAllRowsExpanded) ? 'Expand' : 'Collapse'}} 
+     </span> 
+    </button> 
+   </div> 
+  </div> 
+
+
+  <!-- Mobile Dropdown Menus --> 
+  <div class="lg:hidden"> 
+   <!-- Mobile Restaurant Filter Dropdown --> 
+   <div *ngIf="showRestaurantFilter" class="mobile-restaurant-dropdown fixed inset-x-4 bottom-4 bg-white rounded-lg shadow-lg z-50 border border-gray-200 max-h-[70vh] overflow-hidden" (click)="$event.stopPropagation()"> 
+    <div class="flex flex-col h-full"> 
+     <!-- Header - Fixed --> 
+     <div class="flex-shrink-0 p-4 pb-3"> 
+      <div class="flex items-center justify-between mb-3"> 
+       <h3 class="text-sm font-semibold text-gray-900">Filter by Restaurant</h3> 
+       <button 
+        (click)="closeRestaurantFilter()" 
+        class="text-gray-400 hover:text-gray-600" 
+       > 
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+        </svg> 
+       </button> 
+      </div> 
+
+
+      <div class="relative"> 
+       <input 
+        type="text" 
+        placeholder="Search restaurants..." 
+        [(ngModel)]="restaurantSearchQuery" 
+        (input)="onRestaurantSearchChange()" 
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+       /> 
+       <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> 
+       </svg> 
+      </div> 
+     </div> 
+
+
+     <!-- Scrollable Content --> 
+     <div class="flex-1 overflow-hidden px-4"> 
+      <div class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg"> 
+       <div class="p-2"> 
+        <div *ngFor="let restaurant of filteredRestaurants" class="flex items-center py-2 px-3 hover:bg-gray-50 rounded-md"> 
+         <input 
+          type="checkbox" 
+          [id]="'mobile-restaurant-' + restaurant" 
+          [checked]="isRestaurantSelected(restaurant)" 
+          (change)="toggleRestaurantSelection(restaurant, $event)" 
+          class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-3" 
+         /> 
+         <label [for]="'mobile-restaurant-' + restaurant" class="text-sm text-gray-700 cursor-pointer flex-1" (click)="toggleRestaurantSelection(restaurant, $event)"> 
+          {{restaurant}} 
+         </label> 
+        </div> 
+        <div *ngIf="filteredRestaurants.length === 0" class="text-sm text-gray-500 py-4 text-center"> 
+         No restaurants found 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+
+
+     <!-- Footer - Fixed --> 
+     <div class="flex-shrink-0 p-4 pt-3 border-t border-gray-200"> 
+      <div class="flex justify-between items-center"> 
+       <button 
+        (click)="clearRestaurantSelection()" 
+        class="text-sm text-gray-600 hover:text-gray-800 underline" 
+       > 
+        Clear All 
+       </button> 
+       <button 
+        (click)="applyRestaurantFilter()" 
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors" 
+       > 
+        Apply ({{selectedRestaurants.length}}) 
+       </button> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+
+
+   <!-- Mobile Sort Dropdown --> 
+   <div *ngIf="showSortMenu" class="mobile-sort-dropdown sort-dropdown-menu fixed inset-x-6 bottom-6 max-w-sm mx-auto bg-white rounded-lg shadow-lg z-50 border border-gray-200" (click)="$event.stopPropagation()"> 
+    <div class="flex flex-col h-full"> 
+     <!-- Header - Fixed --> 
+     <div class="flex-shrink-0 p-3 pb-0"> 
+      <div class="flex items-center justify-between pb-3 border-b border-gray-200"> 
+       <h3 class="text-base font-semibold text-gray-900 mr-3">Sort Options</h3> 
+       <!-- <button 
+        (click)="toggleSortMenu()" 
+        class="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-gray-100 transition-colors ml-3" 
+       > 
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+        </svg> 
+       </button> --> 
+      </div> 
+     </div> 
+
+
+     <!-- Scrollable Content --> 
+     <div class="flex-1 overflow-y-auto p-3 pt-4 space-y-1"> 
+      <button  
+       (click)="sortResults('price_asc')"  
+       class="w-full text-left px-3 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center justify-between transition-colors" 
+       [class.bg-blue-50]="currentSort === 'price_asc'" 
+      > 
+       Price (Low to High) 
+       <svg *ngIf="currentSort === 'price_asc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('price_desc')"  
+       class="w-full text-left px-3 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center justify-between transition-colors" 
+       [class.bg-blue-50]="currentSort === 'price_desc'" 
+      > 
+       Price (High to Low) 
+       <svg *ngIf="currentSort === 'price_desc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('distance_asc')"  
+       class="w-full text-left px-3 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center justify-between transition-colors" 
+       [class.bg-blue-50]="currentSort === 'distance_asc'" 
+      > 
+       Distance (Nearest) 
+       <svg *ngIf="currentSort === 'distance_asc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('distance_desc')"  
+       class="w-full text-left px-3 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center justify-between transition-colors" 
+       [class.bg-blue-50]="currentSort === 'distance_desc'" 
+      > 
+       Distance (Farthest) 
+       <svg *ngIf="currentSort === 'distance_desc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('name_asc')"  
+       class="w-full text-left px-3 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center justify-between transition-colors" 
+       [class.bg-blue-50]="currentSort === 'name_asc'" 
+      > 
+       Restaurant Name (A-Z) 
+       <svg *ngIf="currentSort === 'name_asc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('name_desc')"  
+       class="w-full text-left px-3 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-lg flex items-center justify-between transition-colors" 
+       [class.bg-blue-50]="currentSort === 'name_desc'" 
+      > 
+       Restaurant Name (Z-A) 
+       <svg *ngIf="currentSort === 'name_desc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+     </div> 
+
+
+     <!-- Footer - Fixed --> 
+     <div class="flex-shrink-0 p-3 pt-4 border-t border-gray-200"> 
+      <div class="flex justify-center items-center"> 
+       <button 
+        (click)="applySortFilter()" 
+        class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm" 
+       > 
+        Apply 
+       </button> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+
+
+   <!-- Mobile Dropdown Overlay --> 
+   <div *ngIf="showRestaurantFilter || showSortMenu"  
+      class="fixed inset-0 bg-black bg-opacity-50 z-40" 
+      (click)="closeAllMobileDropdowns()"> 
+   </div> 
+  </div> 
+
+
+  <div class="hidden lg:flex items-center gap-3 w-full"> 
+   <!-- Search Input --> 
+   <div class="relative flex-1 max-w-xs"> 
+    <input 
+     type="text" 
+     placeholder="Search results..." 
+     [(ngModel)]="searchQuery" 
+     (input)="onSearchQueryChange()" 
+     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+    /> 
+    <button 
+     *ngIf="searchQuery" 
+     (click)="clearSearchQuery()" 
+     class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" 
+    > 
+     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+     </svg> 
+    </button> 
+   </div> 
+
+
+   <!-- Restaurant Filter --> 
+   <div class="relative restaurant-filter-container "> 
+    <button 
+     (click)="toggleRestaurantFilter()" 
+     class="h-[42px] bg-gray-50 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 border border-gray-200 flex items-center transition-colors min-w-[140px]" 
+    > 
+     <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path> 
+     </svg> 
+     <span class="truncate">Restaurants</span> 
+     <span *ngIf="selectedRestaurants.length > 0" class="ml-2 bg-blue-600 text-white text-xs rounded-full px-2 py-1 min-w-6 h-6 flex items-center justify-center"> 
+      {{selectedRestaurants.length}} 
+     </span> 
+     <svg class="w-4 h-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+     </svg> 
+    </button> 
+
+
+    <!-- Restaurant Filter Dropdown --> 
+    <div *ngIf="showRestaurantFilter" class="absolute left-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-30 border border-gray-200"> 
+     <div class="p-4"> 
+      <div class="flex items-center justify-between mb-3"> 
+       <h3 class="text-sm font-semibold text-gray-900">Filter by Restaurant</h3> 
+       <button 
+        (click)="closeRestaurantFilter()" 
+        class="text-gray-400 hover:text-gray-600" 
+       > 
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+        </svg> 
+       </button> 
+      </div> 
+
+
+      <div class="relative mb-3"> 
+       <input 
+        type="text" 
+        placeholder="Search restaurants..." 
+        [(ngModel)]="restaurantSearchQuery" 
+        (input)="onRestaurantSearchChange()" 
+        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+       /> 
+       <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> 
+       </svg> 
+      </div> 
+
+
+      <div class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg"> 
+       <div class="p-2"> 
+        <div *ngFor="let restaurant of filteredRestaurants" class="flex items-center py-2 px-3 hover:bg-gray-50 rounded-md"> 
+         <input 
+          type="checkbox" 
+          [id]="'restaurant-' + restaurant" 
+          [checked]="isRestaurantSelected(restaurant)" 
+          (change)="toggleRestaurantSelection(restaurant, $event)" 
+          class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-3" 
+         /> 
+         <label [for]="'restaurant-' + restaurant" class="text-sm text-gray-700 cursor-pointer flex-1" (click)="$event.stopPropagation()"> 
+          {{restaurant}} 
+         </label> 
+        </div> 
+        <div *ngIf="filteredRestaurants.length === 0" class="text-sm text-gray-500 py-4 text-center"> 
+         No restaurants found 
+        </div> 
+       </div> 
+      </div> 
+
+
+      <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200"> 
+       <button 
+        (click)="clearRestaurantSelection()" 
+        class="text-sm text-gray-600 hover:text-gray-800 underline" 
+       > 
+        Clear All 
+       </button> 
+       <button 
+        (click)="applyRestaurantFilter()" 
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors" 
+       > 
+        Apply ({{selectedRestaurants.length}}) 
+       </button> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+
+
+   <!-- Sort Dropdown --> 
+   <div class="relative sort-container"> 
+    <button 
+     (click)="toggleSortMenu()" 
+     class="h-[42px] bg-gray-50 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 border border-gray-200 flex items-center transition-colors min-w-[180px] sort-toggle-button" 
+    > 
+     <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path> 
+     </svg> 
+     <span class="truncate flex-1 text-left">{{ getSortLabel() }}</span> 
+     <svg class="w-4 h-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+     </svg> 
+    </button> 
+
+
+    <!-- Sort Dropdown Menu --> 
+    <div *ngIf="showSortMenu" class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg z-20 border border-gray-200 sort-dropdown-menu"> 
+     <div class="p-2"> 
+      <button  
+       (click)="sortResults('price_asc')"  
+       class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between" 
+       [class.bg-blue-50]="currentSort === 'price_asc'" 
+      > 
+       Price (Low to High) 
+       <svg *ngIf="currentSort === 'price_asc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('price_desc')"  
+       class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between" 
+       [class.bg-blue-50]="currentSort === 'price_desc'" 
+      > 
+       Price (High to Low) 
+       <svg *ngIf="currentSort === 'price_desc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('distance_asc')"  
+       class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between" 
+       [class.bg-blue-50]="currentSort === 'distance_asc'" 
+      > 
+       Distance (Nearest) 
+       <svg *ngIf="currentSort === 'distance_asc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('distance_desc')"  
+       class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between" 
+       [class.bg-blue-50]="currentSort === 'distance_desc'" 
+      > 
+       Distance (Farthest) 
+       <svg *ngIf="currentSort === 'distance_desc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('name_asc')"  
+       class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between" 
+       [class.bg-blue-50]="currentSort === 'name_asc'" 
+      > 
+       Restaurant Name (A-Z) 
+       <svg *ngIf="currentSort === 'name_asc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+      <button  
+       (click)="sortResults('name_desc')"  
+       class="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 rounded-md flex items-center justify-between" 
+       [class.bg-blue-50]="currentSort === 'name_desc'" 
+      > 
+       Restaurant Name (Z-A) 
+       <svg *ngIf="currentSort === 'name_desc'" class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"> 
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path> 
+       </svg> 
+      </button> 
+     </div> 
+    </div> 
+   </div> 
+
+
+   <!-- Group Toggle --> 
+   <label class="flex items-center cursor-pointer bg-gray-50 px-4 py-2.5 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors h-[42px] min-w-[140px] mt-3"> 
+    <input  
+     type="checkbox"  
+     [checked]="isGroupedByRestaurant" 
+     (change)="toggleGroupByRestaurant()" 
+     class="sr-only peer" 
+    > 
+    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[5px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 mr-3"></div> 
+    <span class="text-sm font-medium text-gray-700 whitespace-nowrap"> 
+     Group View 
+    </span> 
+   </label> 
+
+
+   <!-- Expand/Collapse --> 
+   <button 
+    (click)="toggleAllRows()" 
+    class="h-[42px] bg-gray-50 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 border border-gray-200 flex items-center transition-colors min-w-[120px] mt-3 " 
+   > 
+    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> 
+     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path> 
+    </svg> 
+    {{(isGroupedByRestaurant ? !areAllRestaurantGroupsExpanded : !areAllRowsExpanded) ? 'Expand All' : 'Collapse All'}} 
+   </button> 
+  </div> 
+
+
+
+
+ <!-- Restaurant Filter Dropdown (Common for both layouts) --> 
+ <!-- <div *ngIf="showRestaurantFilter" class="absolute left-0 right-0 lg:left-auto lg:right-auto mt-2 w-full lg:w-24 bg-white rounded-lg shadow-lg z-30 border border-gray-200"> 
+  <div class="p-4"> 
+   <div class="flex items-center justify-between mb-3"> 
+    <h3 class="text-sm font-semibold text-gray-900">Filter by Restaurant</h3> 
+    <button 
+     (click)="closeRestaurantFilter()" 
+     class="text-gray-400 hover:text-gray-600" 
+    > 
+     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path> 
+     </svg> 
+    </button> 
+   </div> 
+
+
+   <div class="relative mb-3"> 
+    <input 
+     type="text" 
+     placeholder="Search restaurants..." 
+     [(ngModel)]="restaurantSearchQuery" 
+     (input)="onRestaurantSearchChange()" 
+     class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+    /> 
+    <svg class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> 
+    </svg> 
+   </div> 
+
+
+   <div class="max-h-48 overflow-y-auto border border-gray-200 rounded-lg"> 
+    <div class="p-2"> 
+     <div *ngFor="let restaurant of filteredRestaurants" class="flex items-center py-2 px-3 hover:bg-gray-50 rounded-md"> 
+      <input 
+       type="checkbox" 
+       [id]="'restaurant-' + restaurant" 
+       [checked]="isRestaurantSelected(restaurant)" 
+       (change)="toggleRestaurantSelection(restaurant, $event)" 
+       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-3" 
+      /> 
+      <label [for]="'restaurant-' + restaurant" class="text-sm text-gray-700 cursor-pointer flex-1" (click)="$event.stopPropagation()"> 
+       {{restaurant}} 
+      </label> 
+     </div> 
+     <div *ngIf="filteredRestaurants.length === 0" class="text-sm text-gray-500 py-4 text-center"> 
+      No restaurants found 
+     </div> 
+    </div> 
+   </div> 
+
+
+   <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-200"> 
+    <button 
+     (click)="clearRestaurantSelection()" 
+     class="text-sm text-gray-600 hover:text-gray-800 underline" 
+    > 
+     Clear All 
+    </button> 
+    <button 
+     (click)="applyRestaurantFilter()" 
+     class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors" 
+    > 
+     Apply ({{selectedRestaurants.length}}) 
+    </button> 
+   </div> 
+  </div> 
+ </div> --> 
+</div> 
+
+
+        <!-- Update the results display section --> 
+        <div class="bg-white rounded-lg shadow-sm border divide-y divide-gray-200 w-full mt-2"> 
+         <!-- Grouped Results Display --> 
+         <div *ngIf="isGroupedByRestaurant"> 
+          <div *ngFor="let group of pagedGroupedList; let groupIndex = index" class="border-b border-gray-200 last:border-b-0"> 
+           <!-- Restaurant Header --> 
+           <div class="p-4 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer" 
+              (click)="toggleGroupExpansion(group.restaurantName)"> 
+            <div class="flex items-center justify-between w-full"> 
+             <div class="flex items-start space-x-4 w-full min-w-0"> 
+              <div class="flex-grow min-w-0 text-left"> 
+               <h3 class="text-lg font-bold text-gray-900 text-left"> 
+                {{ group.restaurantName }} 
+               </h3> 
+               <p class="text-sm text-gray-600 text-left mt-1"> 
+                {{ group.items.length }} menu item{{ group.items.length !== 1 ? 's' : '' }} 
+               </p> 
+              </div> 
+              <div class="text-right flex-shrink-0"> 
+               <div class="text-sm font-medium text-green-600"> 
+                {{ formatPrice(group.minPrice) }} - {{ formatPrice(group.maxPrice) }} 
+               </div> 
+               <div class="text-xs text-gray-500"> 
+                Avg: {{ formatDistance(group.averageDistance) }} 
+               </div> 
+              </div> 
+              <div class="flex-shrink-0"> 
+               <svg class="h-5 w-5 text-gray-400 transform transition-transform" 
+                  [class.rotate-180]="group.expanded" 
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /> 
+               </svg> 
+              </div> 
+             </div> 
+            </div> 
+           </div> 
+
+
+           <!-- Menu Items within Restaurant Group --> 
+           <div *ngIf="group.expanded" class="divide-y divide-gray-100"> 
+            <div *ngFor="let item of group.items; let itemIndex = index" 
+               class="p-4 pl-8 hover:bg-gray-50 transition-colors cursor-pointer" 
+               (click)="toggleExpand(groupIndex * 1000 + itemIndex)"> 
+             <div class="flex items-center justify-between w-full"> 
+              <div class="flex items-start space-x-4 w-full min-w-0"> 
+               <div class="flex-grow min-w-0 text-left"> 
+                <h4 class="text-sm font-medium text-gray-900 text-left"> 
+                 {{ item.menu_item_name || 'N/A' }} 
+                </h4> 
+                <p class="text-xs text-gray-500 text-left mt-1"> 
+                 {{ item.menu_section || 'N/A' }} 
+                </p> 
+               </div> 
+               <div class="text-right flex-shrink-0"> 
+                <div class="text-lg font-bold text-green-600"> 
+                 {{ formatPrice(item.price) }} 
+                </div> 
+                <div class="text-xs text-gray-500"> 
+                 {{ formatDistance(item.distance_from_zipcode) }} 
+                </div> 
+               </div> 
+               <div class="flex-shrink-0"> 
+                <svg class="h-4 w-4 text-gray-400 transform transition-transform" 
+                   [class.rotate-180]="expandedRows[groupIndex * 1000 + itemIndex]" 
+                   fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /> 
+                </svg> 
+               </div> 
+              </div> 
+             </div> 
+
+
+             <!-- Item Details --> 
+             <div *ngIf="expandedRows[groupIndex * 1000 + itemIndex]" class="mt-4 pt-4 border-t border-gray-200 w-full"> 
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm w-full"> 
+               <div> 
+                <span class="font-medium text-black font-bold">Description:</span> 
+                <p class="text-gray-600 mt-1"> 
+                 {{ item.description || 'N/A' }} 
+                </p> 
+               </div> 
+               <div> 
+                <span class="font-medium text-black font-bold">Menu Section:</span> 
+                <p class="text-gray-600 mt-1">{{ item.menu_section || 'N/A' }}</p> 
+               </div> 
+               <div> 
+                <span class="font-medium text-black font-bold">Cuisine Type:</span> 
+                <p class="text-gray-600 mt-1">{{ item.cuisine_type || 'N/A' }}</p> 
+               </div> 
+               <div> 
+                <span class="font-medium text-black font-bold">Source:</span> 
+                <p class="text-gray-600 mt-1">{{ item.restaurant_source ? formatRestaurantSource(item.restaurant_source) : 'N/A' }}</p> 
+               </div> 
+               <div> 
+                <span class="font-medium text-black font-bold">Restaurant Type:</span> 
+                <p class="text-gray-600 mt-1">{{ formatRestaurantType(item.restaurant_type) }}</p> 
+               </div> 
+
+
+               <div> 
+                <span class="font-medium text-black font-bold">Category:</span> 
+                <p class="text-gray-600 mt-1">{{ item.standardized_category || 'N/A' }}</p> 
+               </div> 
+               <div> 
+                <span class="font-medium text-black font-bold">Address:</span> 
+                <p class="text-gray-600 mt-1">{{ item.address || 'N/A' }}</p> 
+               </div> 
+              </div> 
+             </div> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+
+
+         <!-- Individual Results Display (existing) --> 
+         <div *ngIf="!isGroupedByRestaurant"> 
+          <div *ngFor="let item of pagedList; let i = index" 
+             class="p-4 hover:bg-gray-50 transition-colors cursor-pointer w-full result-item" 
+             (click)="toggleExpand(i)"> 
+          <div class="flex items-center justify-between w-full"> 
+           <div class="flex items-start space-x-4 w-full min-w-0"> 
+            <div class="flex-grow min-w-0 text-left"> 
+             <h4 class="text-lg font-bold text-gray-900 text-left"> 
+              {{ item.restaurant_name || 'N/A' }} 
+             </h4> 
+             <p class="text-sm text-gray-600 text-left mt-1"> 
+              {{ item.menu_item_name || 'N/A' }} 
+             </p> 
+            </div> 
+            <div class="text-right flex-shrink-0"> 
+             <div class="text-lg font-bold text-green-600"> 
+              {{ formatPrice(item.price) }} 
+             </div> 
+             <div class="text-xs text-gray-500"> 
+              {{ formatDistance(item.distance_from_zipcode) }} 
+             </div> 
+            </div> 
+            <div class="flex-shrink-0"> 
+             <svg class="h-5 w-5 text-gray-400 transform transition-transform" 
+                [class.rotate-180]="expandedRows[i]" 
+                fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /> 
+             </svg> 
+            </div> 
+           </div> 
+          </div> 
+          <div *ngIf="expandedRows[i]" class="mt-4 pt-4 border-t border-gray-200 w-full"> 
+           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm w-full"> 
+            <div> 
+             <span class="font-medium text-black font-bold">Description:</span> 
+             <p class="text-gray-600 mt-1"> 
+              {{ item.description || 'N/A' }} 
+             </p> 
+            </div> 
+            <div> 
+             <span class="font-medium text-black font-bold">Menu Section:</span> 
+             <p class="text-gray-600 mt-1">{{ item.menu_section || 'N/A' }}</p> 
+            </div> 
+            <div> 
+             <span class="font-medium text-black font-bold">Cuisine Type:</span> 
+             <p class="text-gray-600 mt-1">{{ item.cuisine_type || 'N/A' }}</p> 
+            </div> 
+
+
+            <div> 
+             <span class="font-medium text-black font-bold">Source:</span> 
+             <p class="text-gray-600 mt-1">{{ item.restaurant_source ? formatRestaurantSource(item.restaurant_source) : 'N/A' }}</p> 
+            </div> 
+            <div> 
+             <span class="font-medium text-black font-bold">Restaurant Type:</span> 
+             <p class="text-gray-600 mt-1">{{ formatRestaurantType(item.restaurant_type) }}</p> 
+            </div> 
+            <div> 
+             <span class="font-medium text-black font-bold">Category:</span> 
+             <p class="text-gray-600 mt-1">{{ item.standardized_category || 'N/A' }}</p> 
+            </div> 
+            <div> 
+             <span class="font-medium text-black font-bold">Address:</span> 
+             <p class="text-gray-600 mt-1">{{ item.address || 'N/A' }}</p> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+        </div> 
+
+
+        <!-- Pagination Section --> 
+        <div *ngIf="pagedList && pagedList.length > 0" class="bg-white rounded-lg shadow-sm border p-6 mt-4" 
+           [class.mobile-hide-pagination]="isMobileDevice && isPortraitMode && hasSearched"> 
+        <!-- Results Summary --> 
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6"> 
+         <div class="text-sm text-gray-700 mb-4 sm:mb-0"> 
+          Showing <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span> to  
+          <span class="font-medium">{{ Math.min(currentPage * itemsPerPage, rolelist.length) }}</span>  
+          <!-- of <span class="font-medium">{{ rolelist.length }}</span> results --> 
+         </div> 
+         <!-- Items per page selector --> 
+         <div class="flex items-center space-x-2"> 
+          <label for="itemsPerPage" class="text-sm font-medium text-gray-700">Show:</label> 
+          <select 
+           id="itemsPerPage" 
+           [value]="itemsPerPage" 
+           (change)="onItemsPerPageChange(+$any($event.target).value)" 
+           class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm" 
+          > 
+           <option *ngFor="let size of availablePageSizes" [value]="size"> 
+            {{ size }} per page 
+           </option> 
+          </select> 
+         </div> 
+        </div> 
+
+
+        <!-- Modern Pagination Controls --> 
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0"> 
+         <!-- Jump to Page --> 
+         <div class="flex items-center space-x-2"> 
+          <label for="jumpToPage" class="text-xs font-medium text-gray-700">Jump to page:</label> 
+          <div class="flex items-center space-x-2"> 
+           <input 
+            type="number" 
+            id="jumpToPage" 
+            [(ngModel)]="jumpToPage" 
+            [min]="1" 
+            [max]="getTotalPages()" 
+            class="w-20 px-3 py-2 border border-gray-300 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm" 
+            (keyup.enter)="jumpToSpecificPage()" 
+           /> 
+           <button 
+            (click)="jumpToSpecificPage()" 
+            class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 shadow-sm" 
+           > 
+            Go 
+           </button> 
+          </div> 
+          <span class="text-sm text-gray-500">of {{ getTotalPages() }}</span> 
+         </div> 
+
+
+         <!-- Pagination Navigation --> 
+         <div class="flex items-center justify-center space-x-2"> 
+          <!-- First Page --> 
+          <button 
+           (click)="changePage(1)" 
+           [disabled]="currentPage === 1" 
+           class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm" 
+           title="First page" 
+          > 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path> 
+           </svg> 
+          </button> 
+
+
+          <!-- Backward Pages --> 
+          <button 
+           (click)="goBackwardPages()" 
+           [disabled]="!canGoBackward()" 
+           class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm" 
+           title="Previous 10 pages" 
+          > 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path> 
+           </svg> 
+          </button> 
+
+
+          <!-- Previous Page --> 
+          <button 
+           (click)="changePage(currentPage - 1)" 
+           [disabled]="currentPage === 1" 
+           class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm" 
+          > 
+           Previous 
+          </button> 
+
+
+          <!-- Page Numbers --> 
+          <div class="hidden sm:flex items-center space-x-1"> 
+           <button 
+            *ngFor="let page of getPageNumbers()" 
+            (click)="changePage(page)" 
+            class="min-w-[30px] px-3 py-2 text-xs font-medium rounded-lg border transition-colors duration-200 shadow-sm" 
+            [ngClass]="{ 
+             'bg-blue-600 text-white border-blue-600 shadow-md': page === currentPage, 
+             'text-gray-700 bg-white border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2': page !== currentPage 
+            }" 
+           > 
+            {{ page }} 
+           </button> 
+          </div> 
+
+
+          <!-- Mobile: Current Page Indicator --> 
+          <div class="sm:hidden px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg"> 
+           {{ currentPage }} / {{ getTotalPages() }} 
+          </div> 
+
+
+          <!-- Next Page --> 
+          <button 
+           (click)="changePage(currentPage + 1)" 
+           [disabled]="currentPage === getTotalPages()" 
+           class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm" 
+          > 
+           Next 
+          </button> 
+
+
+          <!-- Forward Pages --> 
+          <button 
+           (click)="goForwardPages()" 
+           [disabled]="!canGoForward()" 
+           class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm" 
+           title="Next 10 pages" 
+          > 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> 
+           </svg> 
+          </button> 
+
+
+          <!-- Last Page --> 
+          <button 
+           (click)="changePage(getTotalPages())" 
+           [disabled]="currentPage === getTotalPages()" 
+           class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm" 
+           title="Last page" 
+          > 
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path> 
+           </svg> 
+          </button> 
+         </div> 
+        </div> 
+
+
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  </div> 
+  <div class="disclaimer mx-8 mb-6" 
+     [class.mobile-hide-disclaimer]="isMobileDevice && isPortraitMode && hasSearched"> 
+    <div class="disclaimer-title">Disclaimer:</div> 
+    <div> 
+     Data and analytics provided by MyMenu.AI are for informational purposes only. Users are solely responsible for all decisions and results based on this information. MyMenu.AI accepts no liability for any damages or losses arising from use or reliance on this data, including third-party content. Use of MyMenu.AI signifies acceptance of these terms. 
+    </div> 
+   </div> 
+
+
+
+
+
+
+
+
+
+
+ <!-- Legal Disclaimer Section --> 
+ <!-- <div class="bg-gray-50 border-t border-gray-200 py-6 px-4 md:px-8 lg:px-16"> 
+  <div class="main-container"> 
+   <div class="bg-white rounded-lg shadow-sm border p-6"> 
+    <h3 class="text-sm font-semibold text-gray-800 mb-3">Disclaimer</h3> 
+    <p class="text-xs text-gray-600 leading-relaxed"> 
+     Data and analytics provided by MyMenu.AI are for informational purposes only. Users are solely responsible for all decisions and results based on this information. MyMenu.AI accepts no liability for any damages or losses arising from use or reliance on this data, including third-party content. Use of MyMenu.AI signifies acceptance of these terms. 
+    </p> 
+   </div> 
+  </div> 
+ </div> --> 
+  </div> 
+
+
+ </div> 
+
+
+ <!-- Address Confirmation Popup for Anonymous Users --> 
+ <div *ngIf="showAddressConfirmationPopup" class="fixed inset-0 bg-black bg-opacity-50 z-[9998] flex items-center justify-center p-4"> 
+  <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4"> 
+   <div class="p-6"> 
+    <div class="flex items-center mb-4"> 
+     <div class="flex-shrink-0"> 
+      <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path> 
+      </svg> 
+     </div> 
+     <div class="ml-3"> 
+      <h3 class="text-lg font-medium text-gray-900">Confirm Your Location</h3> 
+     </div> 
+    </div> 
+
+
+    <div class="mb-4"> 
+     <p class="text-sm text-gray-600 mb-3"> 
+      Please confirm this is the correct address for your search: 
+     </p> 
+     <div class="bg-gray-50 border border-gray-200 rounded-md p-3"> 
+      <p class="text-sm font-medium text-gray-900"> 
+       {{ selectedMapboxAddress?.place_name }} 
+      </p> 
+     </div> 
+    </div> 
+
+
+    <div class="flex space-x-3"> 
+     <button 
+      type="button" 
+      (click)="confirmAddressSelection()" 
+      class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" 
+     > 
+      Confirm 
+     </button> 
+     <button 
+      type="button" 
+      (click)="cancelAddressSelection()" 
+      class="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors" 
+     > 
+      Cancel 
+     </button> 
+    </div> 
+   </div> 
+  </div> 
+ </div> 
+
+
+ <!-- Landscape Mode Prompt Modal --> 
+ <div *ngIf="showLandscapePrompt" class="fixed inset-0 bg-gradient-to-br from-blue-900/90 to-purple-900/90 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"> 
+  <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full mx-4 landscape-prompt-modal"> 
+   <div class="p-8 text-center"> 
+
+
+
+
+    <!-- Title with Gradient --> 
+    <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4"> 
+     Rotate Your Screen 
+    </h3> 
+
+
+    <!-- Description --> 
+    <p class="text-gray-600 mb-6 leading-relaxed text-lg"> 
+     Your search is running in the background.  
+     <br> 
+     <span class="font-semibold text-blue-600">Rotate to landscape</span> to view your results! 
+    </p> 
+
+
+    <!-- Loading Indicator --> 
+    <div class="mb-6 flex justify-center"> 
+     <div class="flex space-x-1"> 
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div> 
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></div> 
+      <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></div> 
+     </div> 
+    </div> 
+
+
+    <!-- Instruction with Icon --> 
+     <div class="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100 mb-6"> 
+      <div class="flex items-center justify-center space-x-3 text-blue-700"> 
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path> 
+       </svg> 
+       <span class="font-medium">Turn your device sideways</span> 
+       <svg class="w-6 h-6 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path> 
+       </svg> 
+      </div> 
+     </div> 
+
+
+     <!-- Back to Home Button --> 
+     <button 
+      (click)="navigateToHome()" 
+      class="w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white py-3 px-4 rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-medium flex items-center justify-center space-x-2 shadow-lg" 
+     > 
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path> 
+      </svg> 
+      <span>Back to Home</span> 
+     </button> 
+   </div> 
+  </div> 
+ </div> 
+
+
+
+
+</div>

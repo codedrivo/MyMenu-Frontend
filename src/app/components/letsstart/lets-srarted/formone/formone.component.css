@@ -1,0 +1,377 @@
+.restaurant-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+.restaurant-card {
+  min-width: 300px;
+  padding: 16px;
+  background-color: #1e1e1e;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+}
+
+.restaurant-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.restaurant-card p {
+  margin: 4px 0;
+}
+
+.restaurant-container::-webkit-scrollbar {
+  height: 8px; /* Height of horizontal scrollbar */
+}
+
+.restaurant-container::-webkit-scrollbar-thumb {
+  background-color: #e4c6a1; /* Scrollbar thumb color */
+  border-radius: 10px;
+}
+
+
+.restaurant-list {
+  display: flex;
+  overflow-x: auto; 
+  width: 100%; 
+  max-width: 80vw; /* Keep the scroll within screen width */
+  padding-bottom: 1rem;
+  scrollbar-width: thin; /* Show a thin scrollbar */
+}
+
+.restaurant-item {
+  flex: 0 0 300px; /* Ensure fixed width per item */
+  margin-right: 16px; /* Space between the items */
+  border-radius: 8px;
+}
+
+/* Hide the scrollbar while still enabling horizontal scrolling (optional) */
+.restaurant-list::-webkit-scrollbar {
+  display: none;
+}
+.restaurant-list {
+  -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none;     /* Hide scrollbar for Firefox */
+}
+
+
+
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagn {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pagn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+span {
+  line-height: 32px;
+}
+
+button:disabled{
+  
+  cursor: not-allowed;
+  
+}
+
+@media (min-width: 768px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+
+.fontvarela{
+  font-family: 'Varela Round' sans-serif; 
+  font-size: 16px
+}
+
+.borderradius{
+  border-radius: 2px; 
+  height: 40px;
+}
+
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Focus states */
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Card hover effects */
+.hover\:shadow-md:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Loading animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Sticky positioning for sidebar */
+.sticky {
+  position: sticky;
+}
+
+/* Custom button styles */
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form validation styles */
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Card styles */
+.card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.card-header {
+  background-color: #1f2937;
+  color: white;
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+/* Utility classes */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+
+
+
+
+
+/* Remove any max-width constraints and ensure full width */
+.min-h-screen {
+  width: 100%;
+}
+
+/* Make containers full width */
+.w-full {
+  width: 100%;
+}
+
+/* Ensure flex items grow properly */
+.flex-grow {
+  flex-grow: 1;
+}
+
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin: 10px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+/* Style for dual range slider */
+.relative {
+  position: relative;
+  height: 30px;
+}
+
+.relative input[type="range"] {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  -webkit-appearance: none;
+  z-index: 2;
+  height: 10px;
+  opacity: 0.5;
+  top: 0;
+}
+
+.relative input[type="range"]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0 none;
+  background-color: #3b82f6;
+  cursor: pointer;
+  -webkit-appearance: none;
+  z-index: 3;
+  opacity: 1;
+}
+
+.relative input[type="range"]::-moz-range-thumb {
+  pointer-events: all;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 0 none;
+  background-color: #3b82f6;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 1;
+}
+
+.relative input[type="range"]:nth-child(1) {
+  background: linear-gradient(to right, #ddd 0%, #3b82f6 100%);
+}
+
+.relative input[type="range"]:nth-child(2) {
+  background: linear-gradient(to right, #3b82f6 0%, #ddd 100%);
+}
+
+/* Add this to ensure full width for the Pro Tips box */
+.bg-blue-50 {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+
+

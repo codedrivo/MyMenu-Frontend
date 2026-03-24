@@ -1,0 +1,396 @@
+<form class="space-y-8 max-w-6xl mt-8 w-full text-left" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <!-- Email Verification Section -->
+  <div class="mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 text-black text-md ">
+      <div class="space-y-2 ">
+        <label for="email">Email Address<span class="text-red-500">*</span></label>
+        <div class="flex items-center gap-2 ">
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="example@domain.com"
+            class="w-[60%] px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+            [ngClass]="{'border-red-500': myForm.get('email')?.errors || emailExists, 'bg-gray-200 cursor-not-allowed': emailVerified}"
+            autocomplete="off"
+            [disabled]="emailVerified || (otpSent && !changeEmailMode)"
+          />
+          <button
+            *ngIf="!otpSent && !emailVerified"
+            type="button"
+            (click)="sendOtp()"
+            [disabled]="!myForm.get('email')?.valid || emailExists || otpSent"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            {{ otpSent ? 'Code Sent' : 'Verify' }}
+          </button>
+          <button
+            *ngIf="otpSent && !emailVerified && !changeEmailMode"
+            type="button"
+            (click)="enableChangeEmail()"
+            class="px-2 py-2 w-[25%] bg-gray-500 text-white rounded-lg hover:bg-gray-700 text-md"
+          >
+            Change Email
+          </button>
+        </div>
+        <div *ngIf="myForm.get('email')?.touched && myForm.get('email')?.errors">
+          <span *ngIf="myForm.get('email')?.errors?.['required']" class="text-red-500">This field is required</span>
+          <span *ngIf="myForm.get('email')?.errors?.['email']" class="text-red-500">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div *ngIf="otpSent && !emailVerified && !changeEmailMode" class="space-y-1">
+        <label class="block text-md">Submit Code</label>
+        <div class="flex items-center gap-2">
+          <div class="flex gap-1">
+            <input
+              *ngFor="let i of [0,1,2,3,4,5]; let idx = index"
+              type="text"
+              [id]="'otp-' + idx"
+              maxlength="1"
+              class="w-10 h-10 text-center p-1 text-md rounded-md border border-gray-300 bg-gray-100 focus:ring-1 focus:ring-blue-500 focus:outline-none text-gray-900 mt-1"
+              (input)="onOtpInput($event, idx)"
+              (keydown)="onOtpKeydown($event, idx)"
+              (paste)="onOtpPaste($event, idx)"
+              pattern="[0-9]"
+              inputmode="numeric"
+              [formControl]="otpControls[idx]"
+            />
+          </div>
+          <button
+            type="button"
+            (click)="verifyOtp()"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            [disabled]="myForm.get('otp')?.invalid"
+          >
+            Submit
+          </button>
+        </div>
+        <div *ngIf="myForm.get('otp')?.invalid && myForm.get('otp')?.touched" class="text-red-500 text-xs">
+          Code must be 6 digits.
+        </div>
+        <!-- Resend Code button -->
+        <div class="mt-2">
+          <button
+            type="button"
+            (click)="sendOtp()"
+            [disabled]="!canResend"
+            [class]="canResend ? 'px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm' : 'px-4 py-2 bg-gray-300 text-gray-500 rounded-lg cursor-not-allowed text-sm'"
+          >
+            {{ canResend ? 'Resend Code' : 'Resend Code (' + resendTimer + 's)' }}
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="emailVerified" class="space-y-1">
+        <div class="flex items-center text-green-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-10" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-md mt-10">Email verified successfully!</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="text-red-500 text-xs mt-1" [ngClass]="{'text-green-500': errorMessage === 'Code verified successfully!'}">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <!-- Basic Information Section -->
+  <div class="mb-4" [ngClass]="{'cursor-not-allowed': !emailVerified || emailExists}">
+    <h2 class="text-xl font-semibold mb-6 border-b pb-2">Basic Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-8 text-black text-lg">
+      <div class="space-y-2">
+        <label for="restaurantname" class="flex items-center">
+          Restaurant Name<span class="text-red-500 ml-1">*</span>
+          <span *ngIf="getErrorMessage('restaurantname')" class="ml-2 text-sm text-red-500">{{ getErrorMessage('restaurantname') }}</span>
+        </label>
+        <input
+          type="text"
+          id="restaurantname"
+          formControlName="restaurantname"
+          class="w-full px-4 py-2 bg-white border rounded-lg"
+          [ngClass]="{'border-red-500': getErrorMessage('restaurantname'), 'border-black': !getErrorMessage('restaurantname')}"
+          maxlength="100"
+        />
+      </div>
+      <div class="space-y-2">
+        <label for="restaurantType">Restaurant Type</label>
+        <select
+          id="restaurantType"
+          formControlName="restaurantType"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        >
+          <option value="">Select Type</option>
+          <option *ngFor="let type of restaurantTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="relative space-y-2">
+        <label for="cuisineType">Cuisine Type</label>
+        <div class="relative">
+          <div
+            (click)="toggleDropdown()"
+            class="w-full px-4 py-2 bg-white text-black border border-black rounded-lg flex justify-between items-center cursor-pointer"
+          >
+            <span *ngIf="selectedCuisines.length === 0">Select Type/Add text</span>
+            <span *ngIf="selectedCuisines.length > 0">{{ selectedCuisines.length }} selected</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div *ngIf="isDropdownOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+            <div class="p-2 max-h-60 overflow-y-auto">
+              <div *ngFor="let cuisine of cuisineTypes" class="flex items-center p-2 hover:bg-gray-100">
+                <input
+                  type="checkbox"
+                  [id]="cuisine"
+                  [value]="cuisine"
+                  [checked]="isSelected(cuisine)"
+                  (change)="toggleSelection(cuisine)"
+                  class="mr-2"
+                >
+                <label [for]="cuisine" class="cursor-pointer">{{ cuisine }}</label>
+              </div>
+              <div class="flex items-center p-2 hover:bg-gray-100">
+                <input
+                  type="checkbox"
+                  id="other"
+                  [checked]="isSelected('Other')"
+                  (change)="toggleOther()"
+                  class="mr-2"
+                >
+                <label for="other" class="cursor-pointer">Other</label>
+              </div>
+              <div *ngIf="isSelected('Other')" class="px-2 pb-2">
+                <input
+                  type="text"
+                  [(ngModel)]="otherCuisine"
+                  (ngModelChange)="updateOtherCuisine($event)"
+                  [ngModelOptions]="{standalone: true}"
+                  class="w-full px-2 py-1 border border-gray-300 rounded"
+                  placeholder="Enter cuisine type"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="quality">Quality Rating</label>
+        <select
+          id="quality"
+          formControlName="quality"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        >
+          <option value="">Select Rating</option>
+          <option *ngFor="let rating of qualityRatings" [value]="rating">{{ rating }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Information Section -->
+  <div class="mb-4" [ngClass]="{'cursor-not-allowed': !emailVerified || emailExists}">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-8 text-black text-lg">
+      <!-- <div class="space-y-2">
+        <label for="addressLine1">Address Line 1<span class="text-red-500">*</span></label>
+        <input
+          type="text"
+          id="addressLine1"
+          formControlName="addressLine1"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+          maxlength="200"
+        />
+        <div *ngIf="myForm.get('addressLine1')?.touched && myForm.get('addressLine1')?.errors">
+          <span *ngIf="myForm.get('addressLine1')?.errors?.['required']" class="text-red-500">This field is required</span>
+          <span *ngIf="myForm.get('addressLine1')?.errors?.['maxlength']" class="text-red-500">Maximum 200 characters allowed</span>
+        </div>
+      </div> -->
+      
+      <!-- Mapbox Address Autocomplete Field -->
+      <div class="space-y-2 relative col-span-3">
+        <label for="address">Address<span class="text-red-500">*</span></label>
+        <input
+          type="text"
+          id="address"
+          formControlName="address"
+          placeholder="Start typing your address..."
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+          autocomplete="off"
+          (focus)="onAddressInputFocus()"
+          (blur)="onAddressInputBlur()"
+        />
+        
+        <!-- Address Suggestions Dropdown -->
+        <div *ngIf="showAddressSuggestions || isLoadingAddresses" 
+             class="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+          
+          <!-- Loading State -->
+          <div *ngIf="isLoadingAddresses" class="p-3 text-gray-500 text-center">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            Searching addresses...
+          </div>
+          
+          <!-- Address Suggestions -->
+          <div *ngIf="!isLoadingAddresses && addressSuggestions.length > 0">
+            <div *ngFor="let suggestion of addressSuggestions" 
+                 (click)="selectAddress(suggestion)"
+                 class="p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0">
+              <div class="font-medium text-gray-900">{{ suggestion.place_name }}</div>
+            </div>
+          </div>
+          
+          <!-- No Results -->
+          <div *ngIf="!isLoadingAddresses && addressSuggestions.length === 0" 
+               class="p-3 text-gray-500 text-center">
+            No addresses found. Try a different search term.
+          </div>
+        </div>
+        
+        <!-- Address Field Validation -->
+        <div *ngIf="myForm.get('address')?.touched && myForm.get('address')?.errors">
+          <span *ngIf="myForm.get('address')?.errors?.['required']" class="text-red-500">Address is required</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Business Information Section -->
+  <div class="mb-4" [ngClass]="{'cursor-not-allowed': !emailVerified || emailExists}">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-8 text-black text-lg">
+      <div class="space-y-2">
+        <label for="revenue">Annual Revenue (USD $)</label>
+        <select
+          id="revenue"
+          formControlName="revenue"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        >
+          <option value="">Select Range in USD</option>
+          <option *ngFor="let range of revenueRanges" [value]="range">{{ range }}</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label for="seating">Dine-in</label>
+        <select
+          id="seating"
+          formControlName="seating"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        >
+          <option value="">Select Option</option>
+          <option *ngFor="let option of yesNoOptions" [value]="option">{{ option === 'Yes' ? 'Yes' : 'No' }}</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label for="deliveryTakeaway">Delivery/Take Away</label>
+        <select
+          id="deliveryTakeaway"
+          formControlName="deliveryTakeaway"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        >
+          <option value="">Select Option</option>
+          <option *ngFor="let option of yesNoOptions" [value]="option">{{ option === 'Yes' ? 'Yes' : 'No' }}</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label for="liquorLicense">Liquor License</label>
+        <select
+          id="liquorLicense"
+          formControlName="liquorLicense"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        >
+          <option value="">Select Option</option>
+          <option *ngFor="let option of yesNoOptions" [value]="option">{{ option === 'Yes' ? 'Yes' : 'No' }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Information Section -->
+  <div class="mb-4" [ngClass]="{'cursor-not-allowed': !emailVerified || emailExists}">
+    <h2 class="text-xl font-semibold mb-6 border-b pb-2">Contact Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-x-6 gap-y-8 text-black text-lg">
+      <div class="space-y-2">
+        <label for="name">Contact Name<span class="text-red-500">*</span></label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+          maxlength="50"
+        />
+        <div *ngIf="myForm.get('name')?.touched && myForm.get('name')?.errors">
+          <span *ngIf="myForm.get('name')?.errors?.['required']" class="text-red-500">This field is required</span>
+          <span *ngIf="myForm.get('name')?.errors?.['maxlength']" class="text-red-500">Maximum 50 characters allowed</span>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="phonenumber">Phone Number</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-600">+1</span>
+          <input
+            type="tel"
+            id="phonenumber"
+            formControlName="phonenumber"
+            class="w-full pl-12 px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+            pattern="^[0-9]{10}$"
+            maxlength="10"
+            placeholder="Enter phone number"
+            (keypress)="preventNonNumericInput($event)"
+          />
+        </div>
+        <div *ngIf="myForm.get('phonenumber')?.touched && myForm.get('phonenumber')?.errors?.['invalidPhone']">
+          <span class="text-red-500">Please enter a valid 10-digit phone number</span>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="distance">Distance from ZIP Code (Miles)</label>
+        <input
+          type="number"
+          id="distance"
+          formControlName="distance"
+          placeholder="Distance in miles"
+          class="w-full px-4 py-2 bg-white text-black placeholder-gray-600 border border-black rounded-lg"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms and Buttons -->
+  <div class="space-y-6" [ngClass]="{'cursor-not-allowed': !emailVerified || emailExists}">
+    <div class="flex items-center gap-2">
+      <input
+        type="checkbox"
+        id="checkbox"
+        formControlName="checkbox"
+        class="leading-tight scale-125"
+      />
+      <label for="checkbox" class="text-black">
+        I agree to the <a href="TermsAndConditions" class="text-gray-600 hover:text-gray-900 underline">terms and conditions</a> on use of data and data ownership.
+      </label>
+    </div>
+    <div *ngIf="myForm.get('checkbox')?.touched && !myForm.get('checkbox')?.value">
+      <span class="text-red-500">You must accept the terms and conditions</span>
+    </div>
+    <div class="flex gap-4">
+      <button
+        type="submit"
+        class="lg:w-40 text-sm px-6 py-2 rounded-lg border border-black font-semibold transition-colors lg:h-12"
+        [ngClass]="{'bg-gray-400 text-black hover:bg-gray-800 hover:text-white': !isSubmitDisabled(), 'bg-gray-200 text-gray-500 cursor-not-allowed': isSubmitDisabled()}"
+        [disabled]="isSubmitDisabled()"
+      >
+        REGISTER
+      </button>
+      <button
+        type="button"
+        (click)="onClick()"
+        class="lg:w-40 bg-gray-400 text-black text-sm px-6 py-2 rounded-lg hover:bg-gray-800 hover:text-white border border-black font-semibold transition-colors lg:h-12"
+      >
+        LOGIN
+      </button>
+    </div>
+  </div>
+  <div *ngIf="formSubmitAttempted && !myForm.valid" class="mt-4 p-4 bg-red-50 rounded-lg">
+    <h4 class="font-semibold text-red-700">Please correct the following errors:</h4>
+    <ul class="list-disc pl-5 mt-2">
+      <li *ngFor="let error of getErrorSummary()" class="text-red-600">{{ error }}</li>
+    </ul>
+  </div>
+</form>

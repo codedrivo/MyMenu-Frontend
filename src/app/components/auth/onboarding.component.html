@@ -1,0 +1,60 @@
+<div class="auth-container image-bg">
+  <div class="card">
+    <div class="brand">MyMenu AI</div>
+    <h2 class="title">Complete your profile</h2>
+    <p class="subtitle">We need your name, restaurant details, and location to finish onboarding.</p>
+
+    <form (ngSubmit)="submit()" [formGroup]="form" novalidate>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" [value]="email" disabled maxlength="40" />
+      </div>
+
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" formControlName="user_name" placeholder="Your full name" maxlength="40" />
+      </div>
+
+      <!-- Password field is hidden for OAuth users -->
+      <div class="field" *ngIf="!isOAuthFlow">
+        <label>Password</label>
+        <div class="password-input-container">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter a password (min 6 characters)" maxlength="20" />
+          <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+            <svg *ngIf="!showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+            <svg *ngIf="showPassword" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="m1 1 22 22" stroke="currentColor" stroke-width="2"/>
+              <path d="M6.71 6.71C4.68 8.04 3 10.5 3 12s1.68 3.96 3.71 5.29" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M17.29 17.29C19.32 15.96 21 13.5 21 12s-1.68-3.96-3.71-5.29" stroke="currentColor" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Restaurant Name</label>
+        <input type="text" formControlName="restaurant_name" placeholder="Enter your restaurant name" maxlength="40" />
+      </div>
+
+      <div class="field">
+        <label>Restaurant Location</label>
+        <input #addressInput type="text" formControlName="address" placeholder="Start typing restaurant address" (input)="onAddressInput(addressInput.value)" (focus)="onAddressInputFocus()" />
+        <div class="suggestions" *ngIf="showAddressSuggestions">
+          <div class="suggestion" *ngFor="let s of addressSuggestions" (click)="selectAddress(s)">
+            {{ s.place_name }}
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="primary" [disabled]="isSubmitting">Create account</button>
+      </div>
+
+      <div class="error" *ngIf="errorMsg">{{ errorMsg }}</div>
+    </form>
+  </div>
+</div>

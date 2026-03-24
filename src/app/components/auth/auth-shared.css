@@ -1,0 +1,74 @@
+:host { display: block; }
+
+/* Shared auth page background and card styles */
+.auth-container {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  /* Base overlay gradients; image layer will be added by .image-bg */
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(0, 153, 255, 0.15), transparent),
+              radial-gradient(900px 500px at 80% 90%, rgba(120, 60, 255, 0.18), transparent),
+              linear-gradient(160deg, rgba(11,13,18,0.92) 10%, rgba(14,19,32,0.92) 60%, rgba(10,15,26,0.92) 100%);
+  padding: 24px;
+}
+
+/* Apply background image behind overlays */
+.auth-container.image-bg {
+  background: radial-gradient(1200px 600px at 20% 10%, rgba(0, 153, 255, 0.15), transparent),
+              radial-gradient(900px 500px at 80% 90%, rgba(120, 60, 255, 0.18), transparent),
+              /* Lighten the dark overlay to brighten the image */
+              linear-gradient(160deg, rgba(11,13,18,0.35) 10%, rgba(14,19,32,0.35) 60%, rgba(10,15,26,0.35) 100%),
+              url('./googleoauth.jpg');
+  background-position: 20% 10%, 80% 90%, center, center;
+  background-size: auto, auto, auto, cover;
+  background-repeat: no-repeat;
+  /* Blend gradients to further lighten the background */
+  background-blend-mode: screen, screen, normal, normal;
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(1.2) brightness(1.08);
+  border-radius: 18px;
+  padding: 36px;
+  color: #f9fbff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.18);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  font-size: 16px;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #8ab4ff;
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.title {
+  margin: 0 0 6px 0;
+  font-size: 34px;
+  line-height: 1.25;
+}
+
+.subtitle {
+  margin: 0 0 18px;
+  font-size: 16px;
+  color: #dfe6f4;
+}
+
+.note {
+  text-align: center;
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: #c7d2ea;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 28px; border-radius: 16px; max-width: 92%; }
+  .title { font-size: 28px; }
+  .subtitle { font-size: 15px; }
+}

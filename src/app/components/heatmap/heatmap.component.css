@@ -1,0 +1,30 @@
+/* Map container styling */
+#map-container {
+  background-color: #f0f0f0;
+  z-index: 1; /* Ensure proper z-index for the map */
+}
+
+/* Custom popup styling */
+:host ::ng-deep .leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.2);
+}
+
+:host ::ng-deep .leaflet-popup-content {
+  margin: 12px;
+  line-height: 1.5;
+}
+
+:host ::ng-deep .popup-content {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Ensure the map controls are visible */
+:host ::ng-deep .leaflet-control-container .leaflet-top {
+  z-index: 1000;
+}
+
+:host ::ng-deep .leaflet-control-container .leaflet-bottom {
+  z-index: 1000;
+}

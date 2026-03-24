@@ -1,0 +1,174 @@
+/* Blog Component Styles */
+.blog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-post-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.category-tag {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.read-time {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .blog-container {
+    padding: 0 1rem;
+  }
+}
+
+
+/* Custom animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+/* Blog hero button effects */
+.blog-hero-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blog-hero-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Blog post card hover effects */
+.blog-post-card {
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  border-color: #e5e7eb;
+}
+
+/* Category tag styling */
+.category-tag {
+  transition: all 0.2s ease;
+}
+
+.category-tag:hover {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Read time styling */
+.read-time {
+  font-weight: 500;
+}
+
+/* Gradient text effect for headings */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .animate-bounce {
+    display: none;
+  }
+  
+  .animate-pulse {
+    animation-duration: 3s;
+  }
+  
+  .blog-hero-button {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-post-card {
+    margin-bottom: 1rem;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Loading animation for images */
+.blog-post-card img {
+  transition: opacity 0.3s ease;
+}
+
+.blog-post-card img:not([src]) {
+  opacity: 0;
+}
+
+/* Focus states for accessibility */
+.blog-hero-button:focus,
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Newsletter input styling */
+input[type="email"] {
+  transition: all 0.3s ease;
+}
+
+input[type="email"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, .category-tag {
+  transition: all 0.2s ease;
+}
+
+/* Custom background pattern overlay */
+.bg-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+  background-size: 20px 20px;
+}

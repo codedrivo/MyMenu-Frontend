@@ -1,0 +1,72 @@
+/* Custom styles for the service request component */
+
+/* SLA breach indicator */
+.sla-breached {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(254, 202, 202, 0.5);
+  }
+  50% {
+    background-color: rgba(254, 202, 202, 0.8);
+  }
+  100% {
+    background-color: rgba(254, 202, 202, 0.5);
+  }
+}
+
+/* Responsive table adjustments */
+@media (max-width: 768px) {
+  .responsive-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* Card hover effects */
+.service-card {
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Search bar focus effect */
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 9999px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Escalation matrix styles */
+.escalation-level {
+  border-left: 4px solid transparent;
+}
+
+.escalation-level-1 {
+  border-color: #fbbf24;
+}
+
+.escalation-level-2 {
+  border-color: #f97316;
+}
+
+.escalation-level-3 {
+  border-color: #ef4444;
+}

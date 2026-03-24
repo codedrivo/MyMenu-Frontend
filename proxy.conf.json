@@ -1,0 +1,21 @@
+{
+  "/api": {
+    "target": "https://mymenu.ai",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "headers": {
+      "Origin": "https://mymenu.ai",
+      "Host": "mymenu.ai"
+    }
+  },
+  "/login": {
+    "target": "https://mymenu.ai:8001",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "headers": {
+      "Origin": "http://localhost:4200"
+    }
+  }
+}

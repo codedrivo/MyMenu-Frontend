@@ -1,0 +1,725 @@
+<!-- Background Image with Title Overlay -->
+<div class="relative mt-20 w-full h-40 sm:h-[250px] bg-cover bg-center bg-no-repeat" style="background-image: url('assets/contact.jpg');">
+    <!-- Dark Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/70 to-blue-800/90"></div>
+    
+    <!-- Title and Search Overlay -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Support Center</h1>
+      
+      <!-- Search Bar -->
+      <div class="w-full max-w-xl relative">
+        <input 
+          type="text" 
+          placeholder="Find help and services" 
+          class="w-full p-3 pl-4 pr-10 rounded-lg border-0 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 search-input"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="searchTickets()"
+        >
+        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" (click)="searchTickets()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Service Desk Categories -->
+  <section class="bg-white py-8 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-xl font-semibold text-gray-800 mb-6">Popular service desks</h2>
+      
+      <!-- Service Categories Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- IT Support -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex items-start space-x-4 hover:shadow-lg transition-shadow service-card">
+          <div class="bg-blue-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">IT Support</h3>
+            <p class="text-sm text-gray-600">Anything to do with your IT equipment, we can help.</p>
+          </div>
+        </div>
+        
+        <!-- Bug Reports -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex items-start space-x-4 hover:shadow-lg transition-shadow service-card" (click)="showTicketList = true; showTicketForm = false; showTicketDetail = false">
+          <div class="bg-red-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">Bug Reports</h3>
+            <p class="text-sm text-gray-600">Report system bugs or unexpected behavior.</p>
+          </div>
+        </div>
+        
+        <!-- Feature Requests -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex items-start space-x-4 hover:shadow-lg transition-shadow service-card" (click)="newTicket()">
+          <div class="bg-green-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">Feature Requests</h3>
+            <p class="text-sm text-gray-600">Suggest new features or improvements.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Additional Service Categories -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Change Requests -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex items-start space-x-4 hover:shadow-lg transition-shadow service-card" (click)="newChangeRequest()">
+          <div class="bg-yellow-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">Change Requests</h3>
+            <p class="text-sm text-gray-600">Request changes to existing systems or processes.</p>
+          </div>
+        </div>
+        
+        <!-- Training Requests -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex items-start space-x-4 hover:shadow-lg transition-shadow service-card" (click)="newTrainingRequest()">
+          <div class="bg-purple-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">Training Requests</h3>
+            <p class="text-sm text-gray-600">Request training sessions or materials.</p>
+          </div>
+        </div>
+        
+        <!-- Reports & Analytics -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 flex items-start space-x-4 hover:shadow-lg transition-shadow service-card" (click)="exportTickets()">
+          <div class="bg-indigo-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">Reports & Analytics</h3>
+            <p class="text-sm text-gray-600">Generate and export reports on tickets and performance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recently Used Forms -->
+      <div *ngIf="tickets.length > 0">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Recently used forms</h2>
+        <div class="space-y-4">
+          <div *ngFor="let ticket of tickets.slice(0, 3)" class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex items-center hover:bg-gray-50 transition-colors" (click)="viewTicket(ticket)">
+            <div class="mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-800">{{ticket.title}}</h3>
+              <p class="text-sm text-gray-500">{{ticket.category}} - {{ticket.status}}</p>
+            </div>
+            <!-- SLA Indicator -->
+            <div *ngIf="isSLABreached(ticket)" class="ml-auto">
+              <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">SLA Breached</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+          <button (click)="showTicketList = true; showTicketForm = false; showTicketDetail = false" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+            Explore all
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Ticket List View -->
+      <div *ngIf="showTicketList" class="mt-8 space-y-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Ticket Dashboard</h2>
+          
+          <!-- Summary Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-50 p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold text-blue-800">Total Tickets</h3>
+              <p class="text-3xl font-bold">{{tickets.length}}</p>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold text-yellow-800">Open Tickets</h3>
+              <p class="text-3xl font-bold">{{getOpenTicketsCount()}}</p>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold text-green-800">Resolved</h3>
+              <p class="text-3xl font-bold">{{getResolvedTicketsCount()}}</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg shadow">
+              <h3 class="text-lg font-semibold text-red-800">SLA Breached</h3>
+              <p class="text-3xl font-bold">{{getSLABreachedCount()}}</p>
+            </div>
+          </div>
+          
+          <!-- Category Distribution -->
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Incident Categorization</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div *ngFor="let category of ticketCategories" class="bg-gray-100 p-3 rounded-lg text-center">
+                <div class="text-lg font-semibold">{{getTicketsByCategory()[category] || 0}}</div>
+                <div class="text-sm text-gray-600">{{category}}</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Filters and Actions -->
+          <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
+            <div class="flex flex-wrap gap-2">
+              <select class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <option value="">All Categories</option>
+                <option *ngFor="let category of ticketCategories" [value]="category">{{category}}</option>
+              </select>
+              <select class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <option value="">All Statuses</option>
+                <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+              </select>
+              <select class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <option value="">All Priorities</option>
+                <option *ngFor="let priority of priorityLevels" [value]="priority">{{priority}}</option>
+              </select>
+            </div>
+            <div class="flex gap-2">
+              <button (click)="exportTickets()" class="px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Export Reports
+              </button>
+              <button (click)="newTicket()" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                New Ticket
+              </button>
+            </div>
+          </div>
+          
+          <!-- Ticket Table -->
+          <div class="overflow-x-auto responsive-table">
+            <table class="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">ID</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Title</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Category</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Priority</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Status</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Assigned To</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Reported Date</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">SLA Due</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Time Logged</th>
+                  <th class="py-3 px-4 text-left font-semibold text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ticket of tickets" class="border-t border-gray-200 hover:bg-gray-50" [class.bg-red-50]="isSLABreached(ticket)" [class.sla-breached]="isSLABreached(ticket)">
+                  <td class="py-3 px-4">{{ticket.id}}</td>
+                  <td class="py-3 px-4">{{ticket.title}}</td>
+                  <td class="py-3 px-4">
+                    <span class="px-2 py-1 rounded-full text-xs font-medium" 
+                      [class.bg-red-100]="ticket.category === 'Bug'" 
+                      [class.text-red-800]="ticket.category === 'Bug'"
+                      [class.bg-blue-100]="ticket.category === 'Feature Request'" 
+                      [class.text-blue-800]="ticket.category === 'Feature Request'"
+                      [class.bg-yellow-100]="ticket.category === 'Change Request'" 
+                      [class.text-yellow-800]="ticket.category === 'Change Request'"
+                      [class.bg-green-100]="ticket.category === 'Support Request'" 
+                      [class.text-green-800]="ticket.category === 'Support Request'"
+                      [class.bg-purple-100]="ticket.category === 'Training Request'" 
+                      [class.text-purple-800]="ticket.category === 'Training Request'"
+                      [class.bg-gray-100]="ticket.category === 'Other'" 
+                      [class.text-gray-800]="ticket.category === 'Other'"
+                    >
+                      {{ticket.category}}
+                    </span>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="px-2 py-1 rounded-full text-xs font-medium" 
+                      [class.bg-green-100]="ticket.priority === 'Low'" 
+                      [class.text-green-800]="ticket.priority === 'Low'"
+                      [class.bg-yellow-100]="ticket.priority === 'Medium'" 
+                      [class.text-yellow-800]="ticket.priority === 'Medium'"
+                      [class.bg-orange-100]="ticket.priority === 'High'" 
+                      [class.text-orange-800]="ticket.priority === 'High'"
+                      [class.bg-red-100]="ticket.priority === 'Critical'" 
+                      [class.text-red-800]="ticket.priority === 'Critical'"
+                    >
+                      {{ticket.priority}}
+                    </span>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="px-2 py-1 rounded-full text-xs font-small" 
+                      [class.bg-blue-100]="ticket.status === 'New'" 
+                      [class.text-blue-800]="ticket.status === 'New'"
+                      [class.bg-yellow-100]="ticket.status === 'In Progress'" 
+                      [class.text-yellow-800]="ticket.status === 'In Progress'"
+                      [class.bg-purple-100]="ticket.status === 'Pending'" 
+                      [class.text-purple-800]="ticket.status === 'Pending'"
+                      [class.bg-green-100]="ticket.status === 'Resolved'" 
+                      [class.text-green-800]="ticket.status === 'Resolved'"
+                      [class.bg-gray-100]="ticket.status === 'Closed'" 
+                      [class.text-gray-800]="ticket.status === 'Closed'"
+                    >
+                      {{ticket.status}}
+                    </span>
+                  </td>
+                  <td class="py-3 px-4">{{ticket.assignedTo || 'Unassigned'}}</td>
+                  <td class="py-3 px-4">{{ticket.reportedDate}}</td>
+                  <td class="py-3 px-4" [class.text-red-600]="isSLABreached(ticket)">
+                    {{ticket.dueDate || 'Not set'}}
+                    <span *ngIf="isSLABreached(ticket)" class="ml-1 text-red-600 font-medium">!</span>
+                  </td>
+                  <td class="py-3 px-4">{{ticket.timeLogged || 0}} hrs</td>
+                  <td class="py-3 px-4">
+                    <div class="flex space-x-2">
+                      <button (click)="viewTicket(ticket)" class="text-blue-600 hover:text-blue-800">
+                        View
+                      </button>
+                      <button (click)="editTicket(ticket)" class="text-yellow-600 hover:text-yellow-800">
+                        Edit
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="tickets.length === 0">
+                  <td colspan="10" class="py-4 text-center text-gray-500">No tickets found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Ticket Form -->
+      <div *ngIf="showTicketForm" class="mt-8 bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">{{selectedTicket ? 'Edit Ticket: ' + selectedTicket.id : 'Raise New Ticket'}}</h2>
+        
+        <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <!-- Hidden ID field -->
+          <input type="hidden" formControlName="id">
+          
+          <!-- Title -->
+          <div>
+            <label for="title" class="block text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
+            <input 
+              type="text" 
+              id="title" 
+              formControlName="title"
+              class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Brief description of the issue"
+            >
+            <div *ngIf="ticketForm.get('title')?.invalid && (ticketForm.get('title')?.dirty || ticketForm.get('title')?.touched)" class="text-red-500 text-sm mt-1">
+              <small *ngIf="ticketForm.get('title')?.errors?.['required']">Title is required</small>
+              <small *ngIf="ticketForm.get('title')?.errors?.['minlength']">Title must be at least 5 characters</small>
+            </div>
+          </div>
+          
+          <!-- Description -->
+          <div>
+            <label for="description" class="block text-gray-700 font-medium">Description <span class="text-red-500">*</span></label>
+            <textarea 
+              id="description" 
+              formControlName="description"
+              rows="5" 
+              class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Detailed description of the issue or request"
+            ></textarea>
+            <div *ngIf="ticketForm.get('description')?.invalid && (ticketForm.get('description')?.dirty || ticketForm.get('description')?.touched)" class="text-red-500 text-sm mt-1">
+              <small *ngIf="ticketForm.get('description')?.errors?.['required']">Description is required</small>
+              <small *ngIf="ticketForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</small>
+            </div>
+          </div>
+          
+          <!-- Category and Priority -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="category" class="block text-gray-700 font-medium">Category <span class="text-red-500">*</span></label>
+              <select 
+                id="category" 
+                formControlName="category"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+                <option *ngFor="let category of ticketCategories" [value]="category">{{category}}</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="priority" class="block text-gray-700 font-medium">Priority <span class="text-red-500">*</span></label>
+              <select 
+                id="priority" 
+                formControlName="priority"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+                <option *ngFor="let priority of priorityLevels" [value]="priority">{{priority}}</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Status and Assigned To -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="status" class="block text-gray-700 font-medium">Status</label>
+              <select 
+                id="status" 
+                formControlName="status"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+                <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="assignedTo" class="block text-gray-700 font-medium">Assigned To</label>
+              <select 
+                id="assignedTo" 
+                formControlName="assignedTo"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+                <option value="">Unassigned</option>
+                <option *ngFor="let user of users" [value]="user">{{user}}</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Reported By and Dates -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label for="reportedBy" class="block text-gray-700 font-medium">Reported By <span class="text-red-500">*</span></label>
+              <input 
+                type="text" 
+                id="reportedBy" 
+                formControlName="reportedBy"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+              <div *ngIf="ticketForm.get('reportedBy')?.invalid && (ticketForm.get('reportedBy')?.dirty || ticketForm.get('reportedBy')?.touched)" class="text-red-500 text-sm mt-1">
+                <small *ngIf="ticketForm.get('reportedBy')?.errors?.['required']">Reporter name is required</small>
+              </div>
+            </div>
+            
+            <div>
+              <label for="reportedDate" class="block text-gray-700 font-medium">Reported Date</label>
+              <input 
+                type="date" 
+                id="reportedDate" 
+                formControlName="reportedDate"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+            </div>
+            
+            <div>
+              <label for="dueDate" class="block text-gray-700 font-medium">Due Date (SLA)</label>
+              <input 
+                type="date" 
+                id="dueDate" 
+                formControlName="dueDate"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+            </div>
+          </div>
+          
+          <!-- Time Logged and Attachments -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="timeLogged" class="block text-gray-700 font-medium">Time Logged (hours)</label>
+              <input 
+                type="number" 
+                id="timeLogged" 
+                formControlName="timeLogged"
+                min="0"
+                step="0.5"
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+            </div>
+            
+            <div>
+              <label for="attachments" class="block text-gray-700 font-medium">Attachments</label>
+              <input 
+                type="file" 
+                id="attachments" 
+                class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              >
+              <p class="text-sm text-gray-500 mt-1">Upload screenshots or relevant files</p>
+            </div>
+          </div>
+          
+          <!-- Root Cause Analysis -->
+          <div *ngIf="selectedTicket && (selectedTicket.status === 'Resolved' || selectedTicket.status === 'Closed')">
+            <label for="rootCause" class="block text-gray-700 font-medium">Root Cause Analysis</label>
+            <textarea 
+              id="rootCause" 
+              formControlName="rootCause"
+              rows="3" 
+              class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Detailed analysis of what caused the issue"
+            ></textarea>
+          </div>
+          
+          <!-- Resolution -->
+          <div *ngIf="selectedTicket && (selectedTicket.status === 'Resolved' || selectedTicket.status === 'Closed')">
+            <label for="resolution" class="block text-gray-700 font-medium">Resolution</label>
+            <textarea 
+              id="resolution" 
+              formControlName="resolution"
+              rows="3" 
+              class="w-full p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="How the issue was resolved"
+            ></textarea>
+          </div>
+          
+          <!-- Notification Settings -->
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-gray-800 mb-2">Notification Settings</h3>
+            <div class="flex flex-wrap gap-4">
+              <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-700">Email notifications</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-700">SMS notifications</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-700">Notify on status change</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+                <span class="ml-2 text-gray-700">Notify on comment</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Form Buttons -->
+          <div class="flex space-x-4">
+            <button 
+              type="submit" 
+              class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+              [disabled]="ticketForm.invalid"
+            >
+              {{selectedTicket ? 'Update Ticket' : 'Submit Ticket'}}
+            </button>
+            <button 
+              type="button" 
+              (click)="resetForm()"
+              class="px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+  
+      <!-- Ticket Detail View -->
+      <div *ngIf="showTicketDetail && selectedTicket" class="mt-8 bg-white rounded-lg shadow-md p-6">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">{{selectedTicket.title}}</h2>
+            <p class="text-gray-500">{{selectedTicket.id}} - Reported on {{selectedTicket.reportedDate}}</p>
+          </div>
+          <div class="flex space-x-3">
+            <button 
+              (click)="editTicket(selectedTicket)"
+              class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+            >
+              Edit
+            </button>
+            <button 
+              (click)="resetForm()"
+              class="px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+  
+        <!-- Status and Actions Bar -->
+        <div class="bg-gray-100 p-4 rounded-lg mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap gap-3 items-center">
+            <span class="font-semibold text-gray-700">Status:</span>
+            <select 
+              [value]="selectedTicket?.status"
+              (change)="updateStatusFromEvent(selectedTicket!.id, $event)"
+              class="p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+            >
+              <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+            </select>
+            
+            <span class="font-semibold text-gray-700 ml-4">Assigned To:</span>
+            <select 
+              [value]="selectedTicket?.assignedTo"
+              (change)="transferTicketFromEvent(selectedTicket!.id, $event)"
+              class="p-2 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+            >
+              <option value="">Unassigned</option>
+              <option *ngFor="let user of users" [value]="user">{{user}}</option>
+            </select>
+          </div>
+          
+          <div class="flex flex-wrap gap-3">
+            <button 
+              (click)="escalateTicket(selectedTicket!.id)"
+              class="px-3 py-1 bg-red-100 text-red-800 font-medium rounded-lg hover:bg-red-200 flex items-center"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Escalate
+            </button>
+            
+            <!-- Time Logging -->
+            <div class="flex items-center gap-2">
+              <input 
+                type="number" 
+                min="0.5" 
+                step="0.5" 
+                value="1"
+                #hoursInput
+                class="w-16 p-1 border border-gray-400 rounded-lg"
+              >
+              <button 
+                (click)="logTimeFromInput(selectedTicket!.id, hoursInput)"
+                class="px-3 py-1 bg-blue-100 text-blue-800 font-medium rounded-lg hover:bg-blue-200 flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Log Time
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Ticket Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Details</h3>
+            <div class="bg-gray-50 p-4 rounded-lg space-y-3">
+              <div class="grid grid-cols-3 gap-2">
+                <span class="text-gray-600 font-medium">Category:</span>
+                <span class="col-span-2">{{selectedTicket.category}}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <span class="text-gray-600 font-medium">Priority:</span>
+                <span class="col-span-2">{{selectedTicket.priority}}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <span class="text-gray-600 font-medium">Reported By:</span>
+                <span class="col-span-2">{{selectedTicket.reportedBy}}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <span class="text-gray-600 font-medium">Due Date:</span>
+                <span class="col-span-2" [class.text-red-600]="isSLABreached(selectedTicket)">
+                  {{selectedTicket.dueDate || 'Not set'}}
+                  <span *ngIf="isSLABreached(selectedTicket)" class="ml-2 text-red-600 font-medium">(SLA Breached)</span>
+                </span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <span class="text-gray-600 font-medium">Time Logged:</span>
+                <span class="col-span-2">{{selectedTicket.timeLogged || 0}} hours</span>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Description</h3>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="whitespace-pre-line">{{selectedTicket.description}}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Root Cause Analysis & Resolution -->
+        <div *ngIf="selectedTicket.status === 'Resolved' || selectedTicket.status === 'Closed'" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Root Cause Analysis</h3>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="whitespace-pre-line">{{selectedTicket.rootCause || 'Not provided'}}</p>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Resolution</h3>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="whitespace-pre-line">{{selectedTicket.resolution || 'Not provided'}}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Comments Section -->
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Comments</h3>
+          
+          <!-- Comment List -->
+          <div class="space-y-4 mb-4">
+            <div *ngFor="let comment of selectedTicket.comments" class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium text-gray-800">{{comment.user}}</span>
+                <span class="text-gray-500 text-sm">{{comment.date}}</span>
+              </div>
+              <p class="text-gray-700">{{comment.text}}</p>
+            </div>
+            
+            <div *ngIf="selectedTicket.comments.length === 0" class="text-gray-500 italic">
+              No comments yet
+            </div>
+          </div>
+          
+          <!-- Add Comment -->
+          <div class="flex space-x-3">
+            <textarea 
+              #commentInput
+              class="flex-1 p-3 border border-gray-400 rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Add a comment..."
+              rows="2"
+            ></textarea>
+            <button 
+              (click)="addComment(selectedTicket.id, commentInput.value); commentInput.value = ''"
+              class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 self-end"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+  
+        <!-- Audit Trail -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">Audit Trail</h3>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="space-y-2">
+              <div class="flex items-center text-sm">
+                <span class="text-gray-500 w-32">2023-06-16 09:30</span>
+                <span class="text-gray-700">Jane Smith updated status to In Progress</span>
+              </div>
+              <div class="flex items-center text-sm">
+                <span class="text-gray-500 w-32">2023-06-15 14:45</span>
+                <span class="text-gray-700">Ticket assigned to Jane Smith</span>
+              </div>
+              <div class="flex items-center text-sm">
+                <span class="text-gray-500 w-32">2023-06-15 10:20</span>
+                <span class="text-gray-700">Ticket created by John Doe</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,29 @@
+<div class="auth-container image-bg">
+  <div class="card">
+    <div class="brand">MyMenu AI</div>
+    <div class="row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+        <path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h2 class="title">Authentication Success</h2>
+        <p class="subtitle">{{ userExists ? 'Welcome back' : 'Let’s finish setting up your account' }}</p>
+      </div>
+    </div>
+
+    <div class="details">
+      <div>Email: <strong>{{ email }}</strong></div>
+      <div *ngIf="userExists === true">Your account is ready. Click Continue to proceed to Extended Search.</div>
+      <div *ngIf="userExists === false">Click Continue to complete onboarding (name and one location).</div>
+      <div *ngIf="userExists === null">Status unknown. Continue will verify your account and proceed.</div>
+      <div *ngIf="processing" style="margin-top:8px; color:#9fb6ff;">Processing...</div>
+      <div style="margin-top:6px; color:#f5c6c6;" *ngIf="!processing && message && message !== 'Signed in successfully'">{{ message }}</div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" (click)="continue()" [disabled]="processing">Continue</button>
+      <button class="secondary" (click)="router.navigate(['/login'])" [disabled]="processing">Switch Account</button>
+    </div>
+  </div>
+</div>

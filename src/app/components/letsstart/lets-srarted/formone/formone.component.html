@@ -1,0 +1,518 @@
+<div class="min-h-screen bg-gray-100 w-full"> 
+  <!-- Header --> 
+  <!-- <div class="bg-white w-full shadow-sm border-b py-6"> 
+    <div class="w-full px-4"> 
+      <h1 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2"> 
+        Menu Item Price Comparison 
+      </h1> 
+      <p class="text-gray-600"> 
+        Find competitor prices within a 5-mile radius for your menu items 
+      </p> 
+    </div> 
+  </div>  -->
+
+  <div class="w-full py-6 px-4"> 
+    <div class="flex flex-col lg:flex-row gap-4 w-full"> 
+      <!-- Left Sidebar - Filters --> 
+      <div class="lg:w-64 xl:w-72 flex-shrink-0"> 
+        <div class="bg-white rounded-lg shadow-sm border p-6 sticky top-6"> 
+          <div class="flex items-center justify-between mb-6">
+           <h2 class="text-lg font-semibold text-gray-900">Search Filters</h2>
+           <button 
+             type="button"
+             (click)="clearSearch()"
+             class="text-sm text-gray-500 hover:text-gray-700 underline"
+           >
+             Clear All
+           </button>
+         </div>
+
+         <form 
+           class="space-y-4"
+           (ngSubmit)="onSubmit()"
+           [formGroup]="myForm"
+         >
+           <!-- Menu Item -->
+           <div>
+             <label for="menuname" class="block text-sm font-medium text-gray-700 mb-2">
+               Menu Item <span class="text-red-500">*</span>
+             </label>
+             <input
+               type="text"
+               id="menuname"
+               name="menuname"
+               formControlName="menuname"
+               placeholder="e.g., Burger, Pizza, Soup"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+             />
+             <div *ngIf="myForm.controls?.['menuname']?.touched && myForm.controls?.['menuname']?.errors" class="mt-1">
+               <span *ngIf="myForm.controls?.['menuname']?.errors?.['required']" class="text-xs text-red-500">
+                 Menu item is required
+               </span>
+             </div>
+           </div>
+
+           <!-- ZIP Code -->
+           <div>
+             <label for="zipcode" class="block text-sm font-medium text-gray-700 mb-2">
+               ZIP Code <span class="text-red-500">*</span>
+             </label>
+             <input
+               type="text"
+               id="zipcode"
+               name="zipcode"
+               formControlName="zipcode"
+               placeholder="e.g., 12345"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+             />
+             <div *ngIf="myForm.controls?.['zipcode']?.touched && myForm.controls?.['zipcode']?.errors" class="mt-1">
+               <span *ngIf="myForm.controls?.['zipcode']?.errors?.['required']" class="text-xs text-red-500">
+                 ZIP code is required
+               </span>
+               <span *ngIf="myForm.controls?.['zipcode']?.errors?.['invalidZipCode']" class="text-xs text-red-500">
+                 Please enter a valid US ZIP code
+               </span>
+             </div>
+           </div>
+
+           <!-- Price -->
+           <!-- After the Price input field, add these range sliders -->
+           <div>
+             <label for="price" class="block text-sm font-medium text-gray-700 mb-2">
+               Item Price
+             </label>
+             <input
+               type="number"
+               id="price"
+               name="price"
+               formControlName="price"
+               placeholder="e.g., 12.99"
+               step="0.01"
+               min="0"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+             />
+           </div>
+
+           <!-- Restaurant Type -->
+           <div>
+             <label class="block text-sm font-medium text-gray-700 mb-2">
+               Restaurant Type
+             </label>
+             <div class="space-y-2">
+               <div class="flex items-center">
+                 <input
+                   type="checkbox"
+                   id="casualDining"
+                   formControlName="casualDining"
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                 />
+                 <label for="casualDining" class="ml-2 block text-sm text-gray-700">
+                   Casual Dining
+                 </label>
+               </div>
+               <div class="flex items-center">
+                 <input
+                   type="checkbox"
+                   id="qsr"
+                   formControlName="qsr"
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                 />
+                 <label for="qsr" class="ml-2 block text-sm text-gray-700">
+                   QSR
+                 </label>
+               </div>
+               <div class="flex items-center">
+                 <input
+                   type="checkbox"
+                   id="fineDining"
+                   formControlName="fineDining"
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                 />
+                 <label for="fineDining" class="ml-2 block text-sm text-gray-700">
+                   Fine Dining
+                 </label>
+               </div>
+               <div class="text-xs text-gray-500 mt-1">
+                 Select none for all restaurant types
+               </div>
+             </div>
+           </div>
+           
+           <!-- Price Range Filter -->
+           <div *ngIf="hasSearched && originalResults.length > 0" class="mt-4">
+             <label class="block text-sm font-medium text-gray-700 mb-2">
+               Price Range Filter
+             </label>
+             <div class="flex items-center justify-between mb-1">
+               <span class="text-xs text-gray-500">${{myForm.get('minPrice')?.value}}</span>
+               <span class="text-xs text-gray-500">${{myForm.get('maxPrice')?.value}}</span>
+             </div>
+             <div class="relative">
+               <input
+                 type="range"
+                 formControlName="minPrice"
+                 [min]="priceRange.min"
+                 [max]="priceRange.max"
+                 [value]="myForm.get('minPrice')?.value"
+                 (input)="onPriceRangeChange()"
+                 class="absolute w-full h-1 bg-gray-300 rounded appearance-none cursor-pointer"
+               />
+               <input
+                 type="range"
+                 formControlName="maxPrice"
+                 [min]="priceRange.min"
+                 [max]="priceRange.max"
+                 [value]="myForm.get('maxPrice')?.value"
+                 (input)="onPriceRangeChange()"
+                 class="absolute w-full h-1 bg-gray-300 rounded appearance-none cursor-pointer"
+               />
+             </div>
+           </div>
+           
+           <!-- Distance Range Filter -->
+           <div *ngIf="hasSearched && originalResults.length > 0" class="mt-4">
+             <label class="block text-sm font-medium text-gray-700 mb-2">
+               Distance Range Filter
+             </label>
+             <div class="flex items-center justify-between mb-1">
+               <span class="text-xs text-gray-500">{{myForm.get('minDistance')?.value}} miles</span>
+               <span class="text-xs text-gray-500">{{myForm.get('maxDistance')?.value}} miles</span>
+             </div>
+             <div class="relative">
+               <input
+                 type="range"
+                 formControlName="minDistance"
+                 [min]="distanceRange.min"
+                 [max]="distanceRange.max"
+                 [value]="myForm.get('minDistance')?.value"
+                 (input)="onDistanceRangeChange()"
+                 class="absolute w-full h-1 bg-gray-300 rounded appearance-none cursor-pointer"
+               />
+               <input
+                 type="range"
+                 formControlName="maxDistance"
+                 [min]="distanceRange.min"
+                 [max]="distanceRange.max"
+                 [value]="myForm.get('maxDistance')?.value"
+                 (input)="onDistanceRangeChange()"
+                 class="absolute w-full h-1 bg-gray-300 rounded appearance-none cursor-pointer"
+               />
+             </div>
+           </div>
+           
+           <!-- Description -->
+           <div>
+             <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+               Description
+             </label>
+             <textarea
+               id="description"
+               name="description"
+               formControlName="description"
+               placeholder="Brief description of the menu item"
+               rows="3"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+             ></textarea>
+           </div>
+
+           
+
+           <!-- Cuisine Type -->
+           <div>
+             <label for="menuCategory" class="block text-sm font-medium text-gray-700 mb-2">
+               Cuisine Type
+             </label>
+             <input
+               type="text"
+               id="menuCategory"
+               name="menuCategory"
+               formControlName="menuCategory"
+               placeholder="e.g., Italian, Asian, American"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+             />
+           </div>
+
+           <!-- Search Button -->
+           <button
+             type="submit"
+             [disabled]="isLoading"
+             class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+           >
+             <span *ngIf="!isLoading">Search</span>
+             <span *ngIf="isLoading" class="flex items-center justify-center">
+               <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+               </svg>
+               Searching...
+             </span>
+           </button>
+         </form>
+        </div> 
+      </div> 
+
+      <!-- Right Content Area --> 
+      <div class="flex-grow w-full"> 
+        <!-- Default State - No Search --> 
+        <div *ngIf="!hasSearched && !isLoading" class="bg-white rounded-lg shadow-sm border p-8 text-center w-full"> 
+          <div class="w-full">
+           <div class="mb-6">
+             <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+             </svg>
+           </div>
+           <h3 class="text-lg font-medium text-gray-900 mb-2">Ready to Find Competitor Prices?</h3>
+           <p class="text-gray-500 mb-6">
+             Enter your menu item details in the search filters to discover competitive pricing in your area.
+           </p>
+           <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 w-full text-left">
+             <h4 class="text-sm font-medium text-blue-900 mb-2">💡 Pro Tips:</h4>
+             <ul class="text-sm text-blue-800 space-y-1 text-left">
+               <li>• Be specific with menu item names (e.g., "Cheeseburger" vs "Burger")</li>
+               <li>• Include your current price for better comparison</li>
+               <li>• Add cuisine type to filter relevant competitors</li>
+               <li>• Use restaurant type to match your dining style</li>
+             </ul>
+           </div>
+         </div>
+        </div> 
+
+        <!-- Loading State --> 
+        <div *ngIf="isLoading" class="bg-white rounded-lg shadow-sm border p-8 w-full"> 
+          <div class="flex flex-col items-center justify-center">
+           <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600 mb-4"></div>
+           <h3 class="text-lg font-medium text-gray-900 mb-2">Searching for Results...</h3>
+           <p class="text-gray-500">We're finding the best competitor prices in your area.</p>
+         </div>
+        </div> 
+
+        <!-- Error State --> 
+        <div *ngIf="error && !isLoading" class="bg-white rounded-lg shadow-sm border p-8 w-full"> 
+          <div class="text-center">
+           <div class="mb-4">
+             <svg class="mx-auto h-12 w-12 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+             </svg>
+           </div>
+           <h3 class="text-lg font-medium text-gray-900 mb-2">No Results Found</h3>
+           <p class="text-gray-500 mb-4">{{ error }}</p>
+           <button 
+             (click)="clearSearch()"
+             class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+           >
+             Try New Search
+           </button>
+         </div>
+        </div> 
+
+        <!-- Results List --> 
+        <div *ngIf="!isLoading && pagedList && pagedList.length > 0" class="space-y-4 w-full"> 
+          <!-- Results Header --> 
+          <div class="bg-white rounded-lg shadow-sm border p-4 w-full "> 
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between"> 
+              <div> 
+                <h3 class="text-lg font-medium text-gray-900">{{ rolelist.length }} Matches Found</h3> 
+                <p class="text-sm text-gray-500">Showing page {{ currentPage }} of {{ getTotalPages() }}</p> 
+              </div> 
+              <div class="mt-3 sm:mt-0 flex items-center space-x-2">
+                <!-- Add Sort Dropdown -->
+                <div class="relative inline-block">
+                  <button 
+                    (click)="toggleSortMenu()" 
+                    class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-200 flex items-center"
+                  >
+                    <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path>
+                    </svg>
+                    Sort By: {{ getSortLabel() }}
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <div *ngIf="showSortMenu" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                    <div class="py-1">
+                      <button (click)="sortResults('price_asc')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Price (Low to High)
+                      </button>
+                      <button (click)="sortResults('price_desc')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Price (High to Low)
+                      </button>
+                      <button (click)="sortResults('distance_asc')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Distance (Nearest First)
+                      </button>
+                      <button (click)="sortResults('distance_desc')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Distance (Farthest First)
+                      </button>
+                      <button (click)="sortResults('name_asc')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Restaurant Name (A-Z)
+                      </button>
+                      <button (click)="sortResults('name_desc')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Restaurant Name (Z-A)
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Replace the existing download button with this dropdown menu -->
+                <div class="relative inline-block">
+                  <button 
+                    (click)="toggleExportMenu()" 
+                    class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 flex items-center"
+                  >
+                    <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <div *ngIf="showExportMenu" class="absolute right-0 mt-2 w-36 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                    <div class="py-1">
+                      <button (click)="exportData('csv')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        CSV Format
+                      </button>
+                      <button (click)="exportData('xlsx')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Excel (XLSX)
+                      </button>
+                      <button (click)="exportData('pdf')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        PDF Format
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button 
+                  (click)="toggleAllRows()"
+                  class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-700 hover:text-white flex items-center"
+                >
+                  <span *ngIf="!areAllRowsExpanded">Expand All</span>
+                  <span *ngIf="areAllRowsExpanded">Collapse All</span>
+                </button>
+              </div>
+            </div> 
+          </div> 
+
+          <!-- Compact List --> 
+          <div class="bg-white rounded-lg shadow-sm border divide-y divide-gray-200 w-full"> 
+            <div *ngFor="let item of pagedList; let i = index" 
+                 class="p-4 hover:bg-gray-50 transition-colors cursor-pointer w-full" 
+                 (click)="toggleExpand(i)"> 
+              
+              <!-- Main Row --> 
+              <div class="flex items-center justify-between w-full"> 
+                <div class="flex items-center space-x-4 w-full"> 
+                  <!-- Restaurant Info --> 
+                  <div class="flex-grow min-w-0"> 
+                    <div class="flex items-center space-x-2"> 
+                      <h4 class="text-sm font-bold text-gray-900 truncate"> 
+                        {{ item.restaurant_name || 'N/A' }} 
+                      </h4> 
+                      <!-- <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded"> 
+                        {{ item.restaurant_type || 'N/A' }} 
+                      </span>  -->
+                    </div> 
+                    <p class="text-sm text-gray-600 truncate mt-1"> 
+                      {{ item.menu_item_name || 'N/A' }} 
+                    </p> 
+                  </div> 
+                  
+                  <!-- Price --> 
+                  <div class="text-right"> 
+                    <div class="text-lg font-bold text-green-600"> 
+                      {{ formatPrice(item.price) }} 
+                    </div> 
+                    <div class="text-xs text-gray-500"> 
+                      {{ formatDistance(item.distance_from_zipcode) }} 
+                    </div> 
+                  </div> 
+                  
+                  <!-- Expand Icon --> 
+                  <div class="flex-shrink-0"> 
+                    <svg class="h-5 w-5 text-gray-400 transform transition-transform" 
+                         [class.rotate-180]="expandedRows[i]" 
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor"> 
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /> 
+                    </svg> 
+                  </div> 
+                </div> 
+              </div> 
+              
+              <!-- Expanded Details --> 
+              <div *ngIf="expandedRows[i]" class="mt-4 pt-4 border-t border-gray-200 w-full"> 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm w-full"> 
+                  <div> 
+                    <span class="font-medium text-black font-bold">Description:</span> 
+                    <p class="text-gray-600 mt-1">{{ item.description || 'N/A' }}</p> 
+                  </div> 
+                  <div> 
+                    <span class="font-medium text-black font-bold">Menu Section:</span> 
+                    <p class="text-gray-600 mt-1">{{ item.menu_section || 'N/A' }}</p> 
+                  </div> 
+                  <div> 
+                    <span class="font-medium text-black font-bold">Cuisine Type:</span> 
+                    <p class="text-gray-600 mt-1">{{ item.cuisine_type || 'N/A' }}</p> 
+                  </div> 
+                  <div> 
+                    <span class="font-medium text-black font-bold">Restaurant Type:</span> 
+                    <p class="text-gray-600 mt-1">{{  item.restaurant_type || 'N/A' }}</p> 
+                  </div> 
+                </div> 
+                <div class="mt-3 flex items-center justify-between w-full"> 
+                  <span class="text-sm text-black font-bold bg-gray-300 px-2 py-1 rounded">ZIP:
+                    {{ item.zip_or_postal_code || 'N/A' }}</span> 
+                  <!-- <div class="space-x-2"> 
+                    <button class="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700"> 
+                      View Details 
+                    </button> 
+                    <button class="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700"> 
+                      Add to Compare 
+                    </button> 
+                  </div>  -->
+                </div> 
+              </div> 
+            </div> 
+          </div>
+          
+          <!-- Pagination -->
+          <div class="bg-white rounded-lg shadow-sm border p-4 flex items-center justify-between">
+            <div class="text-sm text-gray-700">
+              Showing <span class="font-medium">{{ ((currentPage - 1) * itemsPerPage) + 1 }}</span> to 
+              <span class="font-medium">{{ Math.min(currentPage * itemsPerPage, rolelist.length) }}</span> of 
+              <span class="font-medium">{{ rolelist.length }}</span> results
+            </div>
+            <div class="flex items-center space-x-2">
+              <button 
+                (click)="changePage(currentPage - 1)"
+                [disabled]="currentPage === 1"
+                class="px-3 py-1 rounded-md text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Previous
+              </button>
+              <div class="hidden sm:flex space-x-1">
+                <button 
+                  *ngFor="let page of getPageNumbers()"
+                  (click)="changePage(page)"
+                  class="px-3 py-1 rounded-md text-sm font-medium border"
+                  [ngClass]="page === currentPage ? 'bg-blue-600 text-white border-blue-600' : 'text-gray-700 bg-white border-gray-300 hover:bg-gray-50'"
+                >
+                  {{ page }}
+                </button>
+              </div>
+              <button 
+                (click)="changePage(currentPage + 1)"
+                [disabled]="currentPage === getTotalPages()"
+                class="px-3 py-1 rounded-md text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div> 
+
+
+
+        
+      </div> 
+    </div> 
+  </div> 
+</div>

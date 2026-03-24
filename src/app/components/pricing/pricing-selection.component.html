@@ -1,0 +1,231 @@
+<div class="pricing-page">
+  <!-- Animated Background -->
+  <div class="bg-effects">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header Section -->
+    <div class="header">
+      <!-- <div class="badge">
+        <span class="pulse-dot"></span>
+        <span>AI-Powered Intelligence</span>
+      </div> -->
+      <h1 class="title">
+        Choose Your <span class="gradient-text">MyMenu.ai</span> Plan
+      </h1>
+      <p class="subtitle">
+        Transform your restaurant's pricing strategy with competitive intelligence
+      </p>
+    </div>
+
+    <!-- Subscription Alert -->
+    <div *ngIf="subscriptionMessage" class="subscription-alert">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <h4>Subscription Required</h4>
+      </div>
+    </div>
+
+    <!-- Billing Toggle -->
+    <div class="billing-toggle-wrapper">
+      <div class="billing-toggle">
+        <button 
+          class="toggle-btn"
+          [class.active]="billingCycle === 'monthly'"
+          (click)="setBillingCycle('monthly')">
+          Monthly
+        </button>
+        <button 
+          class="toggle-btn"
+          [class.active]="billingCycle === 'yearly'"
+          (click)="setBillingCycle('yearly')">
+          Yearly
+          
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="pricing-grid">
+      <div class="pricing-card loading-card" *ngFor="let item of [1,2,3]">
+        <div class="card-inner">
+          <div class="skeleton skeleton-icon"></div>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-price"></div>
+          <div class="skeleton skeleton-feature" *ngFor="let f of [1,2,3,4]"></div>
+          <div class="skeleton skeleton-button"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-state">
+      <div class="error-content">
+        <div class="error-icon">⚠️</div>
+        <h3>Failed to Load Pricing Plans</h3>
+        <p>{{ error }}</p>
+        <button (click)="retryLoadPlans()" class="retry-btn">Try Again</button>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div *ngIf="!loading && !error" class="pricing-grid">
+      <div 
+        *ngFor="let tier of serviceTiers; let i = index" 
+        class="pricing-card"
+        [class.popular]="tier.isPopular"
+        [style.animation-delay.ms]="i * 100">
+        
+        <!-- Popular Badge -->
+        <div *ngIf="tier.isPopular" class="popular-badge">
+          <span>MOST POPULAR</span>
+        </div>
+
+        <div class="card-inner" [class.popular-inner]="tier.isPopular">
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="tier-icon" [attr.data-tier]="tier.name.toLowerCase()">
+              <span>{{ tier.name.charAt(0) }}</span>
+            </div>
+            <div class="tier-info">
+              <h3>{{ tier.name }}</h3>
+              <p>{{ tier.title.split(' – ')[1] || tier.description }}</p>
+            </div>
+          </div>
+
+          <!-- Pricing -->
+          <div class="pricing-block">
+            <div *ngIf="!tier.isCustomPricing" class="price-display">
+              <span class="price-amount">${{ getCurrentPrice(tier) }}</span>
+              <span class="price-period">/{{ billingCycle === 'yearly' ? 'yr' : 'mo' }}</span>
+            </div>
+            <!-- Free Month Badges for Basic Plan -->
+            <div *ngIf="tier.name === 'Basic' && !tier.isCustomPricing" class="promo-badges">
+              <span *ngIf="billingCycle === 'monthly'" class="free-badge">1 month free</span>
+              <span *ngIf="billingCycle === 'yearly'" class="free-badge">2 months free</span>
+            </div>
+            <div *ngIf="tier.isCustomPricing" class="custom-price">
+              Custom Pricing
+            </div>
+            <!-- <p *ngIf="billingCycle === 'yearly' && !tier.isCustomPricing && tier.monthlyPrice" class="yearly-savings">
+              Save ${{ (tier.monthlyPrice! * 12) - tier.yearlyPrice! }}/year
+            </p> -->
+          </div>
+
+          <!-- Features -->
+          <div class="features-list">
+            <div *ngFor="let feature of tier.features.slice(0, 5)" class="feature-item">
+              <div class="feature-check" [attr.data-tier]="tier.name.toLowerCase()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <span>{{ feature }}</span>
+            </div>
+            <p *ngIf="tier.features.length > 5" class="more-features">
+              +{{ tier.features.length - 5 }} more features
+            </p>
+          </div>
+
+          <!-- CTA Button -->
+          <button 
+            *ngIf="!tier.isCustomPricing"
+            (click)="selectPlan(tier)"
+            class="cta-btn"
+            [class.cta-popular]="tier.isPopular">
+            Proceed to Checkout <span class="arrow">→</span>
+          </button>
+          <button 
+            *ngIf="tier.isCustomPricing"
+            (click)="requestQuote(tier)"
+            class="cta-btn cta-secondary">
+            Contact Sales <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="trust-section">
+      <div class="trust-item">
+        <span class="trust-icon">🔒</span>
+        <span>Enterprise Security</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">⚡</span>
+        <span>99.9% Uptime</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🎯</span>
+        <span>24/7 Support</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">📊</span>
+        <span>Real-time Data</span>
+      </div>
+    </div>
+
+    <!-- Feature Comparison -->
+    <div class="comparison-section">
+      <div class="comparison-header">
+        <h2>Feature Comparison</h2>
+        <p>See what's included in each plan </p>
+      </div>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th class="feature-col">Features</th>
+              <th *ngFor="let tier of serviceTiers" class="tier-col">
+                <span [attr.data-tier]="tier.name.toLowerCase()">{{ tier.name }}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feature of allFeatures">
+              <td class="feature-name">{{ feature.name }}</td>
+              <td *ngFor="let tier of serviceTiers" class="feature-cell">
+                <span 
+                  class="status-icon"
+                  [class.included]="isFeatureIncluded(feature.name, tier)">
+                  <svg *ngIf="isFeatureIncluded(feature.name, tier)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span *ngIf="!isFeatureIncluded(feature.name, tier)">—</span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+      <h2>Questions?</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <p class="faq-question">Can I switch plans?</p>
+          <p class="faq-answer">Yes, upgrade or downgrade anytime.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">Is there a free trial?</p>
+          <p class="faq-answer">Yes, 14-day free trial on all plans.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">What payment methods?</p>
+          <p class="faq-answer">All major cards and bank transfers.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">Cancel anytime?</p>
+          <p class="faq-answer">Yes, no long-term commitments required.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

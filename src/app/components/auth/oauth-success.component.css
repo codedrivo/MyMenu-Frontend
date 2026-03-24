@@ -1,0 +1,92 @@
+/* Futuristic responsive design with glassmorphism */
+:host {
+  display: block;
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(48, 120, 255, 0.25), transparent),
+              radial-gradient(800px 500px at 90% 10%, rgba(255, 65, 108, 0.25), transparent),
+              linear-gradient(180deg, #0b1220, #0a0f1a 40%, #0a0e18);
+}
+
+.container {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  padding: 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  color: #e6e9ef;
+}
+
+.brand {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #8ab4ff;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 26px;
+  margin: 0 0 6px 0;
+}
+
+.subtitle {
+  margin: 0 0 16px 0;
+  color: #b7bdc8;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  color: #4ad66d;
+}
+
+.details {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #cbd1dc;
+}
+
+.actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+}
+
+button.primary {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: linear-gradient(135deg, #1a73e8, #1967d2);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button.secondary {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.08);
+  color: #e6e9ef;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 22px; border-radius: 14px; }
+  .title { font-size: 22px; }
+}
