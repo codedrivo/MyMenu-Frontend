@@ -1,6 +1,7 @@
 import { Component, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Fancybox } from "@fancyapps/ui";
 
 @Component({
   selector: 'app-home',
@@ -94,7 +95,15 @@ export class HomeComponent implements AfterViewInit {
     this.backgroundColor = this.imageOpacity === 0 ? 'white' : 'transparent';
   }
 
-
+openDemoVideo(): void {
+  //this.router.navigate(['/demo-video']);
+  Fancybox.show([
+    {
+      src: "/assets/MyMenuDemo-2.mp4",
+      type: "html5video",
+    },
+  ]);
+}
 
   openLetstart(): void {
     this.router.navigate(['/letsstart']);

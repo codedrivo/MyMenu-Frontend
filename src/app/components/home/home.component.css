@@ -37,3 +37,148 @@ html {
 .relative.z-10 {
   z-index: 2;
 }
+.banner {
+  padding: 112px 0;
+  margin-top: 85px;
+  background: #FAFAFA;
+}
+.tag-top {
+  display: inline-flex;
+  align-items: center;
+  gap:10px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border: 1px solid #B6BCCD;
+  box-shadow: 0px 10px 18px 0px #3A4C921A;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-family:var(--secondary-font);
+}
+.tag-top.wh {
+  background: #fff;
+  color: var(--primary-color);
+  text-transform: uppercase;
+}
+.banner-content h1 {
+  margin-bottom: 20px;
+}
+.banner-content p {
+  color: #1E1E1E;
+}
+.ban-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+.ban-bottom li {
+  list-style-type: disc;
+  font-size: 14px;
+  font-weight: 300;
+  color: #1E1E1E;
+  font-family: var(--secondary-font);
+  padding-right: 10px;
+}
+.ban-bottom li:first-child {
+  list-style-type: none;
+}
+.ban-bottom li:last-child {
+  padding-right: 0;
+}
+.counter-sec {
+  padding: 35px 0;
+  background: #F4F4F4;
+}
+.counter-innr {
+  max-width: 180px;
+}
+.counter-innr h4 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1C1F25;
+  margin-bottom: 22px;
+}
+.counter-innr p {
+  color: #1C1F25;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+.counter-img {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+.gap-100 {
+  gap: 100px;
+}
+.banner-img {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.banner-img img {
+  width: 100%;
+}
+.pricing-sec {
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+.pricing-sec:after {
+  position: absolute;
+  content: '';
+  background: rgba(31, 111, 92, 0.64);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.cmn-hdr.wh h2 {
+  color: #fff;
+}
+.cmn-hdr h2 {
+  margin-bottom: 16px;
+}
+.cmn-hdr p {
+  color:rgba(255, 255, 255, 0.64);
+  font-size: 20px;
+  margin-bottom: 0;
+  font-family: var(--secondary-font);
+}
+.cmn-hdr {
+  margin-bottom: 32px;
+}
+.pricing-content h4 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 32px;
+}
+.pricing-content ul li {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 32px;
+  position: relative;
+  padding-left: 36px;
+}
+.pricing-content ul li:after {
+  position: absolute;
+  content: '';
+  background: url('../../../assets/images/cross.svg') no-repeat;
+  background-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  top: 0;
+}
+.pricing-content ul li:last-child {
+  margin-bottom: 0;
+}
+.pricing-box {
+  background: #56CAAE;
+  padding: 116px 83px;
+  border-radius: 20px;
+}

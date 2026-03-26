@@ -1,0 +1,20 @@
+.header {
+    background: #FAFAFA;
+}
+.logo-area {
+    min-width: 170px;
+    max-width: 170px;
+}
+.navbar-list {
+    padding-left: 40px;
+}
+.navbar-list a {
+    text-transform: none;
+    font-weight: 500;
+    color: #1E1E1E;
+    font-size: 16px;
+}
+.border-btm {
+    border-bottom: 1px solid #D2D5E2;
+    padding: 10px 0;
+}
