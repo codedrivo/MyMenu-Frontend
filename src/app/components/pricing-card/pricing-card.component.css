@@ -1,0 +1,88 @@
+.plan-sec {
+  background: #F4F4F4;
+}
+.plan-card {
+  background: #FFFFFF;
+  padding: 32px 24px;
+  border-radius: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.plan-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0D121F;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 21px;
+}
+.plan-card p {
+  color: #596780;
+  margin-bottom: 21px;
+}
+.plan-card h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #0D121F;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.plan-card h2 span {
+  color: #596780;
+  font-size: 18px;
+  font-weight: 500;
+}
+.plan-card ul {
+  margin-bottom: 50px;
+}
+.plan-card ul li {
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #0D121F;
+  position: relative;
+  padding-left: 34px;
+}
+.plan-card ul li:after {
+  position: absolute;
+  content: '';
+  background: url('../../../assets/images/tick.svg') no-repeat;
+  background-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+  left: 0;
+  top: 0;
+}
+.plan-card ul li.disabled {
+  color:#596780;
+}
+.plan-card ul li.disabled:after {
+  background-image: url('../../../assets/images/cross-2.svg');
+}
+.plan-card ul li:last-child {
+  margin-bottom: 0;
+}
+.plan-card .btn {
+  border-radius: 30px;
+  width: 100%;
+}
+.plan-card .btn.btn-outline {
+  background: rgba(35, 157, 137, 0.08);
+}
+.popular-badge {
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  background: #0D121F;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 16px;
+  line-height: 1;
+  text-align: center;
+}

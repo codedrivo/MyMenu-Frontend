@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Fancybox } from "@fancyapps/ui";
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { PricingCardComponent } from "../pricing-card/pricing-card.component";
 Swiper.use([Navigation, Pagination, Autoplay]);
 
 
@@ -12,7 +13,7 @@ Swiper.use([Navigation, Pagination, Autoplay]);
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ContactCardComponent],
+  imports: [CommonModule, ContactCardComponent, PricingCardComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
