@@ -1,6 +1,11 @@
 import { Component, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Fancybox } from "@fancyapps/ui";
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+Swiper.use([Navigation, Pagination, Autoplay]);
+
 
 @Component({
   selector: 'app-home',
@@ -23,6 +28,20 @@ export class HomeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     // Set up intersection observer for better performance
     this.setupVideoPlayback();
+    new Swiper('.testimonial-slider', {
+      slidesPerView: 4,
+      spaceBetween: 24,
+      loop: true,
+      autoplay: {
+        delay: 2000,
+        disableOnInteraction: false
+      },
+      breakpoints: {
+        320: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 4 }
+      }
+    });
   }
 
   onVideoLoaded(): void {
@@ -99,4 +118,65 @@ export class HomeComponent implements AfterViewInit {
   openLetstart(): void {
     this.router.navigate(['/letsstart']);
   }
+   openDemoVideo(): void {
+    //this.router.navigate(['/demo-video']);
+    Fancybox.show([
+      {
+        src: "/assets/MyMenuDemo-2.mp4",
+        type: "html5video",
+      },
+    ]);
+  }
+slides = [
+  {
+    title: '+9.2% Average Check Size',
+    text: 'MyMenu.ai helped us identify pricing opportunities we never would have seen. We implemented changes with confidence—and the impact was immediate.',
+    role: 'Owner',
+    company: 'Multi-Location Restaurant Group'
+  },
+  {
+    title: '+5.8% Profit in 2 Months',
+    text: 'Pricing used to be slow, manual, and inconsistent. Now we have a clear system that shows what to change and why—across every location.',
+    role: 'Operations Director',
+    company: 'Regional Brand'
+  },
+  {
+    title: 'Hours Saved Every Week',
+    text: 'We replaced endless spreadsheet work with one simple screen. No analysts, no delays—just clear recommendations and fast execution.',
+    role: 'General Manager',
+    company: 'Fast Casual'
+  },
+  {
+    title: 'Better Decision Making',
+    text: 'Now we take pricing decisions based on data, not guesswork. The results speak for themselves.',
+    role: 'CEO',
+    company: 'Restaurant Chain'
+  },
+  {
+    title: '+9.2% Average Check Size',
+    text: 'MyMenu.ai helped us identify pricing opportunities we never would have seen. We implemented changes with confidence—and the impact was immediate.',
+    role: 'Owner',
+    company: 'Multi-Location Restaurant Group'
+  },
+  {
+    title: '+5.8% Profit in 2 Months',
+    text: 'Pricing used to be slow, manual, and inconsistent. Now we have a clear system that shows what to change and why—across every location.',
+    role: 'Operations Director',
+    company: 'Regional Brand'
+  },
+  {
+    title: 'Hours Saved Every Week',
+    text: 'We replaced endless spreadsheet work with one simple screen. No analysts, no delays—just clear recommendations and fast execution.',
+    role: 'General Manager',
+    company: 'Fast Casual'
+  },
+  {
+    title: 'Better Decision Making',
+    text: 'Now we take pricing decisions based on data, not guesswork. The results speak for themselves.',
+    role: 'CEO',
+    company: 'Restaurant Chain'
+  }
+];
+
+
 }

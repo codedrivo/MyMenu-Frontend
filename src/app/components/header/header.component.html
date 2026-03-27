@@ -94,13 +94,13 @@
       <!-- Show these buttons only when NOT logged in --> 
       <ng-container *ngIf="authUiEnabled && !isLoggedIn"> 
         <a routerLink="/letsstart" 
-           class="btn btn-primary"> 
+           class="btn btn-primary sm"> 
           Get Started
         </a> 
         <button class="btn btn-outline watch-demo" (click)="openDemoVideo()">Watch The Demo</button>
         <a routerLink="/login"  
            routerLinkActive="active"  
-           class="btn btn-outline"> 
+           class="btn btn-outline sm"> 
           Login
         </a> 
         
