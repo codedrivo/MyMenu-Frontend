@@ -444,19 +444,20 @@
         </div>
         <div class="col-md-7">
             <div id="accordion" class="faq-accordion">
-                <div class="card">
+                <div class="card" *ngFor="let item of accordionData; let i = index">
                   <div class="card-header">
-                    <a class="" data-bs-toggle="collapse" href="#tab1">
-                     How does MyMenu.ai generate pricing recommendations?
+                    <a class="" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i"
+        [class.collapsed]="i !== 0">
+                      {{item.title}}
                     </a>
                   </div>
-                  <div id="tab1" class="collapse show" data-bs-parent="#accordion">
+                  <div [id]="'collapse' + i" class="collapse" data-bs-parent="#accordion" [class.show]="i === 0">
                     <div class="card-body">
-                        <p>MyMenu.ai analyzes competitor pricing, local market trends, ingredient cost signals, customer behavior patterns, and seasonal demand to generate pricing recommendations tailored to your restaurant.</p>
+                        <p>{{item.content}}</p>
                     </div>
                   </div>
                 </div>
-
+<!-- 
                 <div class="card">
                   <div class="card-header">
                     <a class="collapsed" data-bs-toggle="collapse" href="#tab2">
@@ -494,7 +495,7 @@
                       <p>Yes, we integrate with most major POS systems including Square, Toast, Clover, and many others. Our team handles the technical setup to ensure seamless integration.</p>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -524,106 +525,4 @@
     </div>
   </section>
 
-  <section class="contact-sec common-gap">
-      <div class="container container-sm">
-          <div class="cmn-hdr text-center mb-5">
-            <h2>Contact Us</h2>
-            <p class="sm">Any question or remarks? Just write us a message!</p>
-          </div>
-          <div class="contact-form">
-              <div class="row">
-                  <div class="col-md-5">
-                      <div class="contact-left">
-                          <h3>We Are MyMenu.AI</h3>
-                          <p>We are a one-stop solution for your retail food and beverage business menu pricing needs. With our expertise and proven AI-based solution, we help you tackle pricing challenges and leverage the opportunity to maximize business growth in near real-time. Ready to take your restaurant to the next level? Contact us today to learn more about how MyMenu.AI can help you optimize your menu pricing, operations, and customer experiences.</p>
-                          <ul class="contact-details-list">
-                              <li><span><img src="assets/images/bxs_phone-call.svg" alt="" /></span><a href="tel:">+1 (202) 618-2814</a></li>
-                              <li><span><img src="assets/images/ic_sharp-email.svg" alt="" /></span><a href="mailto:info@MyMenu.AI">info&#64;MyMenu.AI</a></li>
-                              <li><span><img src="assets/images/carbon_location-filled.svg" alt="" /></span><address>Washington DC, United States.</address></li>
-                          </ul>
-                          <ul class="soacial-media-list">
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fab fa-discord"></i></a></li>
-                          </ul>
-                          <div class="shape"><img src="assets/images/shape.png" alt=""></div>
-                      </div>
-                  </div>
-                  <div class="col-md-7">
-                      <div class="contact-right">
-                          <form action="">
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <label for="" class="form-label">First Name</label>
-                                          <input type="text" class="form-control" placeholder="">
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <label for="" class="form-label">Last Name</label>
-                                          <input type="text" class="form-control" placeholder="">
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <label for="" class="form-label">Email</label>
-                                          <input type="email" class="form-control" placeholder="">
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <label for="" class="form-label">Phone Number</label>
-                                          <input type="tel" class="form-control" placeholder="">
-                                      </div>
-                                  </div>
-                                  <div class="col-md-12">
-                                      <p class="checkbox-hdr">Select Subject?</p>
-                                      <ul class="checkbox-list">
-                                        <li>
-                                            <label class="checkbox-container">
-                                              <input type="checkbox" checked="checked">
-                                              <p>General Inquiry</p>
-                                              <span class="checkmark"></span>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="checkbox-container">
-                                              <input type="checkbox">
-                                              <p>General Inquiry</p>
-                                              <span class="checkmark"></span>
-                                            </label>
-                                        </li>
-                                          <li>
-                                            <label class="checkbox-container">
-                                              <input type="checkbox">
-                                              <p>General Inquiry</p>
-                                              <span class="checkmark"></span>
-                                            </label>
-                                        </li>
-                                          <li>
-                                            <label class="checkbox-container">
-                                              <input type="checkbox">
-                                              <p>General Inquiry</p>
-                                              <span class="checkmark"></span>
-                                            </label>
-                                        </li>
-                                      </ul>
-                                  </div>
-                                  <div class="col-md-12">
-                                      <div class="form-group">
-                                          <label for="" class="form-label">Message</label>
-                                          <textarea class="form-control" placeholder="Write your message.."></textarea>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-12">
-                                      <input type="submit" class="btn btn-primary w-100 send-btn" value="Send Message">
-                                  </div>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+  <app-contact-card></app-contact-card>

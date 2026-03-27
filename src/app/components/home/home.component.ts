@@ -1,5 +1,6 @@
 import { Component, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ContactCardComponent } from '../contact-card/contact-card.component';
 import { Router } from '@angular/router';
 import { Fancybox } from "@fancyapps/ui";
 import Swiper from 'swiper';
@@ -7,13 +8,15 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 Swiper.use([Navigation, Pagination, Autoplay]);
 
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ContactCardComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements AfterViewInit {
   @ViewChild('backgroundVideo') videoElement!: ElementRef<HTMLVideoElement>;
   
@@ -23,7 +26,8 @@ export class HomeComponent implements AfterViewInit {
   private playAttempts: number = 0;
   private maxPlayAttempts: number = 3;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   ngAfterViewInit(): void {
     // Set up intersection observer for better performance
@@ -178,5 +182,22 @@ slides = [
   }
 ];
 
-
+  accordionData = [
+  {
+    title: 'How does MyMenu.ai generate pricing recommendations?',
+    content: 'MyMenu.ai analyzes competitor pricing, local market trends, ingredient cost signals, customer behavior patterns, and seasonal demand to generate pricing recommendations tailored to your restaurant.'
+  },
+  {
+    title: 'What data sources does MyMenu.ai use?',
+    content: 'We aggregate data from multiple sources including restaurant websites, delivery platforms, industry reports, local market data, supplier pricing, and anonymized performance metrics from our network of restaurant partners.'
+  },
+  {
+    title: 'How quickly can I see results?',
+    content: 'Most restaurants see initial pricing insights within 24 hours of setup. Full optimization typically shows measurable revenue improvements within 2-4 weeks of implementation.'
+  },
+  {
+    title: 'Does MyMenu.ai integrate with my existing POS system?',
+    content: 'Yes, we integrate with most major POS systems including Square, Toast, Clover, and many others. Our team handles the technical setup to ensure seamless integration.'
+  },
+];
 }
