@@ -1,18 +1,18 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-200 mt-12"
+<div class="flex justify-center items-center min-h-screen bg-gray-200 login-container"
      style="background-image: url('/assets/googleoauth.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-  <div class="w-full max-w-md p-8 bg-white/60 backdrop-blur-lg rounded-3xl shadow-xl border border-gray-300">
+  <div class="w-full max-w-c p-8 bg-white/60 backdrop-blur-lg rounded-3xl shadow-xl border border-gray-300">
     <div class="text-center mb-6">
       <h2 class="text-4xl font-bold text-gray-800 tracking-wide">
         Login / Signup
       </h2>
       <div class="mt-4 flex gap-2 justify-center">
-        <button type="button" class="px-3 py-1 rounded-full border"
+        <button type="button" class="px-3 py-2 rounded-full border"
                 [class.bg-blue-600]="mode==='password'" [class.text-white]="mode==='password'"
                 (click)="switchMode('password')">Password Login</button>
-        <button type="button" class="px-3 py-1 rounded-full border"
+        <button type="button" class="px-3 py-2 rounded-full border"
                 [class.bg-blue-600]="mode==='otp-login'" [class.text-white]="mode==='otp-login'"
                 (click)="switchMode('otp-login')">Login with Code</button>
-        <button type="button" class="px-3 py-1 rounded-full border"
+        <button type="button" class="px-3 py-2 rounded-full border"
                 [class.bg-blue-600]="mode==='otp-register'" [class.text-white]="mode==='otp-register'"
                 (click)="switchMode('otp-register')">Register via Email (Code)</button>
       </div>
@@ -30,7 +30,7 @@
             type="email"
             formControlName="username"
             id="username"
-            class="w-full p-3 rounded-xl border border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-transform hover:scale-105"
+            class="w-full p-3 rounded-xl border border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-transform"
             placeholder="Enter your email"
           />
         </div>
@@ -49,7 +49,7 @@
             [type]="showPassword ? 'text' : 'password'"
             formControlName="password"
             id="password"
-            class="w-full p-3 pr-12 rounded-xl border border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-transform hover:scale-105"
+            class="w-full p-3 pr-12 rounded-xl border border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-transform"
             placeholder="Enter your password"
           />
           <button 
@@ -88,7 +88,7 @@
             autocomplete="one-time-code"
             maxlength="6"
             (input)="onOtpInput($event)"
-            class="w-full p-3 rounded-xl border border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-transform hover:scale-105"
+            class="w-full p-3 rounded-xl border border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900 shadow-md transition-transform"
             placeholder="Enter Code"
           />
         </div>

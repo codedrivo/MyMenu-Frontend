@@ -159,6 +159,27 @@ h4 {
 .common-gap {
   padding: 112px 0;
 }
+.login-container {
+  margin-top: 85px;
+  padding: 20px 0;
+}
+.login-container button {
+  font-size: 14px;
+}
+.login-container .max-w-c {
+  max-width: 37rem;
+}
+.login-container .border {
+  border-color: var(--primary-color) !important;
+}
+.bg-blue-600,.bg-blue-500 {
+  background: var(--primary-color)!important;
+}  
+.hover\:bg-blue-600:hover {
+  background: var(--primary-color)!important;
+}
+
+
 @media (max-width: 1199px) {
 
 .btn {
