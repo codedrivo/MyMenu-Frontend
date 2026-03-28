@@ -136,36 +136,12 @@
 
 
   <!-- Mobile/Tablet Navigation Menu --> 
-  <div class="lg:hidden overflow-hidden transition-all duration-500 ease-in-out" 
-       [class.max-h-screen]="isMobileMenuOpen" 
+  <div class="lg:hidden overflow-hidden transition-all duration-500 ease-in-out mobile-menu" 
+       [class.h-screen]="isMobileMenuOpen" 
        [class.max-h-0]="!isMobileMenuOpen"> 
-    <div class="bg-white border-t border-gray-200 shadow-lg"> 
+    <div class="bg-white border-t border-gray-200 shadow-lg h-100"> 
       <div class="flex flex-col space-y-1 p-4"> 
         <!-- Navigation Links --> 
-        <a routerLink="/home"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          HOME 
-        </a> 
-        <a routerLink="/about"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          ABOUT 
-        </a> 
-        <a routerLink="/features"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          FEATURES 
-        </a> 
-        <!-- <a routerLink="/techoverview"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          TECH OVERVIEW 
-        </a> --> 
         <a routerLink="/pricing"  
            routerLinkActive="active"  
            (click)="closeMenu()"  
@@ -184,46 +160,25 @@
            class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
           QUICK SEARCH 
         </a> 
-        <button  
-           (click)="navigateToExtendedSearch()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-green-700 hover:text-white text-center border-none cursor-pointer w-full" 
-           [class.bg-gray-900]="isExtendedSearchActive()" 
-           [class.bg-green-600]="!isExtendedSearchActive()" 
-           [class.text-white]="true"> 
-          EXTENDED SEARCH 
-        </button> 
-        <!-- <a *ngIf="isLoggedIn"  
-           routerLink="/user-dashboard"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          REPORTS 
-        </a> --> 
-
-
-        <!-- Action Buttons --> 
-        <div class="pt-4 border-t border-gray-200 space-y-2"> 
-          <a routerLink="/contact"  
+        <a routerLink="/contact"  
              routerLinkActive="active"  
              (click)="closeMenu()"  
-             class="block px-4 py-3 bg-green-600 text-white rounded-md text-center font-medium hover:bg-green-700 transition-all duration-300"> 
+             class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
             CONTACT 
           </a> 
-
-
+        <!-- Action Buttons --> 
+        <div class="pt-4 border-t border-gray-200 space-y-2"> 
           <ng-container *ngIf="authUiEnabled && !isLoggedIn"> 
-            <a routerLink="/login"  
-               routerLinkActive="active"  
-               (click)="closeMenu()"  
-               class="block px-4 py-3 bg-blue-600 text-white rounded-md text-center font-medium hover:bg-blue-700 transition-all duration-300"> 
-              LOGIN/SIGNUP 
-            </a> 
-            <a routerLink="/signup"  
-               routerLinkActive="active"  
-               (click)="closeMenu()"  
-               class="block px-4 py-3 bg-blue-600 text-white rounded-md text-center font-medium hover:bg-blue-700 transition-all duration-300"> 
-              SIGNUP 
-            </a> 
+              <a routerLink="/letsstart" 
+            class="btn btn-primary w-100"> 
+            Get Started
+              </a> 
+              <button class="btn btn-outline watch-demo w-100" (click)="openDemoVideo()">Watch The Demo</button>
+              <a routerLink="/login"  
+                routerLinkActive="active"  
+                class="btn btn-outline w-100"> 
+                Login
+              </a> 
           </ng-container> 
 
 

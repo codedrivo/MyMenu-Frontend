@@ -13,8 +13,38 @@
     font-weight: 500;
     color: #1E1E1E;
     font-size: 16px;
+    font-family: var(--primary-font);
+    padding: 12px 16px;
 }
 .border-btm {
     border-bottom: 1px solid #D2D5E2;
     padding: 10px 0;
+}
+.navbar-list .nav-link.active {
+  background-color: var(--primary-color)!important;
+}
+@media (max-width: 1199px) {
+    .logo-area {
+    min-width: 130px;
+    max-width: 130px;
+    }
+    .navbar-list{
+  padding-left: 20px;
+}
+.navbar-list a{
+  padding: 8px 10px;
+  font-size: 15px;
+}
+
+}
+@media (max-width: 1024px) {
+    header .mobile-nav-link.active,header .mobile-nav-link:hover {
+    background-color: var(--primary-color) !important;
+    }
+    .max-h-screen.mobile-menu {
+        overflow-y: auto!important;
+    }
+}
+@media (max-width: 767px) {
+    
 }

@@ -39,7 +39,6 @@ html {
 }
 /* 24-3 */
 .banner {
-  padding: 112px 0;
   margin-top: 85px;
   background: #FAFAFA;
 }
@@ -54,6 +53,8 @@ html {
   border-radius: 20px;
   margin-bottom: 20px;
   font-family:var(--secondary-font);
+  background: #FAFAFA;
+  color: #4B5162;
 }
 .tag-top.wh {
   background: #fff;
@@ -92,6 +93,7 @@ html {
 }
 .counter-innr {
   max-width: 180px;
+  min-width: 180px;
 }
 .counter-innr h4 {
   font-size: 48px;
@@ -103,6 +105,7 @@ html {
   color: #1C1F25;
   font-size: 18px;
   margin-bottom: 0;
+  font-family: var(--primary-font);
 }
 .counter-img {
   display: inline-block;
@@ -213,7 +216,7 @@ html {
 }
 .pricing-box figure {
   margin-bottom: 0;
-  border-radius: 10px;
+  border-radius: 16px;
   overflow: hidden;
 }
 .pricing-box figure img {
@@ -315,6 +318,7 @@ html {
   font-size: 24px;
   font-weight: 700;
   color: #1C1F25;
+  margin-bottom: 12px;
 }
 .how-it-content ul li p {
   color: #596780;
@@ -623,4 +627,116 @@ html {
 }
 .swiper {
   width: 100%;
+}
+
+@media (max-width: 1500px) {
+.operators-card {
+  padding: 30px;
+  padding-top: 60px;
+}
+.operators-card p {
+  font-size: 18px;
+}
+}
+@media (max-width: 1199px) {
+.banner-content {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.banner-center,.ban-bottom {
+  justify-content: center;
+}
+.cost-icon-1 {
+  left: -10%;
+}
+.cost-icon-2 {
+  right: -10%;
+}
+.operators-card h4{
+  font-size: 20px;
+}
+}
+@media (max-width: 991px) {
+.counter-innr h4 {
+  font-size: 38px;
+}
+.cmn-hdr p {
+  font-size: 16px;
+}
+.pricing-content h4 {
+  font-size: 18px;
+}
+.pricing-content ul li {
+  font-size: 16px;
+}
+.pricing-box {
+  padding: 70px 50px;
+}
+.pricing-box h3 {
+  gap: 25px;
+}
+h3 {
+  font-size: 25px;
+}
+.pricing-box p {
+  font-size: 17px;
+  margin-bottom: 30px;
+}
+.gap-100 {
+  gap: 50px;
+}
+body {
+  font-size: 14px;
+}
+.cmn-hdr.hdr-wdth {
+  margin-bottom: 50px;
+}
+.what-mymenu-card {
+  padding: 20px;
+}
+.what-mymenu-card ul li {
+  padding: 16px 0;
+  padding-left: 36px;
+  font-size: 14px;
+}
+.providers-card {
+  padding: 20px 20px;
+}
+.old-way-content h4 {
+  font-size: 19px;
+  margin-bottom: 22px;
+}
+.btm-txt {
+  margin-top: 25px;
+  font-size: 16px;
+}
+.old-way-content ul li {
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+.how-it-content ul li h4 {
+  font-size: 19px;
+}
+.how-it-content {
+  padding-right: 0;
+  margin-bottom: 30px;
+}
+.cost-area {
+  max-width: 500px;
+}
+.cost-icon-1,.cost-icon-2 {
+  width: 50px;
+}
+.faq-content {
+  max-width: 100%;
+  text-align: center;
+}
+.faq-accordion .card-header a {
+  font-size: 16px;
+  padding: 19px 14px;
+  padding-right: 25px;
+}
+}
+@media (max-width: 767px) {
+ 
 }

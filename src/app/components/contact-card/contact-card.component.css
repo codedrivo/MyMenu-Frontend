@@ -188,3 +188,13 @@
 .contact-details-list li span {
   display: inherit;
 }
+
+@media (max-width: 991px) {
+  .contact-form {
+  padding: 10px;
+}
+.send-btn{
+  height: 60px;
+  font-size: 19px;
+}
+}

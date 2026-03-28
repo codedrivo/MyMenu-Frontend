@@ -34,13 +34,29 @@
   --primary-font:"Urbanist", sans-serif;
   --secondary-font: "Inter", sans-serif;
 }
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
 @media (min-width: 1200px) {
+  .container.container-sm {
+    max-width: 1170px;
+  }
+}
+@media (min-width: 1300px) {
   .container.container-sm {
     max-width: 1260px;
     margin-left: auto;
     margin-right: auto;
   }
 }
+
 body {
    font-family: var(--secondary-font);
    font-size: 16px;
@@ -58,6 +74,7 @@ ul,li {
 }
 h1,h2,h3,h4,h5,h6 {
   font-family: var(--primary-font);
+  line-height: 1.2;
 }
 h1 {
     font-size: 48px;
@@ -141,4 +158,40 @@ h4 {
 }
 .common-gap {
   padding: 112px 0;
+}
+@media (max-width: 1199px) {
+
+.btn {
+  font-size: 15px;
+  padding: 14px 19px;
+}
+.common-gap {
+  padding: 80px 0;
+}
+}
+@media (max-width: 991px) {
+.common-gap {
+  padding: 60px 0;
+}
+h1 {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+.btn.lg {
+  font-size: 19px;
+}
+.btn.md {
+  font-size: 16px;
+}
+body {
+  font-size: 14px;
+}
+}
+@media (max-width: 767px) {
+  .common-gap {
+  padding: 40px 0;
+}
+
 }

@@ -1,10 +1,10 @@
 <!-- First Section with background image -->
 
 <section id="FirstSection">
-  <div class="banner">
+  <div class="banner common-gap">
     <div class="container container-sm">
         <div class="row align-items-center">
-          <div class="col-md-6">
+          <div class="col-xl-6">
             <div class="banner-content">
               <span class="tag-top"><img src="assets/images/star.svg" alt="">AI-Powered Pricing Intelligence for
                 Restaurants</span>
@@ -26,7 +26,7 @@
               </p> -->
 
               <!-- Button group -->
-              <div class="flex space-x-3 md:space-x-4 mb-0 lg:mt-8">
+              <div class="flex space-x-3 md:space-x-4 mb-0 mt-8 banner-center">
 
                 <!-- <button onclick="document.getElementById('secondSection').scrollIntoView({ behavior: 'smooth' });" class="px-4 py-2 sm:px-6 sm:py-3 bg-gray-700 text-white font-semibold rounded-full hover:bg-gray-800 transform hover:scale-105 transition-all duration-200">Try the AI Tool</button> -->
                 <button type="button" class="btn btn-primary" onclick="window.location.href='/login';">See My Margin Opportunity (Free)</button>
@@ -43,7 +43,7 @@
 
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-xl-6">
               <div class="banner-img"><img src="assets/images/banner-pic.jpg" alt=""></div>
           </div>
         </div>
@@ -56,11 +56,11 @@
     <div class="container container-sm">
         <div class="d-flex justify-content-center text-center gap-100">
             <div class="counter-innr">
-                <h4>1M+</h4>
+                <h4>{{ counter1 | numberFormat }}</h4>
                 <p>Restaurants <br/> analyzed</p>
             </div>
             <div class="counter-innr">
-                <h4>100M+</h4>
+                <h4>{{ counter2 | numberFormat }}</h4>
                 <p>Menus <br/> Optimized</p>
             </div>
             <div class="counter-innr">
@@ -74,7 +74,7 @@
 <section class="pricing-sec common-gap" style="background-image: url(assets/images/pricing-banner.png);">
     <div class="container container-sm">
       <div class="row g-5 align-items-center">
-        <div class="col-md-6 pricing-content">
+        <div class="col-lg-6 pricing-content">
           <div class="cmn-hdr wh">
             <span class="tag-top wh"><img src="assets/images/star.svg" alt="">The Problem</span>
             <h2>Pricing Shouldn’t Be Guesswork—But For Most Restaurants, It Still Is.</h2>
@@ -90,7 +90,7 @@
           </ul>
           <button class="btn btn-secondary" onclick="window.location.href='/letsstart';">Get Started</button>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <div class="pricing-box">
             <h3><span><img src="assets/images/icon.svg" alt=""></span>Hidden profit Leaks</h3>
             <p>Hidden pricing leaks can cost thousands per month in missed margin—without changing a single customer.
@@ -178,7 +178,7 @@
         <p class="sm">From menu connection to smarter prices in minutes—our simple process keeps you in control.</p>
       </div>
       <div class="row align-items-center">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <div class="how-it-content">
             <ul>
               <li>
@@ -212,7 +212,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <figure class="how-it-img"><img src="assets/images/how-it-img.jpg" alt=""></figure>
         </div>
       </div>
@@ -320,13 +320,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="operators-card">
-        <h4>+9.2% Average Check Size</h4>
-        <p>“MyMenu.ai helped us identify pricing opportunities we never would have seen. We implemented changes with confidence—and the impact was immediate.”</p>
-        <figure><img src="assets/images/Image-ava.png" alt=""></figure>
-        <h5>Owner</h5>
-        <h6>Multi-Location Restaurant Group</h6>
-    </div> -->
   </section>
 
   <section class="cost-sec text-center">
@@ -344,7 +337,7 @@
   <section class="faq-sec common-gap">
     <div class="container container-sm">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-lg-5">
           <div class="cmn-hdr mb-0 faq-content">
             <span class="tag-top"><img src="assets/images/star.svg" alt="">FAQ</span>
             <h2>Frequently asked questions</h2>
@@ -352,7 +345,7 @@
               integration capabilities, and more</p>
           </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-lg-7">
             <div id="accordion" class="faq-accordion">
                 <div class="card" *ngFor="let item of accordionData; let i = index">
                   <div class="card-header">

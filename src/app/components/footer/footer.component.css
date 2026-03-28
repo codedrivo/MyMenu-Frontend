@@ -69,3 +69,13 @@ html {
 .footer-bottom ul li a:hover {
   color:var(--primary-color);
 }
+
+@media (max-width: 991px) {
+  .footer {
+  padding-top: 60px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

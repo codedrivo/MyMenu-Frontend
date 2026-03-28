@@ -7,13 +7,13 @@ import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { PricingCardComponent } from "../pricing-card/pricing-card.component";
 Swiper.use([Navigation, Pagination, Autoplay]);
-
+import { NumberFormatPipe } from '../../number-format.pipe';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ContactCardComponent, PricingCardComponent],
+  imports: [CommonModule, ContactCardComponent, PricingCardComponent, NumberFormatPipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -42,9 +42,9 @@ export class HomeComponent implements AfterViewInit {
         disableOnInteraction: false
       },
       breakpoints: {
-        320: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 4 }
+        320: { slidesPerView: 2 },
+        800: { slidesPerView: 3 },
+        1140: { slidesPerView: 4 }
       }
     });
   }
@@ -131,6 +131,49 @@ export class HomeComponent implements AfterViewInit {
         type: "html5video",
       },
     ]);
+  }
+  counter1 = 0;
+  counter2 = 0;
+
+  target1 = 1_000_000;      // 1M+
+  target2 = 100_000_000;    // 100M+
+
+  ngOnInit() {
+    this.startCounter1();
+    this.startCounter2();
+  }
+
+  startCounter1() {
+    this.animate(this.target1, (val) => {
+      this.counter1 = val;
+    });
+  }
+
+  startCounter2() {
+    this.animate(this.target2, (val) => {
+      this.counter2 = val;
+    });
+  }
+  animate(target: number, update: (val: number) => void) {
+    const duration = 2000;
+    const startTime = performance.now();
+
+    const run = (currentTime: number) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+
+      // smooth ease-out
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      update(target * ease);
+
+      if (progress < 1) {
+        requestAnimationFrame(run);
+      } else {
+        update(target); // stop exactly
+      }
+    };
+
+    requestAnimationFrame(run);
   }
 slides = [
   {

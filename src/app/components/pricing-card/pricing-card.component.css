@@ -169,3 +169,14 @@
   background: #5775FD1F;
   border-radius: 30px;
 }
+@media (max-width: 1199px) {
+.plan-card h3 {
+  font-size: 20px;
+}
+.plan-card h2 {
+  font-size: 24px;
+}
+.plan-card {
+  padding: 25px 18px;
+}
+}
