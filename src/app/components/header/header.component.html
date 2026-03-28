@@ -126,7 +126,7 @@
       <!-- Mobile/Tablet Menu Button - Visible on screens smaller than lg (1024px) --> 
     <div class="lg:hidden flex items-center"> 
       <button (click)="toggleMobileMenu()"  
-              class="p-2 text-2xl focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-md transition-all duration-300 hover:bg-gray-100" 
+              class="toggle-menu p-2 text-2xl focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-md transition-all duration-300 hover:bg-gray-100" 
               [class.rotate-90]="isMobileMenuOpen"> 
         <span class="block transition-transform duration-300" [class.rotate-45]="isMobileMenuOpen">☰</span> 
       </button> 
@@ -139,7 +139,7 @@
   <div class="lg:hidden overflow-hidden transition-all duration-500 ease-in-out mobile-menu" 
        [class.h-screen]="isMobileMenuOpen" 
        [class.max-h-0]="!isMobileMenuOpen"> 
-    <div class="bg-white border-t border-gray-200 shadow-lg h-100"> 
+    <div class="bg-white border-t border-gray-200 shadow-lg"> 
       <div class="flex flex-col space-y-1 p-4"> 
         <!-- Navigation Links --> 
         <a routerLink="/pricing"  

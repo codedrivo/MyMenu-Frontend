@@ -79,3 +79,31 @@ html {
     gap: 10px;
   }
 }
+@media (max-width: 767px) {
+   .footer {
+    padding-top: 40px;
+  }
+}
+@media (max-width: 575px) {
+ .footer-logo {
+  margin-bottom: 30px;
+  max-width: 130px;
+  margin-left: auto;
+  margin-right: auto;
+} 
+ .footer {
+  text-align: center;
+ }
+ .ft-list {
+  margin-bottom: 30px;
+ }
+ .ft-list li a {
+  justify-content: center;
+ }
+ .footer-bottom {
+  margin-top: 10px;
+ }
+ .footer-bottom p {
+  font-size: 12px;
+ }
+}

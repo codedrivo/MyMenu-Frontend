@@ -44,7 +44,23 @@
     .max-h-screen.mobile-menu {
         overflow-y: auto!important;
     }
+    /* .toggle-menu {
+        background: var(--primary-color);
+        color: #fff;
+    }
+    .toggle-menu span {
+        line-height: 1;
+    } */
+.mobile-menu {
+    background: #fff;
+}
+.mobile-menu.h-screen {
+  height:calc(100vh - 77px)!important;
+  overflow-y: auto!important;
+}
 }
 @media (max-width: 767px) {
-    
+  .mobile-menu.h-screen {
+  height:calc(100vh - 69px)!important;
+}
 }

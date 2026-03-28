@@ -674,8 +674,6 @@ html {
 }
 .pricing-box h3 {
   gap: 25px;
-}
-h3 {
   font-size: 25px;
 }
 .pricing-box p {
@@ -738,5 +736,153 @@ body {
 }
 }
 @media (max-width: 767px) {
+ .banner {
+  margin-top: 69px;
+ }
+.counter-innr h4 {
+  font-size: 26px;
+}
+.counter-img {
+  margin-bottom: 10px;
+  width: 40px;
+}
+.counter-innr p {
+  font-size: 16px;
+}
  
+   .pricing-box {
+    padding: 40px 30px;
+  }
+    .cmn-hdr.hdr-wdth {
+    margin-bottom: 35px;
+  }
+  .how-it-content ul li span {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 18px;
+  }
+  .how-it-content ul li:after {
+    left: 9px;
+  }
+    .btn.w-241 {
+  min-width: 160px;
+}
+.ready-to-make-wrapper {
+  padding: 50px 30px;
+}
+  .operators-card {
+    padding: 20px;
+    padding-top: 40px;
+    min-height: 400px;
+  }
+  .operators-card h4 {
+    font-size: 17px;
+  }
+  .operators-card p {
+    font-size: 15px;
+  }
+  .operators-card h5,.operators-card h6 {
+    font-size: 15px;
+  }
+  .cmn-hdr p.sm {
+  font-size: 15px;
+}
+.ban-bottom {
+  flex-wrap: wrap;
+}
+.cost-sec {
+  padding: 50px 0;
+}
+.cost-area {
+  max-width: 400px;
+}
+.counter-innr {
+  max-width: 140px;
+  min-width: 140px;
+}
+}
+@media (max-width: 575px) {
+  .tag-top {
+    font-size: 12px;
+  }
+  .banner-center {
+  flex-direction: column;
+  gap: 10px;
+}
+ .banner-center .btn {
+  margin: 0!important;
+ }
+ .ban-bottom li {
+  font-size: 12px;
+  padding-right: 6px;
+}
+  .gap-100 {
+    gap: 25px;
+    flex-direction: column;
+  }
+    .counter-innr {
+    max-width: 100%;
+    min-width: 100%;
+  }
+   .counter-innr p,.cmn-hdr p {
+    font-size: 14px;
+  }
+  .cmn-hdr {
+  margin-bottom: 30px;
+  text-align: center;
+}
+ .pricing-content ul li {
+    font-size: 14px;
+    margin-bottom: 22px;
+    text-align: left;
+  }
+  .pricing-content {
+  text-align: center;
+  }
+  .pricing-box {
+    padding: 25px;
+  }
+  .pricing-box h3 {
+    gap: 15px;
+    font-size: 20px;
+  }
+  .pricing-box p {
+    font-size: 15px;
+  }
+  .btn-wrapper {
+    flex-direction: column;
+  }
+  .mt-72 {
+  margin-top: 40px;
+}
+  .cost-icon-1, .cost-icon-2 {
+    width: 28px;
+  }
+    .cost-area {
+    max-width: 280px;
+  }
+  .cost-sec {
+    padding: 40px 0;
+  }
+    .ready-to-make-wrapper {
+    padding: 30px 20px;
+  }
+  .ready-to-make-btn {
+  gap: 14px;
+  flex-direction: column;
+}
+.pricing-box h3 {
+  font-size: 20px;
+}
+}
+@media (max-width: 480px) {
+.operators-card {
+  min-height: 320px;
+}
+}
+@media (max-width: 360px) {
+  .cost-area {
+    max-width: 250px;
+  }
 }

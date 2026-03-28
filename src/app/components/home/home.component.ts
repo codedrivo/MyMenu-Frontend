@@ -42,7 +42,8 @@ export class HomeComponent implements AfterViewInit {
         disableOnInteraction: false
       },
       breakpoints: {
-        320: { slidesPerView: 2 },
+        320: { slidesPerView: 1 },
+        500: { slidesPerView: 2 },
         800: { slidesPerView: 3 },
         1140: { slidesPerView: 4 }
       }

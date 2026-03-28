@@ -193,5 +193,37 @@ body {
   .common-gap {
   padding: 40px 0;
 }
+ h1 {
+    font-size: 28px;
+  }
+  h4 {
+  font-size: 17px;
+  }
+   h2 {
+    font-size: 22px;
+  }
+  .mt-5 {
+  margin-top: 2rem !important;
+}
+  .btn.lg {
+    font-size: 16px;
+  }
+.mb-5 {
+  margin-bottom: 2rem !important;
+}
 
+}
+@media (max-width: 575px) {
+    h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+ html,body {
+  overflow-x: hidden;
+ }
 }
