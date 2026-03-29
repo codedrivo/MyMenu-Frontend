@@ -35,23 +35,23 @@
   --secondary-font: "Inter", sans-serif;
 }
 @media (min-width: 768px) {
-  .container {
-    max-width: 720px;
+  .container,.main-container {
+    max-width: 720px!important;
   }
 }
 @media (min-width: 992px) {
-  .container {
-    max-width: 960px;
+  .container ,.main-container{
+    max-width: 960px!important;
   }
 }
 @media (min-width: 1200px) {
-  .container.container-sm {
-    max-width: 1170px;
+  .container.container-sm,.container,.main-container {
+    max-width: 1170px!important;
   }
 }
 @media (min-width: 1300px) {
-  .container.container-sm {
-    max-width: 1260px;
+  .container.container-sm ,.container,.main-container{
+    max-width: 1260px!important;
     margin-left: auto;
     margin-right: auto;
   }
@@ -172,14 +172,31 @@ h4 {
 .login-container .border {
   border-color: var(--primary-color) !important;
 }
-.bg-blue-600,.bg-blue-500 {
+.bg-blue-600,.bg-blue-500,.hover\:bg-green-600 {
   background: var(--primary-color)!important;
 }  
-.hover\:bg-blue-600:hover {
-  background: var(--primary-color)!important;
+.hover\:bg-blue-600:hover,.hover\:bg-green-600:hover {
+  background: var(--secondary-color)!important;
 }
-
-
+.btn-outline.bg-blue-500 {
+  color: var(--primary-color)!important;
+  border:1px solid var(--primary-color);
+  background: rgba(35, 157, 137, 0.08)!important;
+}
+.btn-outline.bg-blue-500:hover {
+  background: var(--primary-color)!important;
+  color: #fff!important;
+}
+.text-green-700,.text-green-500 {
+  color: var(--primary-color)!important;
+}
+.bg-blue-400 {
+  background: var(--primary-color)!important;
+  color: #fff!important;
+}
+.top-spacing {
+  margin-top: 85px;
+}
 @media (max-width: 1199px) {
 
 .btn {
@@ -189,6 +206,7 @@ h4 {
 .common-gap {
   padding: 80px 0;
 }
+
 }
 @media (max-width: 991px) {
 .common-gap {
@@ -232,7 +250,37 @@ body {
 .mb-5 {
   margin-bottom: 2rem !important;
 }
-
+.login-container .max-w-c {
+  max-width: 95%;
+}
+.text-4xl {
+  font-size: 1.8rem!important;
+  line-height: 1.8rem!important;
+}
+.p-8 {
+  padding: 1.3rem!important;
+}
+.login-container button.px-3 {
+  padding-right: 0.5rem !important;
+  padding-left: 0.5rem !important;
+}
+button.px-4 {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+}
+.column-flex {
+  flex-direction: column;
+}
+.top-spacing {
+  margin-top: 69px;
+}
+.py-20 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.mt-10 {
+  margin-top: 1.5rem;
+}
 }
 @media (max-width: 575px) {
     h1 {

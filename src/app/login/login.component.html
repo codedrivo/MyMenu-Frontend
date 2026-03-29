@@ -117,9 +117,9 @@
       </div>
 
       <!-- Code Action Buttons -->
-      <div *ngIf="mode==='otp-login'" class="flex gap-2">
+      <div *ngIf="mode==='otp-login'" class="flex gap-2 column-flex">
         <button type="button"
-                class="flex-1 py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none cursor-pointer"
+                class="flex-1 py-3 px-4 btn-outline bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none cursor-pointer"
                 (click)="sendLoginOtp()">
           {{ isOtpSent ? 'Resend Login Code' : 'Send Login Code' }}
         </button>
@@ -131,9 +131,9 @@
         </button>
       </div>
 
-      <div *ngIf="mode==='otp-register'" class="flex gap-2">
+      <div *ngIf="mode==='otp-register'" class="flex gap-2 column-flex">
         <button type="button"
-                class="flex-1 py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none cursor-pointer"
+                class="btn-outline flex-1 py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg focus:ring-4 focus:ring-blue-300 focus:outline-none cursor-pointer"
                 (click)="sendRegistrationOtp()">
           {{ isOtpSent ? 'Resend Registration Code' : 'Send Registration Code' }}
         </button>

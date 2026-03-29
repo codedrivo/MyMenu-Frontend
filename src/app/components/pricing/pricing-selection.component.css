@@ -586,9 +586,9 @@
 .feature-col { width: 40%; }
 .tier-col { text-align: center; width: 20%; }
 
-.tier-col span[data-tier="basic"] { color: #06b6d4; }
+/* .tier-col span[data-tier="basic"] { color: #06b6d4; }
 .tier-col span[data-tier="pro"] { color: #fbbf24; }
-.tier-col span[data-tier="enterprise"] { color: #ec4899; }
+.tier-col span[data-tier="enterprise"] { color: #ec4899; } */
 
 .feature-name {
   font-size: 0.925rem;

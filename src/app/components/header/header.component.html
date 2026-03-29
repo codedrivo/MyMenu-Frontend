@@ -142,6 +142,24 @@
     <div class="bg-white border-t border-gray-200 shadow-lg"> 
       <div class="flex flex-col space-y-1 p-4"> 
         <!-- Navigation Links --> 
+         <a routerLink="/home"  
+           routerLinkActive="active"  
+           (click)="closeMenu()"  
+           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
+          HOME
+        </a> 
+        <a routerLink="/about"  
+           routerLinkActive="active"  
+           (click)="closeMenu()"  
+           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
+          ABOUT
+        </a> 
+        <a routerLink="/features"  
+           routerLinkActive="active"  
+           (click)="closeMenu()"  
+           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
+          FEATURES
+        </a> 
         <a routerLink="/pricing"  
            routerLinkActive="active"  
            (click)="closeMenu()"  
