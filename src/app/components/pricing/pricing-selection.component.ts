@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { MockApiService } from '../../services/mock-api.service';
 import { UIPlan, ApiSubscribeRequest } from '../../models/api-types';
 
 @Component({
   selector: 'app-pricing-selection',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './pricing-selection.component.html',
   styleUrls: ['./pricing-selection.component.css']
 })
@@ -16,12 +16,10 @@ export class PricingSelectionComponent implements OnInit {
   @Output() quoteRequested = new EventEmitter<UIPlan>();
   @Output() subscriptionRequested = new EventEmitter<{plan: UIPlan, pricingId: number, email: string}>();
 
-  serviceTiers: UIPlan[] = [];
-  billingCycle: 'monthly' | 'yearly' = 'monthly';
   loading = true;
   error: string | null = null;
-  subscriptionMessage: string | null = null;
-  returnUrl: string | null = null;
+  serviceTiers: UIPlan[] = [];
+  selectedBillingCycle: 'monthly' | 'yearly' = 'monthly';
 
   allFeatures = [
     { name: 'Comp Set Identification' },
@@ -48,130 +46,93 @@ export class PricingSelectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Check for subscription requirement message from query parameters
-    this.route.queryParams.subscribe(params => {
-      this.subscriptionMessage = params['message'] || null;
-      this.returnUrl = params['returnUrl'] || null;
-    });
     this.loadPlans();
   }
 
   retryLoadPlans(): void {
-    this.error = null;
     this.loadPlans();
   }
 
   private loadPlans(): void {
     this.loading = true;
     this.error = null;
-    
+
     this.mockApiService.getPlans().subscribe({
       next: (response) => {
         this.serviceTiers = this.mockApiService.convertToUIPlans(response);
         this.loading = false;
       },
-      error: (error) => {
+      error: (err) => {
+        console.error(err);
         this.error = 'Failed to load pricing plans. Please try again.';
         this.loading = false;
-        console.error('Error loading plans:', error);
       }
     });
   }
 
-  setBillingCycle(cycle: 'monthly' | 'yearly'): void {
-    this.billingCycle = cycle;
-  }
+// MAIN FLOW (LOGIN + PAYMENT)
+  selectTier(tier: UIPlan): void {
 
-  // Choose a sensible default tier for top checkout CTA
-  getDefaultCheckoutTier(): UIPlan | null {
-    if (!this.serviceTiers || this.serviceTiers.length === 0) return null;
-    const popularPaid = this.serviceTiers.find(t => !t.isCustomPricing && t.isPopular);
-    if (popularPaid) return popularPaid;
-    const firstPaid = this.serviceTiers.find(t => !t.isCustomPricing);
-    return firstPaid || null;
-  }
-
-  // Top CTA handler: proceed with the default tier
-  proceedToCheckoutTop(): void {
-    const tier = this.getDefaultCheckoutTier();
-    if (tier) {
-      this.selectPlan(tier);
-    }
-  }
-
-  selectPlan(tier: UIPlan): void {
+    // Custom plan → Contact
     if (tier.isCustomPricing) {
-      this.requestQuote(tier);
-    } else {
-      // Navigate to multi-location payment page with selected plan data
-      const price = this.billingCycle === 'yearly' ? tier.yearlyPrice : tier.monthlyPrice;
-      const priceId = this.billingCycle === 'yearly' ? tier.yearlyPriceId : tier.monthlyPriceId;
-      
-      this.router.navigate(['/multi-location-payment'], {
-        queryParams: {
-          planId: tier.id,
-          planName: tier.name,
-          billingCycle: this.billingCycle,
-          price: price,
-          priceId: priceId
-        }
+      this.router.navigate(['/contact'], {
+        queryParams: { tier: tier.name }
       });
-      this.planSelected.emit(tier);
-    }
-  }
-
-  selectSingleLocationPlan(tier: UIPlan): void {
-    if (tier.isCustomPricing) {
-      this.requestQuote(tier);
-    } else {
-      // Navigate to single location payment page
-      const price = this.billingCycle === 'yearly' ? tier.yearlyPrice : tier.monthlyPrice;
-      const priceId = this.billingCycle === 'yearly' ? tier.yearlyPriceId : tier.monthlyPriceId;
-      
-      this.router.navigate(['/payment'], {
-        queryParams: {
-          planId: tier.id,
-          planName: tier.name,
-          billingCycle: this.billingCycle,
-          price: price,
-          priceId: priceId
-        }
-      });
-      this.planSelected.emit(tier);
-    }
-  }
-
-  requestQuote(tier: UIPlan): void {
-    // Navigate to Contact Us page for custom pricing
-    this.router.navigate(['/contact'], { queryParams: { tier: tier.name } });
-    this.quoteRequested.emit(tier);
-  }
-
-  // Method to handle subscription with pricing ID
-  subscribeToplan(tier: UIPlan, email: string): void {
-    if (tier.isCustomPricing) {
-      this.requestQuote(tier);
       return;
     }
 
-    const pricingId = this.getPricingIdFromStripeId(tier.monthlyPriceId);
+    const isLoggedIn = !!localStorage.getItem('token'); //
 
-    if (pricingId) {
-      this.subscriptionRequested.emit({ plan: tier, pricingId, email });
+    const price =
+      this.selectedBillingCycle === 'yearly'
+        ? tier.yearlyPrice
+        : tier.monthlyPrice;
+
+    const priceId =
+      this.selectedBillingCycle === 'yearly'
+        ? tier.yearlyPriceId
+        : tier.monthlyPriceId;
+
+    const planData = {
+      planId: tier.id,
+      planName: tier.name,
+      billingCycle: this.selectedBillingCycle,
+      price,
+      priceId
+    };
+
+    // Not logged in → go login first
+    if (!isLoggedIn) {
+      localStorage.setItem('pendingPlan', JSON.stringify(planData));
+      this.router.navigate(['/login']);
+      return;
     }
+
+    // Logged in → go payment
+    this.router.navigate(['/payment'], {
+      queryParams: planData
+    });
   }
 
-  private getPricingIdFromStripeId(stripeId: string | null): number | null {
-    if (!stripeId) return null;
-    // Extract pricing ID from stripe price ID
-    if (stripeId.includes('monthly')) return 1;
-    if (stripeId.includes('yearly')) return 2;
-    return null;
+  // Toggle
+  toggleBillingCycle(): void {
+    this.selectedBillingCycle =
+      this.selectedBillingCycle === 'monthly' ? 'yearly' : 'monthly';
   }
 
-  getCurrentPrice(tier: UIPlan): number | null {
+  // Dynamic price
+  getPrice(tier: UIPlan): number | null {
     if (tier.isCustomPricing) return null;
-    return this.billingCycle === 'yearly' ? tier.yearlyPrice : tier.monthlyPrice;
+
+    return this.selectedBillingCycle === 'yearly'
+      ? tier.yearlyPrice
+      : tier.monthlyPrice;
+  }
+
+  // Savings
+  getSavings(tier: UIPlan): number {
+    if (!tier.yearlyPrice || !tier.monthlyPrice) return 0;
+    return (tier.monthlyPrice * 12) - tier.yearlyPrice;
   }
 
   isFeatureIncluded(featureName: string, tier: UIPlan): boolean {

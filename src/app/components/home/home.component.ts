@@ -1,7 +1,7 @@
 import { Component, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactCardComponent } from '../contact-card/contact-card.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Fancybox } from "@fancyapps/ui";
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -9,11 +9,10 @@ import { PricingCardComponent } from "../pricing-card/pricing-card.component";
 Swiper.use([Navigation, Pagination, Autoplay]);
 import { NumberFormatPipe } from '../../number-format.pipe';
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ContactCardComponent, PricingCardComponent, NumberFormatPipe],
+  imports: [CommonModule, ContactCardComponent, PricingCardComponent, NumberFormatPipe, RouterModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

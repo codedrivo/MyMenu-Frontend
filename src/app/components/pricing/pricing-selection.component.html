@@ -8,146 +8,113 @@
   </div>
 
   <div class="container">
-    <!-- Header Section -->
-    <div class="header">
-      <!-- <div class="badge">
-        <span class="pulse-dot"></span>
-        <span>AI-Powered Intelligence</span>
-      </div> -->
-      <h1 class="title">
-        Choose Your <span class="gradient-text">MyMenu.ai</span> Plan
-      </h1>
-      <p class="subtitle">
-        Transform your restaurant's pricing strategy with competitive intelligence
-      </p>
-    </div>
 
-    <!-- Subscription Alert -->
-    <div *ngIf="subscriptionMessage" class="subscription-alert">
-      <div class="alert-icon">⚠️</div>
-      <div class="alert-content">
-        <h4>Subscription Required</h4>
+  <section class="plan-sec common-gap">
+    <div class="container container-sm">
+
+      <!-- Header -->
+      <div class="cmn-hdr text-center hdr-wdth mb-5">
+        <h2>Straightforward Plans That Scale With You</h2>
+        <p class="sm">
+          Pay per location for smaller operators—or choose enterprise plans.
+        </p>
       </div>
-    </div>
 
-    <!-- Billing Toggle -->
-    <div class="billing-toggle-wrapper">
-      <div class="billing-toggle">
-        <button 
-          class="toggle-btn"
-          [class.active]="billingCycle === 'monthly'"
-          (click)="setBillingCycle('monthly')">
-          Monthly
-        </button>
-        <button 
-          class="toggle-btn"
-          [class.active]="billingCycle === 'yearly'"
-          (click)="setBillingCycle('yearly')">
-          Yearly
-          
-        </button>
-      </div>
-    </div>
+      <!-- Billing Toggle -->
+      <div class="pricing-toggle">
+        <div class="pricing-toggle-top">
+          <span>Monthly</span>
 
-    <!-- Loading State -->
-    <div *ngIf="loading" class="pricing-grid">
-      <div class="pricing-card loading-card" *ngFor="let item of [1,2,3]">
-        <div class="card-inner">
-          <div class="skeleton skeleton-icon"></div>
-          <div class="skeleton skeleton-title"></div>
-          <div class="skeleton skeleton-price"></div>
-          <div class="skeleton skeleton-feature" *ngFor="let f of [1,2,3,4]"></div>
-          <div class="skeleton skeleton-button"></div>
+          <label class="switch">
+            <input type="checkbox"
+                  [checked]="selectedBillingCycle === 'yearly'"
+                  (change)="toggleBillingCycle()">
+            <span class="slider"></span>
+          </label>
+
+          <span>Yearly</span>
         </div>
       </div>
-    </div>
 
-    <!-- Error State -->
-    <div *ngIf="error && !loading" class="error-state">
-      <div class="error-content">
-        <div class="error-icon">⚠️</div>
-        <h3>Failed to Load Pricing Plans</h3>
+      <!-- Loading -->
+      <div *ngIf="loading" class="text-center">
+        Loading plans...
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="error && !loading" class="text-center">
         <p>{{ error }}</p>
-        <button (click)="retryLoadPlans()" class="retry-btn">Try Again</button>
+        <button (click)="retryLoadPlans()">Retry</button>
       </div>
-    </div>
 
-    <!-- Pricing Cards -->
-    <div *ngIf="!loading && !error" class="pricing-grid">
-      <div 
-        *ngFor="let tier of serviceTiers; let i = index" 
-        class="pricing-card"
-        [class.popular]="tier.isPopular"
-        [style.animation-delay.ms]="i * 100">
-        
-        <!-- Popular Badge -->
-        <div *ngIf="tier.isPopular" class="popular-badge">
-          <span>MOST POPULAR</span>
-        </div>
+      <!-- Plans -->
+      <div class="row g-4" *ngIf="!loading && !error">
+        <div class="col-lg-4 col-md-6" *ngFor="let tier of serviceTiers">
 
-        <div class="card-inner" [class.popular-inner]="tier.isPopular">
-          <!-- Card Header -->
-          <div class="card-header">
-            <div class="tier-icon" [attr.data-tier]="tier.name.toLowerCase()">
-              <span>{{ tier.name.charAt(0) }}</span>
-            </div>
-            <div class="tier-info">
-              <h3>{{ tier.name }}</h3>
-              <p>{{ tier.title.split(' – ')[1] || tier.description }}</p>
-            </div>
-          </div>
+          <div class="plan-card">
 
-          <!-- Pricing -->
-          <div class="pricing-block">
-            <div *ngIf="!tier.isCustomPricing" class="price-display">
-              <span class="price-amount">${{ getCurrentPrice(tier) }}</span>
-              <span class="price-period">/{{ billingCycle === 'yearly' ? 'yr' : 'mo' }}</span>
-            </div>
-            <!-- Free Month Badges for Basic Plan -->
-            <div *ngIf="tier.name === 'Basic' && !tier.isCustomPricing" class="promo-badges">
-              <span *ngIf="billingCycle === 'monthly'" class="free-badge">1 month free</span>
-              <span *ngIf="billingCycle === 'yearly'" class="free-badge">2 months free</span>
-            </div>
-            <div *ngIf="tier.isCustomPricing" class="custom-price">
-              Custom Pricing
-            </div>
-            <!-- <p *ngIf="billingCycle === 'yearly' && !tier.isCustomPricing && tier.monthlyPrice" class="yearly-savings">
-              Save ${{ (tier.monthlyPrice! * 12) - tier.yearlyPrice! }}/year
-            </p> -->
-          </div>
+            <div class="plan-card-content">
 
-          <!-- Features -->
-          <div class="features-list">
-            <div *ngFor="let feature of tier.features.slice(0, 5)" class="feature-item">
-              <div class="feature-check" [attr.data-tier]="tier.name.toLowerCase()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                </svg>
+              <!-- Title -->
+              <h3>
+                <span>
+                  <img [src]="'assets/images/plan-icon-' + tier.id + '.svg'" alt="">
+                </span>
+
+                {{ tier.name }}
+
+                <em *ngIf="tier.isPopular" class="popular-badge">
+                  Popular
+                </em>
+              </h3>
+
+              <!-- Subtitle -->
+              <p>{{ tier.title || tier.description }}</p>
+
+              <!-- Dynamic Price -->
+              <h2 *ngIf="!tier.isCustomPricing">
+                ${{ getPrice(tier) }}
+                <span>
+                  /{{ selectedBillingCycle === 'yearly' ? 'year' : 'month' }}
+                </span>
+              </h2>
+
+              <!-- Custom Pricing -->
+              <h2 *ngIf="tier.isCustomPricing">
+                Custom Pricing
+              </h2>
+
+              <!-- Savings -->
+              <div *ngIf="selectedBillingCycle === 'yearly' && !tier.isCustomPricing">
+                Save ${{ getSavings(tier) }}/year
               </div>
-              <span>{{ feature }}</span>
-            </div>
-            <p *ngIf="tier.features.length > 5" class="more-features">
-              +{{ tier.features.length - 5 }} more features
-            </p>
-          </div>
 
-          <!-- CTA Button -->
-          <button 
-            *ngIf="!tier.isCustomPricing"
-            (click)="selectPlan(tier)"
-            class="cta-btn"
-            [class.cta-popular]="tier.isPopular">
-            Proceed to Checkout <span class="arrow">→</span>
-          </button>
-          <button 
-            *ngIf="tier.isCustomPricing"
-            (click)="requestQuote(tier)"
-            class="cta-btn cta-secondary">
-            Contact Sales <span class="arrow">→</span>
-          </button>
+              <!-- Features -->
+              <ul>
+                <li *ngFor="let feature of tier.features">
+                  {{ feature }}
+                </li>
+              </ul>
+
+            </div>
+
+            <!-- Button -->
+            <div class="plan-btn">
+              <button
+                type="button"
+                class="btn btn-outline"
+                (click)="selectTier(tier)">
+
+                <span *ngIf="!tier.isCustomPricing">Get Your Plan</span>
+                <span *ngIf="tier.isCustomPricing">Contact Sales</span>
+
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
     <!-- Trust Badges -->
     <div class="trust-section">
