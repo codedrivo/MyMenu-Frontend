@@ -1,87 +1,43 @@
-<div class="bg-gray-300 px-4 w-full -mt-32 md:px-8  lg:px-16">
-  <div class="flex flex-col items-center justify-center text-black mt-32 md:mt-32">
-    <h1 class="text-lg sm:text-xl md:text-4xl mt-4 font-bold leading-tight text-center mb-6">
-      We are helping restauranteurs stand tall and win by providing technology used by the biggest operators & best brands, in your hands.
-    </h1>
-
-    <button
-      type="submit"
-      class="h-10 sm:h-12 mt-4 bg-gray-400 font-bold text-[#151533] px-4 sm:px-6 md:px-8 py-2 rounded-full border hover:border-white border-black transform hover:scale-105 transition-all hover:text-white hover:bg-gray-800"
-      onclick="window.location.href='/contact';">
-      CONTACT US TODAY
-    </button>
-
-    <h1 class="text-md sm:text-lg md:text-3xl font-bold leading-tight text-center mt-6 sm:mt-10 fontyesevaone">
-      Or Call +1 (202) 618-2814
-    </h1>
-  </div>
-
-  <!-- Footer Sections -->
-  <div class="flex flex-col sm:flex-row justify-center md:justify-between items-center sm:items-start mt-12 sm:mt-20 text-black gap-8 px-4 sm:px-6">
-    <!-- Contact Section -->
-    <div class="flex-1 px-4 text-center ">
-      <h3 class="font-semibold mb-2  text-white bg-black rounded-md w-full sm:w-[80%] py-2 text-center">Contact</h3>
-      <p class="mt-4 text-sm ml-0 lg:-ml-24 md:-ml-10 sm:text-base">
-        <a href="mailto:info&#64;MyMenu.AI" class="hover:font-bold">info&#64;MyMenu.AI</a>
-      </p>
-      <p class="text-sm ml-0 lg:-ml-24 md:-ml-10 sm:text-base">+1 (202) 618-2814</p>
-      <p class="text-sm ml-0 lg:-ml-24 md:-ml-10 sm:text-base">Washington DC,</p>
-      <p class="text-sm ml-0 lg:-ml-24 md:-ml-10 sm:text-base">United States.</p>
-    </div>
-
-    <!-- Follow Us Section -->
-    <div class="flex-1 px-4 text-center sm:text-left">
-      <h3 class="font-semibold mb-2 text-white bg-black rounded-md w-full sm:w-[80%] py-2 text-center">Follow Us</h3>
-      <div class="flex justify-center space-x-4 mt-4 ml-0 md:-ml-8 lg:-ml-24 text-black text-2xl">
-        <a href="http://www.linkedin.com/in/mymenu-ai-783848342" target="_blank" rel="noopener noreferrer" class="hover:font-bold transform hover:scale-110 transition-all"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.facebook.com/profile.php?id=61571314174047&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="hover:font-bold transform hover:scale-110 transition-all"><i class="fab fa-facebook"></i></a>
-        <a href="https://x.com/MyMenuAi" target="_blank" rel="noopener noreferrer" class="hover:font-bold transform hover:scale-110 transition-all"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/mymenuai?igsh=bGk1dDIyOGQ5ZGpo" target="_blank" rel="noopener noreferrer" class="hover:font-bold transform hover:scale-110 transition-all"><i class="fab fa-instagram"></i></a>
+<footer class="footer">
+      <div class="container container-sm">
+          <div class="footer-logo"><img src="assets/images/logo.svg" alt=""></div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4 class="ft-hdr">Quick Links</h4>
+                    <ul class="ft-list">
+                      <li><a routerLink="/home" (click)="scrollToTop()">Home</a></li>
+                      <li><a routerLink="/about" (click)="scrollToTop()">About</a></li>
+                      <li><a routerLink="/features" (click)="scrollToTop()">Features</a></li>
+                      <li><a routerLink="/login" (click)="scrollToTop()">Strike 9 Consulting</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="ft-hdr">Support & Contact</h4>
+                    <ul class="ft-list">
+                      <li><a routerLink="/contact" (click)="scrollToTop()">Contact Us</a></li>
+                      <li><a routerLink="/techoverview" (click)="scrollToTop()">Technical Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="ft-hdr">Connect</h4>
+                    <ul class="ft-list">
+                      <li><a href="https://www.instagram.com/mymenuai?igsh=bGk1dDIyOGQ5ZGpo" target="_blank" rel="noopener noreferrer"><span><i class="fab fa-instagram"></i></span>Instagram</a></li>
+                      <li><a href="https://www.facebook.com/profile.php?id=61571314174047&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer"><span><i class="fab fa-facebook"></i></span>Facebook</a></li>
+                      <li><a href="https://x.com/MyMenuAi" target="_blank" rel="noopener noreferrer"><span><i class="fab fa-x-twitter"></i></span>Twitter / X</a></li>
+                      <li><a href="http://www.linkedin.com/in/mymenu-ai-783848342" target="_blank" rel="noopener noreferrer"><span><i class="fab fa-linkedin"></i></span>Linkedin</a></li>
+                    </ul>
+                </div>
+          </div>
+          <div class="footer-bottom">
+              <p>A product of <a routerLink="/login" (click)="scrollToTop()">Strike 9 Consulting</a> ©2026 MyMenu.Ai · All rights reserved.</p>
+              <ul>
+                <li><a href="#">Term of use</a></li>
+                <li><a href="#">Privacy policy</a></li>
+                <li><a href="#">Security</a></li>
+              </ul>
+          </div>
       </div>
-    </div>
-
-    <!-- Quick Links Section -->
-    <div class="flex-1 px-4 text-center">
-      <h3 class="font-semibold mb-2 text-white bg-black rounded-md w-full sm:w-[80%] py-2 text-center">Quick Links</h3>
-      <ul class="space-y-2 ml-0 md:-ml-6 lg:-ml-24 mt-4">
-        <li>
-          <a routerLink="/home" class="hover:font-bold" (click)="scrollToTop()">
-            <i class="fas fa-home mr-2"></i> Home
-          </a>
-        </li>
-        <li>
-          <a routerLink="/about" class="hover:font-bold" (click)="scrollToTop()">
-            <i class="fas fa-info-circle mr-2"></i> About
-          </a>
-        </li>
-        <li>
-          <a routerLink="/features" class="hover:font-bold" (click)="scrollToTop()">
-            <i class="fas fa-cogs mr-2"></i> Features
-          </a>
-        </li>
-        <li>
-          <a routerLink="/techoverview" class="hover:font-bold" (click)="scrollToTop()">
-            <i class="fas fa-laptop-code mr-2"></i> Tech Overview
-          </a>
-        </li>
-        <li>
-          <a routerLink="/letsstart" class="hover:font-bold" (click)="scrollToTop()">
-            <i class="fas fa-play-circle mr-2"></i> Let's Get Started
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="flex flex-col justify-center items-center w-full mt-8 sm:mt-12">
-    <div class="w-full border-t border-black mb-6"></div>
-    <footer class="text-black mt-6 mb-10">
-      <p class="text-xs sm:text-sm text-center fontvarela" style="font-size: 0.875rem;">
-        Copyright © 2024 MyMenu.AI | Powered by MyMenu.AI
-      </p>
-    </footer>
-  </div>
-</div>
+  </footer>
 
 <link
   rel="stylesheet"

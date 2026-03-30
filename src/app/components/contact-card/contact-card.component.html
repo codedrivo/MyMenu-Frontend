@@ -1,0 +1,119 @@
+<section class="contact-sec common-gap">
+      <div class="container container-sm">
+          <div class="cmn-hdr text-center mb-5">
+            <h2>Contact Us</h2>
+            <p class="sm">Any question or remarks? Just write us a message!</p>
+          </div>
+          <div class="contact-form">
+              <div class="row">
+                  <div class="col-lg-5">
+                      <div class="contact-left">
+                          <h3>We Are MyMenu.AI</h3>
+                          <p>We are a one-stop solution for your retail food and beverage business menu pricing needs. With our expertise and proven AI-based solution, we help you tackle pricing challenges and leverage the opportunity to maximize business growth in near real-time. Ready to take your restaurant to the next level? Contact us today to learn more about how MyMenu.AI can help you optimize your menu pricing, operations, and customer experiences.</p>
+                          <ul class="contact-details-list">
+                              <li><span><img src="assets/images/bxs_phone-call.svg" alt="" /></span>+1 (202) 618-2814</li>
+                              <li><span><img src="assets/images/ic_sharp-email.svg" alt="" /></span>info&#64;MyMenu.AI</li>
+                              <li><span><img src="assets/images/carbon_location-filled.svg" alt="" /></span>Washington DC, United States.</li>
+                          </ul>
+                          <ul class="soacial-media-list">
+                            <li><a href="https://x.com/MyMenuAi" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://www.instagram.com/mymenuai?igsh=bGk1dDIyOGQ5ZGpo" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-discord"></i></a></li>
+                          </ul>
+                          <div class="shape"><img src="assets/images/shape.png" alt=""></div>
+                      </div>
+                  </div>
+                  <div class="col-lg-7">
+                      <div class="contact-right">
+                          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label  for="firstname" class="form-label">First Name</label>
+                                          <input  type="text" id="firstname" formControlName="firstname" class="form-control" placeholder="">
+                                          <div *ngIf="contactForm.get('firstname')?.invalid && (contactForm.get('firstname')?.dirty || contactForm.get('firstname')?.touched)" class="text-red-500 text-sm mt-1">
+                                            <small *ngIf="contactForm.get('firstname')?.errors?.['required']">First name is required</small>
+                                            <small *ngIf="contactForm.get('firstname')?.errors?.['minlength']">First name must be at least 2 characters</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="lastname" class="form-label">Last Name</label>
+                                          <input type="text" id="lastname" formControlName="lastname" class="form-control" placeholder="">
+                                          <div *ngIf="contactForm.get('lastname')?.invalid && (contactForm.get('lastname')?.dirty || contactForm.get('lastname')?.touched)" class="text-red-500 text-sm mt-1">
+                                            <small *ngIf="contactForm.get('lastname')?.errors?.['required']">Last name is required</small>
+                                            <small *ngIf="contactForm.get('lastname')?.errors?.['minlength']">Last name must be at least 2 characters</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="email" class="form-label">Email</label>
+                                          <input type="email" id="email" formControlName="email" class="form-control" placeholder="">
+                                          <div *ngIf="contactForm.get('email')?.invalid && (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)" class="text-red-500 text-sm mt-1">
+                                            <small *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</small>
+                                            <small *ngIf="contactForm.get('email')?.errors?.['email']">Invalid email format</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="contactNumber" class="form-label">Phone Number</label>
+                                          <input type="tel" id="contactNumber" formControlName="contactNumber" class="form-control" placeholder="">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <p class="checkbox-hdr" for="subject">Select Subject?</p>
+                                      <ul class="checkbox-list">
+                                        <li>
+                                            <label class="checkbox-container">
+                                              <input type="checkbox" checked="checked">
+                                              <p>General Inquiry</p>
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="checkbox-container">
+                                              <input type="checkbox">
+                                              <p>General Inquiry</p>
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                          <li>
+                                            <label class="checkbox-container">
+                                              <input type="checkbox">
+                                              <p>General Inquiry</p>
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                          <li>
+                                            <label class="checkbox-container">
+                                              <input type="checkbox">
+                                              <p>General Inquiry</p>
+                                              <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                      </ul>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <div class="form-group">
+                                          <label for="message" class="form-label">Message</label>
+                                          <textarea id="message" formControlName="message" class="form-control" placeholder="Write your message.."></textarea>
+                                          <div *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)" class="text-red-500 text-sm mt-1">
+                                            <small *ngIf="contactForm.get('message')?.errors?.['required']">Message is required</small>
+                                            <small *ngIf="contactForm.get('message')?.errors?.['minlength']">Message must be at least 10 characters</small>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <button type="submit" class="btn btn-primary w-100 send-btn" [disabled]="contactForm.invalid">Send Message</button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>

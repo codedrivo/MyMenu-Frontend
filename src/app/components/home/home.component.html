@@ -1,594 +1,391 @@
 <!-- First Section with background image -->
 
 <section id="FirstSection">
-  <div 
-    class="relative w-full h-screen bg-cover bg-fixed bg-center bg-no-repeat flex flex-col justify-center items-start px-6 lg:px-10"
-    id="responsiveBackground"
-  >
-    <!-- Video background with fallback image -->
-    <video 
-      #backgroundVideo
-      autoplay 
-      muted 
-      loop 
-      playsinline 
-      preload="metadata"
-      class="absolute inset-0 w-full h-full object-cover -z-10" 
-      id="background-video"
-      [style.display]="videoLoaded ? 'block' : 'none'"
-      (loadeddata)="onVideoLoaded()"
-      (canplay)="tryPlayVideo()">
-      <source src="assets/video (1).mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    
-    <!-- Fallback background image -->
-    <div 
-      class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat -z-10"
-      [style.background-image]="'url(assets/static-bg.jpg)'"
-      [style.display]="videoLoaded ? 'none' : 'block'">
-    </div>
+  <div class="banner common-gap">
+    <div class="container container-sm">
+        <div class="row align-items-center">
+          <div class="col-xl-6">
+            <div class="banner-content">
+              <span class="tag-top"><img src="assets/images/star.svg" alt="">AI-Powered Pricing Intelligence for
+                Restaurants</span>
+              <!-- Heading -->
+              <h1>
+                Your Pricing May Be Leaving Margin on the Table.
+              </h1>
 
-    <!-- Text content overlay -->
-    <div class="relative z-10 max-w-md sm:max-w-lg lg:max-w-xl text-white mt-[38vh] lg:mt-20 md:mt-[54%]">
-      <!-- Heading -->
-      <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-8xl font-heading font-bold mb-4 md:mb-6">
-        Supercharge your Restaurant's success
-      </h1>
+              <!-- Paragraph with description -->
+              <p>
+                Most restaurant margins sit under 5%. MyMenu.ai finds hidden pricing leaks using live market data—then
+                recommends the safest updates with clear projected impact before you publish.
+              </p>
 
-      <!-- Paragraph with description -->
-      <p class="text-sm sm:text-base md:text-lg lg:text-xl mb-3 md:mb-5 lg:mb-6">
-        Menu pricing: It’s a balancing act between happy customers & healthy margins.
-        <span class="font-bold cursor-pointer hover:text-black">MyMenu.AI</span> takes the guesswork out, using AI to find the sweet spot that boosts your revenue & lets you focus on what matters most – creating amazing food.
-      </p>
+              <!-- Call-to-action text -->
+              <!-- <p class="text-sm sm:text-base md:text-lg font-semibold mb-4 md:mb-6 lg:mb-8">
+                Try <span class="underline font-bold cursor-pointer hover:text-blue-500"
+                  onclick="window.location.href='/letsstart';">MyMenu.AI</span> today & see the difference!
+              </p> -->
 
-      <!-- Call-to-action text -->
-      <p class="text-sm sm:text-base md:text-lg font-semibold mb-4 md:mb-6 lg:mb-8">
-        Try <span class="underline font-bold cursor-pointer hover:text-blue-500" onclick="window.location.href='/letsstart';" >MyMenu.AI</span> today & see the difference!
-      </p>
+              <!-- Button group -->
+              <div class="flex space-x-3 md:space-x-4 mb-0 mt-8 banner-center">
 
-      <!-- Button group -->
-      <div class="flex space-x-3 md:space-x-4 mb-0 lg:mb-4">
-        <button class="px-4 py-2 sm:px-6 sm:py-3 bg-gray-300 text-black hover:text-white font-semibold rounded-full hover:bg-gray-700 transform hover:scale-105 transition-all duration-200" (click)="openDemoVideo()">Watch Demo</button>
-        <!-- <button onclick="document.getElementById('secondSection').scrollIntoView({ behavior: 'smooth' });" class="px-4 py-2 sm:px-6 sm:py-3 bg-gray-700 text-white font-semibold rounded-full hover:bg-gray-800 transform hover:scale-105 transition-all duration-200">Try the AI Tool</button> -->
-<button class="px-4 py-2 sm:px-6 sm:py-3 bg-gray-300 text-black hover:text-white font-semibold rounded-full hover:bg-gray-700 transform hover:scale-105 transition-all duration-200" (click)="openLetstart()">Try the AI Tool</button>
-      </div>
-    </div>
-  </div>
-</section>
+                <!-- <button onclick="document.getElementById('secondSection').scrollIntoView({ behavior: 'smooth' });" class="px-4 py-2 sm:px-6 sm:py-3 bg-gray-700 text-white font-semibold rounded-full hover:bg-gray-800 transform hover:scale-105 transition-all duration-200">Try the AI Tool</button> -->
+                <button type="button" class="btn btn-primary" onclick="window.location.href='/login';">See My Margin Opportunity (Free)</button>
+                <button
+                  class="btn btn-outline-grey"
+                  onclick="window.location.href='/letsstart';">Try a Sample Search</button>
+              </div>
+              <ul class="ban-bottom">
+                <li>Setup in minutes</li>
+                <li> No analysts</li>
+                <li>No spreadsheets</li>
+                <li>No obligation</li>
+              </ul>
 
-<!-- Replace the existing script with this improved version -->
-<script>
-  // Function to handle video playback
-  function handleVideoPlayback() {
-    const video = document.getElementById('background-video');
-    if (!video) return;
-    
-    // Try to play the video
-    const playVideo = function() {
-      if (video.paused) {
-        video.play().catch(error => {
-          //console.log('Auto-play was prevented:', error);
-        });
-      }
-    };
-    
-    // Play video immediately
-    playVideo();
-    
-    // Play video when page becomes visible
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'visible') {
-        playVideo();
-      }
-    });
-    
-    // Ensure video plays after any user interaction
-    const userInteractions = ['click', 'touchstart', 'keydown', 'scroll'];
-    userInteractions.forEach(event => {
-      document.addEventListener(event, function() {
-        playVideo();
-      }, { once: true });
-    });
-    
-    // Check periodically if video is playing
-    setInterval(function() {
-      playVideo();
-    }, 1000);
-    
-    // Handle page refresh and navigation
-    window.addEventListener('pageshow', function(event) {
-      // This fires when navigating back to a page using back/forward cache
-      if (event.persisted) {
-        playVideo();
-      }
-    });
-    
-    // Ensure video plays after loading
-    window.addEventListener('load', playVideo);
-  }
-  
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', handleVideoPlayback);
-  } else {
-    handleVideoPlayback();
-  }
-</script>
-
-
-
-<!-- Second Section with solid white background and content -->
-<section id="secondSection" class="bg-white text-black flex items-center justify-center h-auto py-16 px-4">
-  <div class="flex flex-col md:flex-row max-w-5xl items-center">
-    <img src="assets/food.jpeg" alt="Image 2" class="w-full transform hover:scale-105 transition-all md:w-1/2 h-auto rounded-md shadow-lg">
-    <div class="p-6 text-center md:text-left md:w-1/2">
-      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">MyMenu.AI Transforms your Restaurant</h2>
-      
-      <!-- Breaking content into more scannable sections with icons -->
-      <div class="mb-4">
-        <div class="flex items-center mb-2">
-          <span class="text-gray-800 mr-2"><i class="fas fa-database"></i></span>
-          <p class="text-sm sm:text-base lg:text-lg">We analyze millions of menu and price data points</p>
-        </div>
-        
-        <div class="flex items-center mb-2">
-          <span class="text-gray-800 mr-2"><i class="fas fa-robot"></i></span>
-          <p class="text-sm sm:text-base lg:text-lg">Our AI matches insights to your specific menu items</p>
-        </div>
-        
-        <div class="flex items-center mb-4">
-          <span class="text-gray-800 mr-2"></span>
-          <p class="text-sm sm:text-base lg:text-lg">Optimized pricing balances customer satisfaction with profit margins</p>
-        </div>
-      </div>
-      
-      <p class="text-sm sm:text-base lg:text-xl font-semibold text-gray-700 mb-6">Discover the key to setting the perfect menu prices that boost revenue and increase foot traffic.</p>
-
-      <button 
-    class="px-6 py-3 bg-gray-400 text-black transform hover:scale-105 transition-all rounded-full font-bold  duration-300 ease-in-out hover:text-white hover:bg-gray-800 cursor-pointer"
-    onclick="window.location.href='/letsstart';">
-    Click to Supercharge Your Success
-  </button>
-    </div>
-  </div>
-</section>
-
-<!-- Enhanced Features Section with UI Mockups -->
-<section class="bg-gray-100 text-gray-800 py-16 px-4">
-  <div class="container mx-auto max-w-screen-xl">
-    <div class="text-center mb-12">
-      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-gray-800">
-        Discard the Guesswork: <span class="text-orange-600 font-heading font-bold px-2">AI-Powered</span> Menu Pricing for Restaurants
-      </h2>
-      <p class="text-gray-600 text-sm sm:text-lg mt-4">Developed with insights from one of the biggest operators and best brands.</p>
-    </div>
-
-    <!-- Feature 1: Dynamic Pricing with UI Mockup -->
-    <div class="mb-16">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div class="order-2 lg:order-1">
-          <div class="flex items-center mb-4">
-            <div class="text-2xl text-white bg-gradient-to-r from-orange-500 to-red-500 p-4 rounded-full shadow-lg mr-4">
-              <i class="fas fa-chart-line"></i>
             </div>
-            <h3 class="text-2xl lg:text-3xl font-heading font-bold text-gray-900">Pricing Intelligence</h3>
           </div>
-          <p class="text-gray-700 text-lg mb-4">Watch your prices optimize in real-time based on market data, competitor analysis, and customer demand patterns.</p>
-          <ul class="text-gray-600 space-y-2">
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Pricing adjustments</li>
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Competitor price monitoring</li>
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Demand-based optimization</li>
+          <div class="col-xl-6">
+              <div class="banner-img"><img src="assets/images/banner-pic.jpg" alt=""></div>
+          </div>
+        </div>
+        <!-- Text content overlay -->
+      </div>
+  </div>
+</section>
+
+<section class="counter-sec">
+    <div class="container container-sm">
+        <div class="d-flex justify-content-center text-center gap-100">
+            <div class="counter-innr">
+                <h4>{{ counter1 | numberFormat }}</h4>
+                <p>Restaurants <br/> analyzed</p>
+            </div>
+            <div class="counter-innr">
+                <h4>{{ counter2 | numberFormat }}</h4>
+                <p>Menus <br/> Optimized</p>
+            </div>
+            <div class="counter-innr">
+                <span class="counter-img"><img src="assets/images/tool.svg" alt=""></span>
+                <p>Continuously refreshed local market pricing</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing-sec common-gap" style="background-image: url(assets/images/pricing-banner.png);">
+    <div class="container container-sm">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6 pricing-content">
+          <div class="cmn-hdr wh">
+            <span class="tag-top wh"><img src="assets/images/star.svg" alt="">The Problem</span>
+            <h2>Pricing Shouldn’t Be Guesswork—But For Most Restaurants, It Still Is.</h2>
+            <p>Small pricing gaps across your menu quietly drain profit every day—especially when costs rise faster than
+              margins.</p>
+          </div>
+          <h4>Menu confusion slows everything down</h4>
+          <ul class="mb-32">
+            <li>Prices set from habit, supplier invoices, or “what we’ve always done”</li>
+            <li>Competitor checks are manual—and outdated the moment you do them</li>
+            <li>Updates take weeks (or never happen) because it’s time-consuming</li>
+            <li>Multi-location pricing becomes inconsistent and hard to control</li>
           </ul>
+          <button class="btn btn-secondary" onclick="window.location.href='/letsstart';">Get Started</button>
         </div>
-        <div class="order-1 lg:order-2">
-          <!-- UI Mockup placeholder - replace with actual mockup image -->
-          <div class="bg-white rounded-lg shadow-xl p-6 border">
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4">
-              <h4 class="font-bold text-gray-800 mb-3">Price Optimization Dashboard</h4>
-              <div class="space-y-3">
-                <div class="flex justify-between items-center bg-white p-3 rounded">
-                  <span class="text-gray-700">Margherita Pizza</span>
-                  <div class="flex items-center">
-                    <span class="text-red-500 line-through mr-2">$12.99</span>
-                    <span class="text-green-600 font-bold">$14.50</span>
-                    <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded ml-2">+12% profit</span>
-                  </div>
-                </div>
-                <div class="flex justify-between items-center bg-white p-3 rounded">
-                  <span class="text-gray-700">Caesar Salad</span>
-                  <div class="flex items-center">
-                    <span class="text-red-500 line-through mr-2">$9.99</span>
-                    <span class="text-green-600 font-bold">$11.25</span>
-                    <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded ml-2">+8% profit</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="col-lg-6">
+          <div class="pricing-box">
+            <h3><span><img src="assets/images/icon.svg" alt=""></span>Hidden profit Leaks</h3>
+            <p>Hidden pricing leaks can cost thousands per month in missed margin—without changing a single customer.
+            </p>
+            <figure><img src="assets/images/graph.jpg" alt=""></figure>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Feature 2: Menu Redesign with Visual Example -->
-    <div class="mb-16">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div>
-          <!-- Before/After Menu Comparison -->
-          <div class="bg-white rounded-lg shadow-xl p-6">
-            <h4 class="font-bold text-gray-800 mb-4 text-center">Menu Transformation</h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="border-2 border-red-200 rounded-lg p-4">
-                <h5 class="text-red-600 font-semibold mb-2">Before</h5>
-                <div class="text-sm text-gray-600 space-y-1">
-                  <div class="flex justify-between"><span>Burger</span><span>$8.99</span></div>
-                  <div class="flex justify-between"><span>Fries</span><span>$3.99</span></div>
-                  <div class="flex justify-between"><span>Drink</span><span>$2.99</span></div>
-                </div>
-                <div class="mt-2 text-xs text-red-600">Low profit margins</div>
-              </div>
-              <div class="border-2 border-green-200 rounded-lg p-4">
-                <h5 class="text-green-600 font-semibold mb-2">After AI Optimization</h5>
-                <div class="text-sm text-gray-600 space-y-1">
-                  <div class="flex justify-between"><span>Gourmet Burger</span><span>$12.99</span></div>
-                  <div class="flex justify-between"><span>Truffle Fries</span><span>$6.99</span></div>
-                  <div class="flex justify-between"><span>Craft Soda</span><span>$4.99</span></div>
-                </div>
-                <div class="mt-2 text-xs text-green-600">35% profit increase</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="flex items-center mb-4">
-            <div class="text-2xl text-white bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-full shadow-lg mr-4">
-              <i class="fas fa-palette"></i>
-            </div>
-            <h3 class="text-2xl lg:text-3xl font-bold text-gray-900">Smart Menu Redesign</h3>
-          </div>
-          <p class="text-gray-700 text-lg mb-4">Transform your menu layout and descriptions to psychologically influence customer choices and increase average order value.</p>
-          <ul class="text-gray-600 space-y-2">
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Psychology-based item placement</li>
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Optimized descriptions</li>
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Strategic pricing display</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature 3: Analytics Dashboard Mockup -->
-    <div class="mb-16">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div class="order-2 lg:order-1">
-          <div class="flex items-center mb-4">
-            <div class="text-2xl text-white bg-gradient-to-r from-blue-500 to-cyan-500 p-4 rounded-full shadow-lg mr-4">
-              <i class="fas fa-chart-bar"></i>
-            </div>
-            <h3 class="text-2xl lg:text-3xl font-bold text-gray-900">Advanced Analytics</h3>
-          </div>
-          <p class="text-gray-700 text-lg mb-4">Get deep insights into your menu performance with comprehensive analytics and actionable recommendations.</p>
-          <ul class="text-gray-600 space-y-2">
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Revenue impact tracking</li>
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Customer behavior analysis</li>
-            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Profit margin optimization</li>
-          </ul>
-        </div>
-        <div class="order-1 lg:order-2">
-          <!-- Analytics Dashboard Mockup -->
-          <div class="bg-white rounded-lg shadow-xl p-6">
-            <h4 class="font-bold text-gray-800 mb-4">Performance Dashboard</h4>
-            <div class="space-y-4">
-              <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="text-gray-700 font-medium">Revenue Increase</span>
-                  <span class="text-2xl font-bold text-green-600">+23%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
-                </div>
-              </div>
-              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="text-gray-700 font-medium">Customer Satisfaction</span>
-                  <span class="text-2xl font-bold text-blue-600">4.8★</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-500 h-2 rounded-full" style="width: 96%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Existing simplified cards for remaining features -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12">
-      <!-- ... existing cards ... -->
-    </div>
-  </div>
-</section>
-
-
-
-
-<!-- <section class="bg-white py-16 px-4"> -->
-  <!-- <div class="container mx-auto max-w-screen-xl"> -->
-    <!-- <div class="text-center mb-10">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Trusted By Industry Leaders</h2>
-      <p class="text-gray-600 max-w-3xl mx-auto">MyMenu.AI is the preferred choice for menu optimization across the restaurant and hospitality industry.</p>
-    </div>
-    
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center mb-16">
-      <div class="p-4 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
-        <img src="assets/avolta.png" alt="Avolta" class="h-16 md:h-20 object-contain">
-      </div>
-      
-      <div class="p-4 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
-        <img src="assets/hmshost_logo.jpeg" alt="HMSHost" class="h-16 md:h-20 object-contain">
-      </div>
-      
-      <div class="p-4 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
-        <img src="assets/Walmart_logo.png" alt="Walmart" class="h-16 md:h-20 object-contain">
-      </div>
-      
-      <div class="p-4 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
-        <img src="assets/costco.png" alt="Costco" class="h-16 md:h-20 object-contain">
-      </div>
-    </div> -->
-    
-    <!-- Mini Case Studies -->
-    <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> -->
-      <!-- Case Study 1 -->
-      <!-- <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg shadow-md p-6 border border-gray-200">
-        <div class="flex items-start">
-          <div class="bg-blue-100 rounded-full p-3 mr-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Fast-Casual Chain Success Story</h3>
-            <p class="text-gray-600 mb-4">A 12-location fast-casual chain implemented MyMenu.AI's pricing recommendations across their entire menu.</p>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white rounded p-3 text-center">
-                <span class="block text-2xl font-bold text-green-600">+6.2%</span>
-                <span class="text-sm text-gray-500">Revenue Increase</span>
-              </div>
-              <div class="bg-white rounded p-3 text-center">
-                <span class="block text-2xl font-bold text-blue-600">3 Months</span>
-                <span class="text-sm text-gray-500">Implementation Time</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      
-      <!-- Case Study 2 -->
-      <!-- <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg shadow-md p-6 border border-gray-200">
-        <div class="flex items-start">
-          <div class="bg-purple-100 rounded-full p-3 mr-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Airport Restaurant Transformation</h3>
-            <p class="text-gray-600 mb-4">An airport dining location optimized their menu pricing during peak travel seasons.</p>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white rounded p-3 text-center">
-                <span class="block text-2xl font-bold text-green-600">+8.5%</span>
-                <span class="text-sm text-gray-500">Profit Margin</span>
-              </div>
-              <div class="bg-white rounded p-3 text-center">
-                <span class="block text-2xl font-bold text-amber-600">+12%</span>
-                <span class="text-sm text-gray-500">Average Check Size</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    <!-- </div> -->
-  <!-- </div> -->
-<!-- </section> -->
-
-<!-- Last Section with testimonials - REPLACE with enhanced version -->
-<section class="bg-white text-black flex items-center justify-center h-auto py-16">
-  <div class="flex flex-col items-center space-y-6 w-full">
-      
-      <!-- Main Heading -->
-      <h1 class="text-2xl sm:text-3xl lg:text-4xl bg-gradient-to-r from-gray-100 to-gray-400 p-1 rounded-md font-heading font-bold text-center text-gray-800 mb-10">
-          Delight Your Diners, Drive Your Profits
-      </h1>
-      
-      <div class="flex flex-col md:flex-col items-center space-y-6 md:space-y-8 w-full px-4 md:px-0">
-
-          <!-- Image on the Left -->
-          <div class="w-11/12 sm:w-3/4 md:w-1/2 mt-4 md:mt-12 mx-auto">
-              <img src="assets/image3.jpg" alt="Image of dining experience" class="w-full h-auto rounded-md shadow-lg">
-          </div>
-
-          <!-- Client Testimonials Section -->
-          <div class="w-full px-4 md:px-0 md:w-3/4 lg:w-full lg:px-20">
-
-              <!-- Testimonials Heading -->
-              <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-black text-center mb-6">
-                  What Our Clients Say
-              </h2>
-
-              <!-- Testimonials Grid -->
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-
-                  <!-- Testimonial 1 - Enhanced with metrics -->
-                  <div class="bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-4 sm:p-6 rounded-lg shadow-xl transform hover:scale-105 transition-all w-full max-w-lg mx-auto lg:mx-0">
-                      <div class="bg-white bg-opacity-20 rounded-lg px-3 py-1 mb-3 inline-block">
-                          <span class="text-white font-bold">+7.3% Revenue</span>
-                      </div>
-                      <p class="italic text-sm sm:text-lg">
-                          "I used to spend hours agonizing over menu prices. MyMenu.AI has made it so simple, and I'm confident my pricing is optimized for profit. It's a game-changer!"
-                      </p>
-                      <div class="mt-4 flex items-center space-x-2">
-                          <img src="assets/jessica.jpg" class="w-8 sm:w-12 h-8 sm:h-12 rounded-full" />
-                          <div>
-                              <p class="font-semibold text-base sm:text-xl">Jessica Sommer</p>
-                              <p class="text-xs sm:text-md text-gray-300">Pizza Palace</p>
-                          </div>
-                      </div>
-                  </div>
-
-                  <!-- Testimonial 2 - Enhanced with metrics -->
-                  <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-4 sm:p-6 rounded-lg shadow-xl transform hover:scale-105 transition-all w-full max-w-lg mx-auto lg:mx-0">
-                      <div class="bg-white bg-opacity-20 rounded-lg px-3 py-1 mb-3 inline-block">
-                          <span class="text-white font-bold">+5.8% Profit in 2 Months</span>
-                      </div>
-                      <p class="italic text-sm sm:text-lg">
-                          "Staying ahead in this competitive market is tough. MyMenu.AI gives us the edge we need, ensuring our prices are always spot-on."
-                      </p>
-                      <div class="mt-4 flex items-center space-x-2">
-                          <img src="assets/bryan.jpg" class="w-8 sm:w-12 h-8 sm:h-12 rounded-full" />
-                          <div>
-                              <p class="font-semibold text-base sm:text-xl">Bryan Lambert</p>
-                              <p class="text-xs sm:text-md text-gray-300">Bistro on Main</p>
-                          </div>
-                      </div>
-                  </div>
-
-                  <!-- Testimonial 3 - Enhanced with metrics -->
-                  <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-4 sm:p-6 rounded-lg shadow-xl transform hover:scale-105 transition-all w-full max-w-lg mx-auto lg:mx-0">
-                      <div class="bg-white bg-opacity-20 rounded-lg px-3 py-1 mb-3 inline-block">
-                          <span class="text-white font-bold">+9.2% Average Check Size</span>
-                      </div>
-                      <p class="italic text-sm sm:text-lg">
-                          "MyMenu.AI's data-driven insights helped us identify pricing opportunities we never would have seen. Our revenue has increased significantly since implementing their recommendations."
-                      </p>
-                      <div class="mt-4 flex items-center space-x-2">
-                          <img src="assets/kristin.jpg" class="w-8 sm:w-12 h-8 sm:h-12 rounded-full" />
-                          <div>
-                              <p class="font-semibold text-base sm:text-xl">Kristin Foster</p>
-                              <p class="text-xs sm:text-md text-gray-300">The Culinary Corner</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
-
-
-
-
-<!-- Enhanced How It Works Section -->
-<section class="bg-white py-16 px-4">
-  <div class="container mx-auto max-w-screen-xl">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-heading font-bold text-gray-800 mb-6">How MyMenu.AI Works</h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        From data input to AI recommendations to seamless sync - see how our 4-step process transforms your restaurant pricing
-      </p>
-    </div>
-
-    <!-- Step-by-step process with visual flow -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-      <!-- Step 1: Data Input -->
-      <div class="text-center relative">
-        <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <span class="text-white font-bold text-xl">1</span>
-        </div>
-        <h3 class="font-bold text-lg mb-2">Data Input</h3>
-        <p class="text-gray-600 text-sm">Upload your menu, pricing, and restaurant details through our simple interface</p>
-        <!-- Arrow for desktop -->
-        <div class="hidden lg:block absolute -right-4 top-8">
-          <i class="fas fa-arrow-right text-blue-400 text-xl"></i>
-        </div>
-      </div>
-
-      <!-- Step 2: AI Analysis -->
-      <div class="text-center relative">
-        <div class="bg-indigo-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <span class="text-white font-bold text-xl">2</span>
-        </div>
-        <h3 class="font-bold text-lg mb-2">AI Recommendation</h3>
-        <p class="text-gray-600 text-sm">Our Azure AI analyzes competitor data, market trends, and customer behavior</p>
-        <div class="hidden lg:block absolute -right-4 top-8">
-          <i class="fas fa-arrow-right text-blue-400 text-xl"></i>
-        </div>
-      </div>
-
-      <!-- Step 3: Review -->
-      <div class="text-center relative">
-        <div class="bg-purple-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <span class="text-white font-bold text-xl">3</span>
-        </div>
-        <h3 class="font-bold text-lg mb-2">Review & Approve</h3>
-        <p class="text-gray-600 text-sm">Review AI-generated pricing recommendations and approve changes</p>
-        <div class="hidden lg:block absolute -right-4 top-8">
-          <i class="fas fa-arrow-right text-blue-400 text-xl"></i>
-        </div>
-      </div>
-
-      <!-- Step 4: Sync -->
-      <div class="text-center">
-        <div class="bg-green-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-          <span class="text-white font-bold text-xl">4</span>
-        </div>
-        <h3 class="font-bold text-lg mb-2">Sync to POS</h3>
-        <p class="text-gray-600 text-sm">Seamlessly sync approved prices to your existing POS system</p>
-      </div>
-    </div>
-
-    <!-- Visual diagram or screenshot placeholder -->
-    <!-- <div class="bg-gray-100 rounded-lg p-8 text-center">
-      <img src="assets/how-it-works-diagram.png" alt="MyMenu.AI Process Flow" class="mx-auto max-w-full h-auto">
-      <p class="text-gray-600 mt-4">Interactive dashboard showing the complete workflow</p>
-    </div> -->
-  </div>
-</section>
-
-
-<!-- FAQ Section -->
-<section class="bg-gray-50 py-16 px-4">
-  <div class="container mx-auto max-w-4xl">
-    <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Frequently Asked Questions</h2>
-    
-    <div class="space-y-6">
-      <!-- FAQ Item 1 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="font-bold text-lg text-gray-800 mb-3">How does MyMenu.AI generate pricing recommendations?</h3>
-        <p class="text-gray-600">Our AI analyzes millions of data points including competitor pricing, local market trends, ingredient costs, customer behavior patterns, and seasonal demand to generate optimal pricing recommendations tailored to your restaurant.</p>
-      </div>
-
-      <!-- FAQ Item 2 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="font-bold text-lg text-gray-800 mb-3">What data sources does MyMenu.AI use?</h3>
-        <p class="text-gray-600">We aggregate data from multiple sources including restaurant websites, delivery platforms, industry reports, local market data, supplier pricing, and anonymized performance metrics from our network of restaurant partners.</p>
-      </div>
-
-      <!-- FAQ Item 3 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="font-bold text-lg text-gray-800 mb-3">Is there a free trial or demo available?</h3>
-        <p class="text-gray-600">Yes! We offer a 30 day free trial with full access to our platform. You can also request a personalized demo to see how MyMenu.AI works with your specific restaurant data. <a href="/letsstart" class="text-blue-600 hover:underline">Get started here</a>.</p>
-      </div>
-
-      <!-- FAQ Item 4 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="font-bold text-lg text-gray-800 mb-3">How quickly can I see results?</h3>
-        <p class="text-gray-600">Most restaurants see initial pricing insights within 24 hours of setup. Full optimization typically shows measurable revenue improvements within 2-4 weeks of implementation.</p>
-      </div>
-
-      <!-- FAQ Item 5 -->
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="font-bold text-lg text-gray-800 mb-3">Does MyMenu.AI integrate with my existing POS system?</h3>
-        <p class="text-gray-600">Yes, we integrate with most major POS systems including Square, Toast, Clover, and many others. Our team handles the technical setup to ensure seamless integration.</p>
-      </div>
-    </div>
-    
-  </div>
-
-  <section>
-    <button onclick="document.getElementById('FirstSection').scrollIntoView({ behavior: 'smooth' });" class="px-4 py-2 sm:px-6 sm:py-3 bg-blue-400 text-white font-semibold rounded-full hover:bg-blue-600 transform hover:scale-105 transition-all duration-200 mb-0 mt-20 ml-[36%] lg:ml-[46%] md:ml-[40%] ">Move to Top </button>
-  
   </section>
 
-</section>
+  <section class="what-mymenu common-gap">
+    <div class="container container-sm">
+      <div class="cmn-hdr text-center hdr-wdth">
+        <span class="tag-top"><img src="assets/images/star.svg" alt="">WHAT MYMENU DOES</span>
+        <h2>Turn Menu Pricing Into a Data-Driven Growth Engine.</h2>
+        <p class="sm">MyMenu.ai recommends price updates that boost revenue and protect profits—based on what’s
+          happening in your local market right now.</p>
+      </div>
 
+      <!-- Cards -->
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="what-mymenu-card">
+            <h4 class="mb-4">
+              <img src="assets/images/icon-1.svg" alt="">
+              Real-Time Competitive Signals
+            </h4>
+            <ul>
+              <li>Continuously refreshed local competitor pricing</li>
+              <li>Market demand and demographic signals</li>
+              <li> Match quality scoring</li>
+              <li> Price change impact analysis</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="what-mymenu-card">
+            <h4 class="mb-4">
+              <img src="assets/images/icon-2.svg" alt="">
+              Transparent AI Reasoning
+            </h4>
+            <ul>
+              <li>Evidence-based price recommendations</li>
+              <li>Clear explanation behind every suggested change</li>
+              <li>Side-by-side competitive comparison</li>
+              <li>No black-box decisions — fully transparent logic</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="what-mymenu-card">
+            <h4 class="mb-4">
+              <img src="assets/images/icon-3.svg" alt="">
+              Revenue & Margin Forecasting
+            </h4>
+            <ul>
+              <li>Projected revenue impact before publishing</li>
+              <li>Margin impact modeling per menu item</li>
+              <li>Risk-level scoring for each recommendation</li>
+              <li>Scenario planning for confident decisions</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-center mt-5">
+        <!-- Button -->
+        <button class="btn btn-primary lg w-241" onclick="window.location.href='/letsstart';">Get Started</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="how-it-sec common-gap">
+    <div class="container container-sm">
+      <div class="cmn-hdr text-center hdr-wdth">
+        <span class="tag-top"><img src="assets/images/star.svg" alt="">HOW IT WORKS</span>
+        <h2>How MyMenu.AI Works</h2>
+        <p class="sm">From menu connection to smarter prices in minutes—our simple process keeps you in control.</p>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="how-it-content">
+            <ul>
+              <li>
+                <span>1</span>
+                <div>
+                  <h4>Connect Your Menu</h4>
+                  <p>Upload or connect your menu and pricing. MyMenu.ai pulls in competitor pricing and real-world
+                    market signals automatically.</p>
+                </div>
+              </li>
+              <li>
+                <span>2</span>
+                <div>
+                  <h4>Get AI Recommendations + Projected Impact</h4>
+                  <p>See suggested price updates with clear projections for revenue and margins—plus the “why” behind
+                    every recommendation.</p>
+                </div>
+              </li>
+              <li>
+                <span>3</span>
+                <div>
+                  <h4>Approve & Publish</h4>
+                  <p>Preview outcomes, approve changes, and publish across locations quickly—without delays or analyst
+                    overhead.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="btn-wrapper mt-4">
+              <button class="btn btn-primary" onclick="window.location.href='/letsstart';">Get Started</button>
+              <button class="btn btn-outline" (click)="openDemoVideo()">Watch The Video</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <figure class="how-it-img"><img src="assets/images/how-it-img.jpg" alt=""></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="providers-sec common-gap" style="background-image: url(assets/images/providers-banner.png);">
+    <div class="container container-sm">
+      <div class="cmn-hdr wh mb-5 text-center">
+        <h2>Built for Food and Beverage providers and Restaurants of any size</h2>
+        <p class="sm">Whether you manage one location or hundreds, pricing is a coordination challenge. MyMenu.ai brings
+          consistency, speed, and control across your entire operation.</p>
+      </div>
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <div class="providers-card">
+            <span class="icon-wrapper"><img src="assets/images/ic1.svg" alt=""></span>
+            <h4>Enterprise Customers</h4>
+            <p>Large-scale operations seeking comprehensive data analytics and pricing solutions to maximize
+              profitability across complex business structures.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="providers-card">
+            <span class="icon-wrapper"><img src="assets/images/ic2.svg" alt=""></span>
+            <h4>National & Regional Brands</h4>
+            <p>Established brands looking to optimize pricing strategies across diverse markets and maintain consistency
+              while adapting to local conditions.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="providers-card">
+            <span class="icon-wrapper"><img src="assets/images/ic3.svg" alt=""></span>
+            <h4>Restaurant Operators</h4>
+            <p>Individual and franchise location operators seeking to maximize profitability and customer satisfaction
+              through data-driven menu pricing decisions.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 text-center">
+        <button type="button" class="btn btn-secondary w-241 md"  onclick="window.location.href='/letsstart';">Get Started</button>
+        <p class="btm-txt">Centralize oversight. Localize execution. Scale profit across your portfolio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="common-gap">
+    <div class="container container-sm">
+      <div class="cmn-hdr text-center hdr-wdth">
+        <h2>The Old Way vs. MyMenu.ai</h2>
+        <p class="sm">Help customers choose faster — without extra work for your team</p>
+      </div>
+      <div class="area-sm">
+        <div class="row g-5">
+          <div class="col-md-6">
+            <div class="old-way-content">
+              <h4>Traditional Pricing</h4>
+              <ul class="list-1">
+                <li>Static surveys and outdated databases</li>
+                <li>Manual competitor checks</li>
+                <li>Spreadsheet-driven decision making</li>
+                <li>Weeks to coordinate and roll out changes</li>
+                <li>No clear forecast of impact</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="old-way-content">
+              <h4>With MyMenu.AI</h4>
+              <ul class="list-2">
+                <li>Continuously refreshed real-world market data</li>
+                <li>Automated competitor + demographic signals</li>
+                <li>AI recommendations with clear reasoning</li>
+                <li>Publish updates in minutes</li>
+                <li>Forecast revenue and margin impact before approval</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-72">
+          <button type="button" class="btn btn-primary w-198" onclick="window.location.href='/letsstart';">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="operators-sec common-gap">
+    <div class="container container-sm">
+      <div class="cmn-hdr text-center hdr-wdth mb-5">
+        <h2>What Operators Are Seeing With MyMenu.ai</h2>
+        <p class="sm">Restaurant owners use MyMenu to help customers find the right dish faster — without extra effort
+          from their staff.</p>
+      </div>
+    </div>
+  <div class="swiper testimonial-slider">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let item of slides">
+            <div class="operators-card">
+                <h4>{{item.title}}</h4>
+                <p>"{{item.text}}"</p>
+                <figure><img src="assets/images/Image-ava.png" alt=""></figure>
+                <h5>{{item.role}}</h5>
+                <h6>{{item.company}}</h6>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cost-sec text-center">
+    <div class="container container-sm">
+      <div class="cost-area">
+        <h3 class="mb-3">Costs Rise Faster Than Margins. Pricing Once a Quarter Isn’t Enough Anymore.</h3>
+        <p>MyMenu.ai uses continuously refreshed market data so your pricing stays accurate, local, and profitable—even
+          as conditions change.</p>
+        <div class="cost-icon-1"><img src="assets/images/cost-icon-1.svg" alt=""></div>
+        <div class="cost-icon-2"><img src="assets/images/cost-icon-2.svg" alt=""></div>
+      </div>
+    </div>
+  </section>
+  <app-pricing-card></app-pricing-card>
+  <section class="faq-sec common-gap">
+    <div class="container container-sm">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="cmn-hdr mb-0 faq-content">
+            <span class="tag-top"><img src="assets/images/star.svg" alt="">FAQ</span>
+            <h2>Frequently asked questions</h2>
+            <p class="sm">Explore our frequently asked questions to learn more about Neuros’s features, security,
+              integration capabilities, and more</p>
+          </div>
+        </div>
+        <div class="col-lg-7">
+            <div id="accordion" class="faq-accordion">
+                <div class="card" *ngFor="let item of accordionData; let i = index">
+                  <div class="card-header">
+                    <a class="" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i"
+        [class.collapsed]="i !== 0">
+                      {{item.title}}
+                    </a>
+                  </div>
+                  <div [id]="'collapse' + i" class="collapse" data-bs-parent="#accordion" [class.show]="i === 0">
+                    <div class="card-body">
+                        <p>{{item.content}}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ready-to-make common-gap">
+    <div class="container container-sm">
+      <div class="ready-to-make-wrapper" style="background-image: url(assets/images/ready-to-make.jpg);">
+          <div class="cmn-hdr wh text-center mb-4">
+            <h2>Ready to Make Every Price Point Work for You?</h2>
+            <p class="sm">Start a free, no-obligation trial—or get a personalized margin review to see your biggest opportunities in minutes.</p>
+          </div>
+          <div class="ready-to-make-btn">
+              <button type="button" class="btn btn-primary w-241" onclick="window.location.href='/login';">Start Free Trial</button>
+              <button
+                class="btn btn-outline-grey" onclick="window.location.href='/login';">Get a Free Margin Review</button>
+          </div>
+          <ul class="ban-bottom">
+            <li>No obligation</li>
+            <li>Fast setup</li>
+            <li>Built for operators</li>
+            <li>Data privacy protected</li>
+          </ul>
+      </div>
+    </div>
+  </section>
+
+  <app-contact-card></app-contact-card>

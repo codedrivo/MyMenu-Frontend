@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterModule, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
+import { Fancybox } from "@fancyapps/ui";
 
 @Component({
   selector: 'app-header',
@@ -125,4 +126,13 @@ export class HeaderComponent implements OnInit {
   isExtendedSearchActive(): boolean {
     return this.router.url === '/user-dashboard' || this.router.url === '/login';
   }
+  openDemoVideo(): void {
+  //this.router.navigate(['/demo-video']);
+  Fancybox.show([
+    {
+      src: "/assets/MyMenuDemo-2.mp4",
+      type: "html5video",
+    },
+  ]);
+}
 }

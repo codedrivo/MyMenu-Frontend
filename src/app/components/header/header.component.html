@@ -5,26 +5,24 @@
 
 
 <!-- Header Section --> 
-<header class="fixed top-0 left-0 w-full bg-white text-black shadow-lg z-20 transition-all duration-300"  
-        style="font-family: 'Poppins', sans-serif;"> 
-
-
+<header class="fixed top-0 left-0 w-full text-black z-20 transition-all duration-300 header"> 
+<div class="container container-sm">
   <!-- Main Header Container --> 
-  <div class="flex items-center justify-between px-3 sm:px-4 lg:px-6 xl:px-8 h-16 sm:h-18 md:h-20"> 
+  <div class="border-btm flex items-center justify-between"> 
 
 
     <!-- Logo Section --> 
     <div class="flex items-center flex-shrink-0"> 
-      <img src="assets/My Menu.png"  
+      <img src="assets/images/logo.svg"   
            alt="MyMenu.AI Logo"  
-           class="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18 w-auto object-contain transition-all duration-300"> 
+           class="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18 w-auto object-contain transition-all duration-300 logo-area"> 
     </div> 
 
 
     <!-- Desktop Navigation - Visible on large screens and above (1024px+) --> 
-    <nav class="hidden lg:flex flex-1 justify-center"> 
-      <div class="flex items-center space-x-1 lg:space-x-2 xl:space-x-3"> 
-        <a routerLink="/home"  
+    <nav class="hidden lg:flex flex-1 navbar-list"> 
+      <div class="flex items-center"> 
+        <!-- <a routerLink="/home"  
            routerLinkActive="active"  
            class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105"> 
           HOME 
@@ -38,7 +36,7 @@
            routerLinkActive="active"  
            class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105"> 
           FEATURES 
-        </a> 
+        </a>  -->
         <!-- <a routerLink="/techoverview"  
            routerLinkActive="active"  
            class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105"> 
@@ -47,31 +45,37 @@
         </a> --> 
         <a routerLink="/pricing"  
            routerLinkActive="active"  
-           class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105"> 
-          <span class="lg:hidden">PRICING</span> 
-          <span class="hidden lg:inline">PRICING</span> 
+           class="nav-link"> 
+          <span class="lg:hidden">Pricing</span> 
+          <span class="hidden lg:inline">Pricing</span> 
+        </a> 
+         
+        <a routerLink="/letsstart"  
+           routerLinkActive="active"  
+           class="nav-link"> 
+          <span class="lg:hidden">START</span> 
+<!-- -          <span class="hidden lg:inline">LET'S START</span> --> 
+         <span class="hidden lg:inline">Quick Search</span> 
         </a> 
         <a routerLink="/heatmap"  
            routerLinkActive="active"  
-           class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105"> 
+           class="nav-link"> 
           <span class="lg:hidden">MAP</span> 
-          <span class="hidden lg:inline">COVERAGE MAP</span> 
-        </a> 
-        <a routerLink="/letsstart"  
-           routerLinkActive="active"  
-           class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105"> 
-          <span class="lg:hidden">START</span> 
-<!-- -          <span class="hidden lg:inline">LET'S START</span> --> 
-         <span class="hidden lg:inline">QUICK SEARCH</span> 
-        </a> 
-        <button  
+          <span class="hidden lg:inline">Coverage Map</span> 
+        </a>
+        <a routerLink="/contact"  
+         routerLinkActive="active"  
+         class="nav-link"> 
+        Contact
+      </a> 
+        <!-- <button  
            (click)="navigateToExtendedSearch()" 
            class="nav-link px-1 lg:px-2 xl:px-3 py-2 text-xs lg:text-sm xl:text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white transform hover:scale-105" 
            [class.bg-gray-900]="isExtendedSearchActive()" 
            [class.text-white]="isExtendedSearchActive()"> 
           <span class="lg:hidden">EXTENDED</span> 
           <span class="hidden lg:inline">EXTENDED SEARCH</span> 
-        </button> 
+        </button>  -->
         <!-- <a *ngIf="isLoggedIn"  
            routerLink="/user-dashboard"  
            routerLinkActive="active"  
@@ -84,25 +88,22 @@
 
     <!-- Right Side Action Buttons - Visible on large screens and above --> 
     <div class="hidden lg:flex items-center space-x-1 lg:space-x-2 xl:space-x-3 flex-shrink-0"> 
-      <a routerLink="/contact"  
-         routerLinkActive="active"  
-         class="px-2 lg:px-3 py-1 lg:py-2 text-xs lg:text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-all duration-300 font-medium"> 
-        CONTACT 
-      </a> 
+      
 
 
       <!-- Show these buttons only when NOT logged in --> 
       <ng-container *ngIf="authUiEnabled && !isLoggedIn"> 
+        <a routerLink="/letsstart" 
+           class="btn btn-primary sm"> 
+          Get Started
+        </a> 
+        <button class="btn btn-outline watch-demo" (click)="openDemoVideo()">Watch The Demo</button>
         <a routerLink="/login"  
            routerLinkActive="active"  
-           class="px-2 lg:px-3 py-1 lg:py-2 text-xs lg:text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-all duration-300 font-medium"> 
-          LOGIN/SIGNUP 
+           class="btn btn-outline sm"> 
+          Login
         </a> 
-        <a *ngIf="false" routerLink="/signup"  
-           routerLinkActive="active"  
-           class="px-2 lg:px-3 py-1 lg:py-2 text-xs lg:text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-all duration-300 font-medium"> 
-          SIGNUP 
-        </a> 
+        
       </ng-container> 
 
 
@@ -125,45 +126,40 @@
       <!-- Mobile/Tablet Menu Button - Visible on screens smaller than lg (1024px) --> 
     <div class="lg:hidden flex items-center"> 
       <button (click)="toggleMobileMenu()"  
-              class="p-2 text-2xl focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-md transition-all duration-300 hover:bg-gray-100" 
+              class="toggle-menu p-2 text-2xl focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-md transition-all duration-300 hover:bg-gray-100" 
               [class.rotate-90]="isMobileMenuOpen"> 
         <span class="block transition-transform duration-300" [class.rotate-45]="isMobileMenuOpen">☰</span> 
       </button> 
     </div> 
   </div> 
+</div>
 
 
   <!-- Mobile/Tablet Navigation Menu --> 
-  <div class="lg:hidden overflow-hidden transition-all duration-500 ease-in-out" 
-       [class.max-h-screen]="isMobileMenuOpen" 
+  <div class="lg:hidden overflow-hidden transition-all duration-500 ease-in-out mobile-menu" 
+       [class.h-screen]="isMobileMenuOpen" 
        [class.max-h-0]="!isMobileMenuOpen"> 
     <div class="bg-white border-t border-gray-200 shadow-lg"> 
       <div class="flex flex-col space-y-1 p-4"> 
         <!-- Navigation Links --> 
-        <a routerLink="/home"  
+         <a routerLink="/home"  
            routerLinkActive="active"  
            (click)="closeMenu()"  
            class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          HOME 
+          HOME
         </a> 
         <a routerLink="/about"  
            routerLinkActive="active"  
            (click)="closeMenu()"  
            class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          ABOUT 
+          ABOUT
         </a> 
         <a routerLink="/features"  
            routerLinkActive="active"  
            (click)="closeMenu()"  
            class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          FEATURES 
+          FEATURES
         </a> 
-        <!-- <a routerLink="/techoverview"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          TECH OVERVIEW 
-        </a> --> 
         <a routerLink="/pricing"  
            routerLinkActive="active"  
            (click)="closeMenu()"  
@@ -182,46 +178,25 @@
            class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
           QUICK SEARCH 
         </a> 
-        <button  
-           (click)="navigateToExtendedSearch()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-green-700 hover:text-white text-center border-none cursor-pointer w-full" 
-           [class.bg-gray-900]="isExtendedSearchActive()" 
-           [class.bg-green-600]="!isExtendedSearchActive()" 
-           [class.text-white]="true"> 
-          EXTENDED SEARCH 
-        </button> 
-        <!-- <a *ngIf="isLoggedIn"  
-           routerLink="/user-dashboard"  
-           routerLinkActive="active"  
-           (click)="closeMenu()"  
-           class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
-          REPORTS 
-        </a> --> 
-
-
-        <!-- Action Buttons --> 
-        <div class="pt-4 border-t border-gray-200 space-y-2"> 
-          <a routerLink="/contact"  
+        <a routerLink="/contact"  
              routerLinkActive="active"  
              (click)="closeMenu()"  
-             class="block px-4 py-3 bg-green-600 text-white rounded-md text-center font-medium hover:bg-green-700 transition-all duration-300"> 
+             class="mobile-nav-link block px-4 py-3 text-sm font-semibold rounded-md transition-all duration-300 hover:bg-gray-800 hover:text-white text-center"> 
             CONTACT 
           </a> 
-
-
+        <!-- Action Buttons --> 
+        <div class="pt-4 border-t border-gray-200 space-y-2"> 
           <ng-container *ngIf="authUiEnabled && !isLoggedIn"> 
-            <a routerLink="/login"  
-               routerLinkActive="active"  
-               (click)="closeMenu()"  
-               class="block px-4 py-3 bg-blue-600 text-white rounded-md text-center font-medium hover:bg-blue-700 transition-all duration-300"> 
-              LOGIN/SIGNUP 
-            </a> 
-            <a routerLink="/signup"  
-               routerLinkActive="active"  
-               (click)="closeMenu()"  
-               class="block px-4 py-3 bg-blue-600 text-white rounded-md text-center font-medium hover:bg-blue-700 transition-all duration-300"> 
-              SIGNUP 
-            </a> 
+              <a routerLink="/letsstart" 
+            class="btn btn-primary w-100"> 
+            Get Started
+              </a> 
+              <button class="btn btn-outline watch-demo w-100" (click)="openDemoVideo()">Watch The Demo</button>
+              <a routerLink="/login"  
+                routerLinkActive="active"  
+                class="btn btn-outline w-100"> 
+                Login
+              </a> 
           </ng-container> 
 
 
