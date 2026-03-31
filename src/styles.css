@@ -197,6 +197,9 @@ h4 {
 .top-spacing {
   margin-top: 85px;
 }
+.cmn-hdr p {
+  color: #4B5162;
+}
 @media (max-width: 1199px) {
 
 .btn {
