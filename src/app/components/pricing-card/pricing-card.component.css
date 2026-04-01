@@ -169,10 +169,15 @@
   background: #5775FD1F;
   border-radius: 30px;
 }
-@media (max-width: 1199px) {
-.plan-card h3 {
+@media (max-width: 1400px) {
+    .plan-card h3 {
   font-size: 20px;
 }
+.plan-card h2 {
+  font-size: 28px;
+}
+  }
+@media (max-width: 1199px) {
 .plan-card h2 {
   font-size: 24px;
 }
@@ -191,7 +196,7 @@
     justify-content: center;
    }
   .plan-card ul {
-    width: max-content;
+    width: 100%;
     text-align: left;
     margin: 0 auto 30px;
   }
