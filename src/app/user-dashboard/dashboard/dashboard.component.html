@@ -1,0 +1,147 @@
+<button class="sidebar-toggle" (click)="toggleSidebar()">
+    <img src="../../../assets/images/menu.png" alt="" />
+</button>
+<div class="d-flex dashboard-wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar text-white" [class.active]="isOpen">
+        <button class="sidebar-close" (click)="toggleSidebar()">
+            <img src="../../../assets/images/close.png" alt="" />
+        </button>
+        <div class="user-box-wrapper">
+            <div class="user-box d-flex align-items-center">
+                <div class="avatar me-2"><img src="assets/images/chef.png" alt=""></div>
+                <small>pankaj.expdeveloper&#64;gmail.com</small>
+            </div>
+        </div>
+        <h4>Dashboard</h4>
+        <div class="sidebar-body">
+            <button type="button" class="upload-menu">Upload Menu</button>
+            <a href="#" class="view-reports">View & Download Reports</a>
+            <div class="coming-soon text-center">
+                <div class="coming-soon-wrapper">
+                    <span><img src="assets/images/down-long-arrow.svg" alt=""></span>
+                    <h3>Coming Soon</h3>
+                    <span><img src="assets/images/down-long-arrow.svg" alt=""></span>
+                </div>
+            </div>
+            <div id="accordion" class="sidebar-accordion">
+                <div class="sidebar-card">
+                    <a class="acc-toggle" data-bs-toggle="collapse" href="#collapseOne">
+                        Revenue & Financial Analysis
+                    </a>
+                    <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                    <div class="sidebar-card-body">
+                        <ul>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Predicted Revenue Forecast</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Menu Item Profitability Report</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Sale & Margin Analytics Report</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Top Gainer/Losers Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <a class="collapsed acc-toggle" data-bs-toggle="collapse" href="#collapseTwo">
+                        Pricing Strategy & Market Intelligence
+                    </a>
+                    <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+                    <div class="sidebar-card-body">
+                        <ul>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Predicted Revenue Forecast</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Menu Item Profitability Report</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Sale & Margin Analytics Report</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Top Gainer/Losers Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <a class="collapsed acc-toggle" data-bs-toggle="collapse" href="#collapseThree">
+                        Menu & Demand Optimization
+                    </a>
+                    <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
+                    <div class="sidebar-card-body">
+                        <ul>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Predicted Revenue Forecast</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Menu Item Profitability Report</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Sale & Margin Analytics Report</a>
+                            </li>
+                            <li>
+                                <a href="#"><span><img src="assets/images/clock.svg" alt=""></span>Top Gainer/Losers Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn w-100 mt-5 logout-btn"><span><img src="assets/images/logout-icon.svg" alt=""></span>Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content flex-grow-1" style="background-image: url('assets/images/dashboard-banner.jpg');">
+        <div class="main-content-body">
+            <!-- Top Banner -->
+            <div class="top-banner d-flex justify-content-between align-items-center">
+                <p><span><img src="assets/images/info.svg" alt=""></span>Upload Your Menu Using The Attached Template To Compare Prices with Your Competitors</p>
+                <button class="btn sm download-btn"><span><img src="assets/images/download-icon.svg" alt=""></span>Download Template</button>
+            </div>
+
+            <!-- Center Card -->
+            <div class="upload-card mx-auto text-center">
+                <h3>My Menu Upload</h3>
+                <p>
+                    Refine your digital catalog by uploading your latest menu revisions. Our AI will automatically categorize items and analyze competitive pricing.
+                </p>
+                <!-- Dropdown -->
+                <div class="form-group text-start">
+                    <label class="form-label">Select Location</label>
+                    <select class="form-select">
+                        <option>Signature Steakhouse - Downtown</option>
+                    </select>
+                </div>
+
+                <!-- File Upload -->
+                <div class="form-group">
+                    <label class="form-label text-start">Excel File</label>
+                    <div class="upload-box mb-5">
+                        <input type="file" class="input-file">
+                        <span class="mb-2"><img src="assets/images/file-icon.svg" alt=""></span>
+                        <button class="btn btn-primary sm">Choose Files</button>
+                        <p class="mt-1">Max file size: 25MB. Supports .xlsx, .xls, .csv</p>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <button class="btn btn-primary w-100 mb-3 upload-btn"><span><img src="assets/images/upload-icon.svg" alt=""></span>Upload</button>
+                <button class="btn download-btn w-100 report-btn">Open Reports <span><img src="assets/images/right-arrow.svg" alt=""></span></button>
+                <div class="upload-bottom">
+                    <p>Please have your menu formatted in the template format. </p>
+                    <p>(Note: Ensure that in the uploaded menu template, the Menu column (i.e., 1st column) contains one of the following values: Breakfast, Lunch, or Dinner)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>  

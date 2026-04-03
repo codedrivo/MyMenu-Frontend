@@ -24,18 +24,27 @@
 .navbar-list .nav-link.active {
   background-color: var(--primary-color)!important;
 }
-@media (max-width: 1199px) {
-    .logo-area {
-    min-width: 130px;
-    max-width: 130px;
-    }
-    .navbar-list{
+@media (max-width: 1300px) {
+    .navbar-list a {
+    font-size: 15px;
+    padding: 8px 12px;
+}
+.navbar-list {
   padding-left: 20px;
 }
-.navbar-list a{
-  padding: 8px 10px;
-  font-size: 15px;
 }
+@media (max-width: 1199px) {
+    .logo-area {
+    min-width: 110px;
+    max-width: 110px;
+    }
+    .navbar-list{
+  padding-left: 10px;
+}
+  .navbar-list  a {
+    padding: 8px 7px;
+    font-size: 14px;
+  }
 
 }
 @media (max-width: 1024px) {
