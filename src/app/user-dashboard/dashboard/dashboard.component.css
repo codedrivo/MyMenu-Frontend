@@ -174,16 +174,20 @@
     font-family: var(--primary-font);
     position: relative;
 }
+.sidebar-card .acc-toggle.collapsed:after {
+  transform: translateY(-50%)
+}
 .sidebar-card .acc-toggle:after {
     position: absolute;
     content: '';
     right: 12px;
     top: 50%;
-    transform: translateY(-50%);
     background: url('../../../assets/images/acc-right-arrow.svg') no-repeat;
     background-size: 100% 100%;
     width: 7px;
     height: 14px;
+    transition: all 0.5s;
+    transform: translateY(-50%) rotate(90deg);
 }
 .sidebar-card-body {
     padding: 12px;
