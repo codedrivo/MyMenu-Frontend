@@ -16,12 +16,15 @@ import { DemoVideoComponent } from './components/demo-video/demo-video.component
 import { DisplayPageComponent } from './components/letsstart/lets-srarted/display-page/display-page.component';
 import { DisplayformoneComponent } from './components/letsstart/lets-srarted/displayformone/displayformone.component';
 
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { SecurityComponent } from './components/security/security.component';
+
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { DownloadTemplateComponent } from './user-dashboard/download-template/download-template.component';
 import { BulkUploadComponent } from './user-dashboard/bulk-upload/bulk-upload.component';
 import { ReportsComponent } from './user-dashboard/reports/reports.component';
 import { TableDemoComponent } from './user-dashboard/tabledemo/tabledemo.component';
-import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 // Blog Components
 import { BlogComponent } from './components/blog/blog.component';
 import { BlogLoginComponent } from './components/blog-login/blog-login.component';
@@ -71,6 +74,10 @@ const routes: Route[] = [
   { path: 'tabledemo', loadComponent: () => import('./user-dashboard/tabledemo/tabledemo.component').then(m => m.TableDemoComponent), canActivate: [SubscriptionGuard] },
   { path: 'TermsAndConditions', component: TermsAndConditionsComponent },
   { path: 'heatmap', component: HeatmapComponent },
+
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'security', component: SecurityComponent },
 
   // Payment and Subscription Routes
   {
