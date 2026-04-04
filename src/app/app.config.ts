@@ -31,6 +31,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { HeatmapComponent } from './components/heatmap/heatmap.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+
 // Add this import at the top with the other component imports
 // import { ServiceRequestComponent } from './components/service-request/service-request.component';
 
@@ -49,6 +50,11 @@ const routes: Route[] = [
   { 
     path: 'techoverview', 
     loadComponent: () => import('./components/techoverview/techoverview.component').then(m => m.TechoverviewComponent)
+  },
+  {
+      path: 'dashboard',
+      loadComponent: () => import('./user-dashboard/dashboard/dashboard.component')
+          .then(m => m.DashboardComponent),
   },
   { path: 'letsstart', component: LetsstartComponent },
   { path: 'about', component: AboutComponent },
@@ -126,7 +132,6 @@ const routes: Route[] = [
         .then(m => m.MyAccountComponent),
     canActivate: [AuthGuard]
   },
-
   // Blog Routes
   { path: 'blog', component: BlogComponent },
   { path: 'blog-login', component: BlogLoginComponent },
